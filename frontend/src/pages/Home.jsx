@@ -17,7 +17,6 @@ const Home = () => {
       <BestSeller />
       <OurPolicy />
       <NewsletterBox />
-      <UserChat></UserChat>
       <FloatingButton></FloatingButton>
     </div>
   )
