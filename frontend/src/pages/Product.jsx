@@ -124,7 +124,6 @@ const Product = () => {
                     await addToCart(productData._id, size);
                   } finally {
                     setLoading(false); // Tắt Backdrop sau khi hoàn tất
-                    toast.success('Đã thêm sản phẩm vào giỏ hàng!')
                   }
                 }}
                 className="bg-gray-800 border border-white text-white px-8 py-3 text-sm hover:bg-white hover:border hover:border-yellow-600 hover:text-black duration-300"
