@@ -1,0 +1,73 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+select:focus, input:focus, textarea:focus {
+    outline: 1px solid; /* Đặt độ dày outline khi focus */
+    outline-offset: 0; /* Đặt khoảng cách outline sát với phần tử */
+    border-color: rgb(156 163 175); /* Đảm bảo giữ màu border như cũ */
+}
+
+
+select, input, textarea {
+    border: 1px solid rgb(156 163 175);
+    outline-color: black ;
+    outline-offset: 0.5px;
+}
+
+.active {
+    background-color: rgba(254, 249, 195, 0.108);
+    border-color: rgb(202 138 4);
+}
+/* Chỉ hiển thị nội dung cần thiết khi in */
+@media print {
+    .hidden {
+      display: none !important;
+    }
+    .print:block {
+      display: block !important;
+    }
+  }
+
+
+  /* Lớp in tùy chỉnh */
+.print-row-1 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 20%;
+    border: 1px solid #6b7280;
+    border-bottom: 0;
+  }
+  .print-col-left,
+  .print-col-right {
+    padding: 1rem;
+    border-right: 1px solid #6b7280;
+  }
+  .print-col-right {
+    border-right: none;
+  }
+  
+  .print-row-2 {
+    height: 700px;
+    border: 1px solid #6b7280;
+    border-top: 0;
+    padding: 1rem;
+  }
+  
+  .print-row-3 {
+    height: 10%;
+    border: 1px solid #6b7280;
+    border-top: 0;
+    padding: 1rem;
+  }
+
+  .content img {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    width: 500px;
+    height: 500px;
+    object-fit: cover; /* Hiệu ứng giống object-cover */
+    object-position: center; /* Căn giữa ảnh (tuỳ chọn) */
+  }
+    

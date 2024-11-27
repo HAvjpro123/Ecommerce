@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Prata&display=swap');  
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+a.active hr {
+    display: block;
+}
+
+*{
+    font-family: Outfit;
+}
+
+.prata-regular {
+    font-family: "Prata", serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px; /* Độ rộng của scrollbar (ngang dọc) */
+    height: 6px; /* Chiều cao của scrollbar khi là thanh ngang */
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #88888886; /* Màu của thanh cuộn */
+    border-radius: 10px; /* Độ bo góc */
+  }
+
+@media (max-width:640px) {
+    a.active{
+        background-color: black;
+        color: white;
+    }
+}
+
+.content img {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  width: 500px;
+  height: 500px;
+  object-fit: cover; /* Hiệu ứng giống object-cover */
+  object-position: center; /* Căn giữa ảnh (tuỳ chọn) */
+}
+
+  
