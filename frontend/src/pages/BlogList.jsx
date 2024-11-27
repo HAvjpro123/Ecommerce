@@ -18,7 +18,6 @@ const BlogList = () => {
       <div className='mt-20 border-t border-gray-300 pt-20'>
         <NewsletterBox></NewsletterBox>
       </div>
-      123
     </div>
   )
 }
