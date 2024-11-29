@@ -54,7 +54,7 @@ const Footer = () => {
                         <li className='cursor-pointer hover:text-yellow-600'>Chính sách hoàn tiền</li>
                         <li className='cursor-pointer hover:text-yellow-600'>Chính sách giao hàng</li>
                         <li className='cursor-pointer hover:text-yellow-600'>Chính sách đổi trả</li>
-                        <li className='cursor-pointer hover:text-yellow-600'>Chisnh sách bảo mật thông tin khách hàng</li>
+                        <li className='cursor-pointer hover:text-yellow-600'>Chính sách bảo mật thông tin khách hàng</li>
                         <li className='cursor-pointer hover:text-yellow-600'>Chính sách xử lý dữ liệu cá nhân</li>
                     </ul>
                 </div>
@@ -70,7 +70,7 @@ const Footer = () => {
                 </div>
 
                 <div>
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d62694.92003089854!2d106.71194253621223!3d10.854672110320415!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3174d85e042bf04b%3A0xbb26baec1664394d!2zVGjhu6cgxJDhu6ljLCBI4buTIENow60gTWluaCwgVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1732605969808!5m2!1svi!2s" className='sm:w-[300px] w-[380px] sm:h-[300px] h-[380px]' loading="lazy"></iframe>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d62694.92003089854!2d106.71194253621223!3d10.854672110320415!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3174d85e042bf04b%3A0xbb26baec1664394d!2zVGjhu6cgxJDhu6ljLCBI4buTIENow60gTWluaCwgVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1732605969808!5m2!1svi!2s" className='sm:w-[280px] w-full sm:h-[280px] h-[340px]' loading="lazy"></iframe>
                 </div>
 
             </div>

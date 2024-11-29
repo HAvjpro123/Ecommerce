@@ -42,6 +42,7 @@ const Orders = () => {
           amount: order.amount,
           phone: order.address.phone,
           description: order.address.description,
+          payment: order.payment
         }));
 
         setOrderData(allOrders.reverse());

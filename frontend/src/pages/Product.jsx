@@ -110,9 +110,17 @@ const Product = () => {
           <div className='flex flex-col gap-4 my-5'>
             <p className='text-lg font-thin '>Kích thước</p>
             <div className='flex gap-2'>
-              {productData.sizes.map((item, index) => (
-                <button onClick={() => setSize(item)} className={`border py-2.5 px-4 bg-gray-100 ${item === size ? 'border-yellow-600' : ''}`} key={index}>{item}</button>
-              ))}
+              {productData.sizes
+                .sort((a, b) => a - b) // Sắp xếp mảng từ nhỏ đến lớn
+                .map((item, index) => (
+                  <button
+                    onClick={() => setSize(item)}
+                    className={`border py-2.5 px-4 bg-gray-100 ${item === size ? 'border-yellow-600' : ''}`}
+                    key={index}
+                  >
+                    {item}
+                  </button>
+                ))}
             </div>
           </div>
           {
@@ -141,7 +149,7 @@ const Product = () => {
           }
 
 
-          <p className='text-sm font-thin mt-8'>Hotline: <span className='text-orange-600'>090 999 8888</span></p>
+          <p className='text-sm font-thin mt-8'>Hotline: <span className='text-orange-600'>1800 1234</span></p>
           <hr className='mt-2 sm:w-4/5' />
 
           <Box sx={{ width: '100%', typography: 'body1', color: 'black' }}>
@@ -182,8 +190,7 @@ const Product = () => {
           <p className='border px-5 py-3 text-sm'>Đánh giá (500)</p>
         </div>
         <div className='flex flex-col gap-4 border px-6 py-6 text-sm text-gray-500'>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat error, nemo necessitatibus architecto, odit sed inventore similique modi ad culpa laboriosam repellendus illum pariatur! Reprehenderit minus ipsam aliquid ut quae.</p>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam aperiam minima velit doloribus error nemo. Tempore quam ratione eaque amet sint, illo aliquam perferendis debitis velit officia nostrum libero laboriosam.</p>
+          <p>{productData.description}</p>
         </div>
       </div>
 
