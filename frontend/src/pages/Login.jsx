@@ -24,12 +24,9 @@ const Login = () => {
 
         const response = await axios.post(backendUrl + '/api/user/register', { name, email, password })
         if (response.data.success) {
-          setToken(response.data.token)
-          localStorage.setItem('token', response.data.token)
-          localStorage.setItem('userName', response.data.user.name);
-          localStorage.setItem('userId', response.data.user.id);
           toast.success(response.data.message)
           setLoading(false)
+          setCurrentState('ĐĂNG NHẬP')
         } else {
           toast.error(response.data.message)
           setLoading(false)
@@ -47,6 +44,7 @@ const Login = () => {
           localStorage.setItem('userId', response.data.user.id);
           console.log(response.data);
           setLoading(false)
+          toast.success(response.data.message)
         } else {
           toast.error(response.data.message)
           setLoading(false)
@@ -84,7 +82,7 @@ const Login = () => {
           localStorage.setItem('userName', loginResponse.data.user.name);
           localStorage.setItem('userId', loginResponse.data.user.id);
           console.log(loginResponse.data);
-
+          toast.success('Đăng nhập thành công!')
         } else {
           toast.error('Đăng nhập thất bại!');
         }
