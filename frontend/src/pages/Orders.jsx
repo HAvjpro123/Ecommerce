@@ -329,7 +329,24 @@ const Orders = () => {
             </div>
             <hr className="sm:hidden" />
             <div className="md:w-1/2 flex justify-between sm:justify-end gap-2">
-              <div className="flex items-center gap-2">
+
+              <div className='flex gap-2'>
+                {/* Nút hủy đơn hàng */}
+                {
+                  order.status === 'Hoàn tất vận chuyển'
+                    ? ''
+                    : <button
+                      onClick={() => handleCancelOrder(order)} // Xử lý hủy đơn hàng
+                      className={`border px-4 py-2 text-[10px] sm:text-sm font-medium rounded-sm ${order.status === 'Đã hủy' || order.status === 'Đã hoàn thành'
+                        ? 'border-red-300 text-red-300 cursor-not-allowed' // Đã hủy hoặc đã hoàn thành
+                        : 'border-red-500 text-red-500 hover:border-red-300 hover:text-red-300 cursor-pointer duration-200' // Có thể hủy
+                        }`}
+                      disabled={order.status === 'Đã hủy' || order.status === 'Đã hoàn thành'}
+                    >
+                      Hủy đơn hàng
+                    </button>
+                }
+
                 {/* Nút đánh giá */}
                 <button
                   onClick={() => handleReview(order)} // Gọi hàm để mở form đánh giá
@@ -343,23 +360,13 @@ const Orders = () => {
                 >
                   {order.review ? 'Đã đánh giá' : 'Đánh giá'}
                 </button>
-              </div>
-              <div className='flex gap-2'>
+
+                {/* Nút xem chi tiết đơn hàng */}
                 <button
                   onClick={() => handleViewOrder(order)} // gọi hàm xem thông tin đơn hàng
                   className="border border-gray-300 px-4 py-2 text-[10px] sm:text-sm font-medium rounded-sm "
                 >
                   Thông tin đơn hàng
-                </button>
-                <button
-                  onClick={() => handleCancelOrder(order)} // Xử lý hủy đơn hàng
-                  className={`border px-4 py-2 text-[10px] sm:text-sm font-medium rounded-sm ${order.status === 'Đã hủy' || order.status === 'Đã hoàn thành'
-                    ? 'border-red-300 text-red-300 cursor-not-allowed' // Đã hủy hoặc đã hoàn thành
-                    : 'border-red-500 text-red-500 hover:border-red-300 hover:text-red-300 cursor-pointer duration-200' // Có thể hủy
-                    }`}
-                  disabled={order.status === 'Đã hủy' || order.status === 'Đã hoàn thành'}
-                >
-                  Hủy đơn hàng
                 </button>
               </div>
 
