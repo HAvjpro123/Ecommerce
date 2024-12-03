@@ -25,9 +25,9 @@ const Login = () => {
         const response = await axios.post(backendUrl + '/api/user/register', { name, email, password })
         if (response.data.success) {
           setToken(response.data.token)
-          setUserName(user.name); // Lưu tên người dùng
-          setUserId(user.id); // Lưu ID người dùng
           localStorage.setItem('token', response.data.token)
+          localStorage.setItem('userName', response.data.user.name);
+          localStorage.setItem('userId', response.data.user.id);
           toast.success(response.data.message)
           setLoading(false)
         } else {

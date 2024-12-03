@@ -41,7 +41,7 @@ const registerUser = async (req, res) => {
         const { name, email, password } = req.body;
 
         const exists = await userModel.findOne({ email });
-        if (exists) {s
+        if (exists) {
             return res.json({ success: false, message: 'Email đã tồn tại.' });
         }
 
