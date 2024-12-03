@@ -22,13 +22,13 @@ const getColor = (name) => {
 const CommentsSection = ({ reviews }) => {
   // Cài đặt số lượng bình luận mỗi trang
   const reviewsPerPage = 5;
-  
+
   // Số trang bắt đầu là 1
   const [currentPage, setCurrentPage] = useState(1);
-  
+
   // Tính số trang cần thiết
   const totalPages = Math.ceil(reviews.length / reviewsPerPage);
-  
+
   // Cắt danh sách bình luận theo trang hiện tại
   const currentReviews = reviews.slice(
     (currentPage - 1) * reviewsPerPage,
@@ -79,25 +79,27 @@ const CommentsSection = ({ reviews }) => {
       ) : (
         <p className="text-gray-400">Chưa có đánh giá nào cho sản phẩm này.</p>
       )}
-
-      {/* Hiển thị các nút điều hướng trang */}
-      <div className="flex justify-center gap-4 mt-4">
-        <button
-          onClick={() => handlePageChange(currentPage - 1)}
-          disabled={currentPage === 1}
-          className='p-2 border border-yellow-600 text-yellow-600  rounded-sm'
-        >
-          Quay lại
-        </button>
-        <span className="self-center">{`Trang ${currentPage} / ${totalPages}`}</span>
-        <button
-          onClick={() => handlePageChange(currentPage + 1)}
-          disabled={currentPage === totalPages}
-          className="p-2 border border-yellow-600  text-yellow-600 ounded-sm"
-        >
-          Tiếp theo
-        </button>
-      </div>
+      {currentReviews.length > 0
+        ? <div className="flex justify-center gap-4 mt-4">
+          <button
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+            className='p-2 border border-yellow-600  text-yellow-600  rounded-sm'
+          >
+            Quay lại
+          </button>
+          <span className="self-center">{`Trang ${currentPage} / ${totalPages}`}</span>
+          <button
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}
+            className="p-2 border border-yellow-600  text-yellow-600 ounded-sm"
+          >
+            Tiếp theo
+          </button>
+        </div>
+        : <div></div>
+      }
+  
     </div>
   );
 };
