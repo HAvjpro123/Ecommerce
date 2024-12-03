@@ -25,7 +25,7 @@ const loginUser = async (req, res) => {
 
         if (isMatch) {
             const token = createToken(user._id);
-            res.json({ success: true, token, message: 'Đăng nhập thành công' });
+            res.json({ success: true, token, message: 'Đăng nhập thành công', user: { id: user._id, name: user.name } });
         } else {
             res.json({ success: false, message: 'Thông tin xác thực không hợp lệ' });
         }
@@ -41,7 +41,7 @@ const registerUser = async (req, res) => {
         const { name, email, password } = req.body;
 
         const exists = await userModel.findOne({ email });
-        if (exists) {
+        if (exists) {s
             return res.json({ success: false, message: 'Email đã tồn tại.' });
         }
 
@@ -106,7 +106,7 @@ const checkGoogleAccount = async (req, res) => {
         let user = await userModel.findOne({ email });
 
         if (user) {
-            return res.json({ exists: true, email: user.email, name: user.name });
+            return res.json({ exists: true, email: user.email, name: user.name, id: user._id });
         }
 
         // Nếu chưa tồn tại, trả về thông tin để tạo tài khoản

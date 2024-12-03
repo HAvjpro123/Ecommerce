@@ -22,7 +22,10 @@ const ShopContextProvider = (props) => {
     const [vouchers, setVouchers] = useState([]);
     const [token, setToken] = useState('');
     const navigate = useNavigate();
-    const [discountAmount, setDiscountAmount] = useState(0); 
+    const [discountAmount, setDiscountAmount] = useState(0);
+    const [userName, setUserName] = useState('');
+    const [userId, setUserId] = useState('');
+
 
     const addToCart = async (itemId, size) => {
 
@@ -98,19 +101,19 @@ const ShopContextProvider = (props) => {
     const getCartAmount = () => {
         let totalAmount = 0;
         for (const items in cartItems) {
-          const itemInfo = products.find((product) => product._id === items);
-          if (!itemInfo) continue; // Bỏ qua sản phẩm không tồn tại
-      
-          for (const item in cartItems[items]) {
-            if (cartItems[items][item] > 0) {
-              totalAmount += itemInfo.price * cartItems[items][item];
+            const itemInfo = products.find((product) => product._id === items);
+            if (!itemInfo) continue; // Bỏ qua sản phẩm không tồn tại
+
+            for (const item in cartItems[items]) {
+                if (cartItems[items][item] > 0) {
+                    totalAmount += itemInfo.price * cartItems[items][item];
+                }
             }
-          }
         }
         return totalAmount;
-      };
-      
-      
+    };
+
+
     // lấy danh sách bài viết
     const getBlogsData = async () => {
         try {
@@ -119,7 +122,7 @@ const ShopContextProvider = (props) => {
             if (response.data.success) {
                 setBlogs(response.data.blogs)
                 console.log(response.data.blogs);
-                
+
             } else {
                 toast.error(response.data.message)
             }
@@ -137,7 +140,7 @@ const ShopContextProvider = (props) => {
             if (response.data.success) {
                 setVouchers(response.data.vouchers)
                 console.log(response.data.vouchers);
-                
+
             } else {
                 toast.error(response.data.message)
             }
@@ -165,10 +168,10 @@ const ShopContextProvider = (props) => {
         }
     }
 
-    const getUserCart = async ( token ) => {
+    const getUserCart = async (token) => {
         try {
-            
-            const response =  await axios.post(backendUrl + '/api/cart/get', {}, {headers: {token}})
+
+            const response = await axios.post(backendUrl + '/api/cart/get', {}, { headers: { token } })
             if (response.data.success) {
                 setCartItems(response.data.cartData)
             }
@@ -189,6 +192,8 @@ const ShopContextProvider = (props) => {
         if (!token && localStorage.getItem('token')) {
             setToken(localStorage.getItem('token'))
             getUserCart(localStorage.getItem('token'))
+            setUserName(localStorage.getItem('userName'));
+            setUserId(localStorage.getItem('userId'));
         }
     }, [])
 
@@ -198,7 +203,8 @@ const ShopContextProvider = (props) => {
         cartItems, addToCart, setCartItems,
         getCartCount, updateQuantity,
         getCartAmount, navigate, backendUrl,
-        setToken, token, discountAmount, setDiscountAmount
+        setToken, token, discountAmount, setDiscountAmount,
+        userName, userId, setUserName, setUserId
     }
 
     return (

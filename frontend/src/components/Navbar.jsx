@@ -6,7 +6,7 @@ import { ShopContext } from '../context/ShopContext';
 const Navbar = () => {
 
     const [visible, setVisible] = useState(false);
-    const { setShowSearch, getCartCount, navigate, token, setToken, setCartItems, } = useContext(ShopContext)
+    const { setShowSearch, getCartCount, navigate, token, setToken, setCartItems, userName, userId } = useContext(ShopContext)
 
     const logout = () => {
         navigate('/login')
@@ -20,9 +20,6 @@ const Navbar = () => {
         navigate('/collection');
     };
 
-    
-
- 
     return (
         <div className='flex items-center justify-between py-5 font-medium'>
             <Link to={'/'}><img src={assets.cespinLogo} className='w-24' alt="logo" /></Link>
@@ -67,8 +64,12 @@ const Navbar = () => {
                     {
                         token &&
                         <div className='absolute group-hover:block hidden z-10 dropdown-menu right-0 pt-4'>
-                            <div className='flex flex-col gap-2 w-36 py-3 px-5 bg-slate-100 text-gray-500 rounded'>
-                                <p className='cursor-pointer hover:text-black'>Tài khoản của tôi </p>
+                            <div className='flex flex-col gap-2 w-36 py-3 px-5 bg-slate-100 text-gray-500 rounded text-sm' >
+                                <p className='text-yellow-600 '> {userName} </p>
+                                <hr/>
+                                {userId === '6728513cfc5631dbb27fe486'
+                                ? <a className='cursor-pointer hover:text-black' href='https://cespin-admin.vercel.app/'>Quản lý cửa hàng</a>
+                                : '' }
                                 <p onClick={() => navigate('/orders')} className='cursor-pointer hover:text-black'>Đơn đặt hàng</p>
                                 <p onClick={logout} className='cursor-pointer hover:text-black'>Đăng xuất</p>
                             </div>

@@ -9,14 +9,14 @@ const LatestCollection = () => {
     const [latestProducts, setLatestProducts] = useState([])
 
     useEffect(() => {
-        setLatestProducts(products.slice(0, 10)) 
+        setLatestProducts(products.reverse().slice(0, 10)) 
     }, [products])
 
 
     return (
         <div className='my-10'>
             <div className='text-center py-8 text-3xl'>
-                <Title text1={'BỘ SƯU TẬP'} text2={'MỚI NHẤT'}/>
+                <Title text1={'SẢN PHẨM'} text2={'MỚI NHẤT'}/>
                 <p className='w-3/4 m-auto text-xs sm:text-sm md:text-base text-gray-600'>
                 Trang sức mới nhất từ CESPIN là sự kết hợp hoàn hảo giữa thiết kế hiện đại và tinh hoa thủ công, mang đến vẻ đẹp tinh tế, độc đáo và đậm dấu ấn cá nhân.
                 </p>
@@ -29,8 +29,8 @@ const LatestCollection = () => {
                         <ProductItem key={index} id={item._id} image={item.image} name={item.name} price={item.price} sale={item.sale} salePrice={item.salePrice} sold={item.sold} nameCode={item.nameCode}/>
                     )) 
                 }
+               
             </div>
-
         </div>
     )
 }

@@ -93,7 +93,7 @@ const DashboardChart = ({ token }) => {
         const date = new Date();
         const monthNames = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"];
         setCurrentMonth(monthNames[date.getMonth()]);
-    }, [token]);
+    }, [token, fetchOrdersData, ]);
 
     const barData = {
         labels: productSalesData.map(product => product.nameCode),

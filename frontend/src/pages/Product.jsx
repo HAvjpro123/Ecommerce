@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { ShopContext } from '../context/ShopContext'
 import { assets } from '../assets/assets'
-import { Box, Breadcrumbs, Tab, Backdrop, CircularProgress } from '@mui/material'
+import { Box, Breadcrumbs, Tab, Backdrop, CircularProgress, Rating, Avatar } from '@mui/material'
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
@@ -10,8 +10,24 @@ import { Truck } from 'lucide-react';
 import { Headset } from 'lucide-react';
 import { Package2 } from 'lucide-react';
 import RelatedProducts from '../components/RelatedProducts'
-import { toast } from 'react-toastify'
+import StarIcon from '@mui/icons-material/Star';
+import CommentsSection from '../components/CommentSection'
 
+const colors = [
+  '#FF5733', // Đỏ cam
+  '#33FF57', // Xanh lá
+  '#3357FF', // Xanh dương
+  '#FF33A6', // Hồng
+  '#A633FF', // Tím
+  '#33FFF6', // Xanh nhạt
+  '#FFC733', // Vàng
+];
+
+const getColor = (name) => {
+  if (!name) return '#ccc'; // Màu mặc định nếu không có tên
+  const charCode = name.charCodeAt(0); // Lấy mã Unicode của ký tự đầu tiên
+  return colors[charCode % colors.length]; // Chọn màu theo chỉ số
+};
 
 const Product = () => {
 
@@ -36,6 +52,7 @@ const Product = () => {
         return null;
       }
     })
+
   }
 
   function handleClick(event) {
@@ -45,7 +62,20 @@ const Product = () => {
 
   useEffect(() => {
     fetchProductData();
+    console.log(productData);
+
   }, [productId, products])
+
+  // Tổng số lượt bán 
+  const totalReviews = productData ? productData.reviews.length : 0;
+  
+  // Tính rating trung bình
+  const calculateAverageRating = () => {
+    if (productData.reviews.length === 0) return 0; // Nếu không có đánh giá, trả về 0
+
+    const totalRating = productData.reviews.reduce((sum, review) => sum + review.rating, 0);
+    return parseFloat((totalRating / productData.reviews.length).toFixed(1)); // Trả về số, không phải chuỗi
+  };
 
 
   return productData ? (
@@ -60,7 +90,7 @@ const Product = () => {
             color="inherit"
             to="/collection"
           >
-            {productData.category}
+            Bộ sưu tập 
           </Link>
           <span sx={{ color: 'text.primary' }}>{productData.name}</span>
         </Breadcrumbs>
@@ -84,17 +114,17 @@ const Product = () => {
         {/* --------- Product Info---------  */}
         <div className='flex-1'>
           <h1 className='font-medium text-2xl mt-2'>{productData.name}</h1>
-          <p className='text-lg font-thin mt-2'>Mã: {productData.nameCode}</p>
-          <div className='flex items-center gap-1 mt-2'>
-            <img src={assets.star_icon} alt="" className='w-3.5' />
-            <img src={assets.star_icon} alt="" className='w-3.5' />
-            <img src={assets.star_icon} alt="" className='w-3.5' />
-            <img src={assets.star_icon} alt="" className='w-3.5' />
-            <img src={assets.star_dull_icon} alt="" className='w-3.5' />
-            <p className='pl-2 text-lg'>(222)</p>
+          <p className='text-lg font-thin mt-2'>MSP: {productData.nameCode}</p>
+          <div className='flex items-center text-base gap-1 mt-2 text-gray-600'>
+            <p >{calculateAverageRating()}</p>
+            <Rating precision={0.5} value={calculateAverageRating()} readOnly size="small" className='my-auto' />
             <p>|</p>
-            <p className='pl-2 text-lg'>{productData.sold} đã bán</p>
+            {/* hiện thị chỗ này */}
+            <p className=' mx-1 '>({totalReviews}) đánh giá</p>
+            <p>|</p>
+            <p className=' mx-1 '>{(productData.sold).toLocaleString()} đã bán</p>
           </div>
+
 
           {/* Price*/}
           <div className='flex gap-4'>
@@ -104,7 +134,7 @@ const Product = () => {
           </div>
 
           <p className='text-lg font-thin mt-5'>
-            Trang thái: {productData.onStock ? 'Còn hàng' : 'Hết hàng'}
+            Trạng thái: <span className='text-gray-600'>{productData.onStock ? 'Còn hàng' : 'Hết hàng'}</span>
           </p>
 
           <div className='flex flex-col gap-4 my-5'>
@@ -183,16 +213,51 @@ const Product = () => {
         </div>
       </div>
 
-      {/* Description n Review Section */}
+      {/* Mô tả sản phẩm */}
       <div className=''>
         <div className='flex'>
-          <b className='border px-5 py-3 text-sm'>Mô tả</b>
-          <p className='border px-5 py-3 text-sm'>Đánh giá (500)</p>
+          <b className='border px-5 py-3 text-sm'>Mô tả sản phẩm</b>
         </div>
         <div className='flex flex-col gap-4 border px-6 py-6 text-sm text-gray-500'>
           <p>{productData.description}</p>
         </div>
       </div>
+
+      {/* Tiêu đề đánh giá sản phẩm */}
+      <div className='flex mt-8'>
+        <b className='border px-5 py-3 text-sm'>Đánh giá sản phẩm</b>
+      </div>
+
+      {/* Hiển thị bình luận*/}
+      <div className='grid sm:grid-cols-[2fr_1fr] grid-cols-1 gap-4 border text-sm text-gray-500'>
+        <CommentsSection reviews={productData.reviews} />
+
+        {/* Hiển thị số lượng sao đánh giá */}
+        <div className=' sm:border-l p-6'>
+          <p className='font-medium text-gray-500 text-lg'>THỐNG KÊ ĐÁNH GIÁ</p>
+          <div className='space-y-2 mt-4'>
+            {['5', '4', '3', '2', '1'].map((star, index) => {
+              const count = productData.reviews.filter((review) => review.rating === parseInt(star)).length;
+              const width = (count / productData.reviews.length) * 100; // Tính phần trăm số lượng đánh giá cho sao
+              const color = ['rgb(74 222 128)', 'rgb(96 165 250)', 'rgb(250 204 21)', 'rgb(251 146 60)', 'rgb(239 68 68)'][index]; // Màu sắc cho mỗi thanh
+              return (
+                <div key={star} className='flex items-center gap-2'>
+                  <p className='w-8 flex text-sm text-gray-600'>{star}<StarIcon sx={{ fontSize: 18, color: 'rgb(250 204 21)' }} ></StarIcon></p>
+                  <div className='w-full bg-gray-200 h-2.5 rounded-full'>
+                    <div
+                      className={`h-full rounded-full`}
+                      style={{ width: `${width}%`, backgroundColor: color }}
+                    />
+                  </div>
+                  <p className='ml-2 min-w-16 text-sm'>{count} đánh giá </p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+
+
 
       {/* Display related product */}
       <RelatedProducts category={productData.category} subCategory={productData.subCategory} />
@@ -202,7 +267,7 @@ const Product = () => {
       </Backdrop>
 
 
-    </div>
+    </div >
 
   ) : <div className='opacity-0'>
 

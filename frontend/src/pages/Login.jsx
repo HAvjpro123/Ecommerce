@@ -10,7 +10,7 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
 
   const [currentState, setCurrentState] = useState('ĐĂNG NHẬP');
-  const { token, setToken, navigate, backendUrl } = useContext(ShopContext)
+  const { token, setToken, navigate, backendUrl, setUserName, setUserId } = useContext(ShopContext)
 
   const [name, setName] = useState('')
   const [password, setPassword] = useState('')
@@ -25,6 +25,8 @@ const Login = () => {
         const response = await axios.post(backendUrl + '/api/user/register', { name, email, password })
         if (response.data.success) {
           setToken(response.data.token)
+          setUserName(user.name); // Lưu tên người dùng
+          setUserId(user.id); // Lưu ID người dùng
           localStorage.setItem('token', response.data.token)
           toast.success(response.data.message)
           setLoading(false)
@@ -38,8 +40,12 @@ const Login = () => {
         const response = await axios.post(backendUrl + '/api/user/login', { email, password })
         if (response.data.success) {
           setToken(response.data.token)
+          setUserName(response.data.user.name); // Lưu tên người dùng
+          setUserId(response.data.user.id); // Lưu ID người dùng
           localStorage.setItem('token', response.data.token)
-          navigate(0);
+          localStorage.setItem('userName', response.data.user.name);
+          localStorage.setItem('userId', response.data.user.id);
+          console.log(response.data);
           setLoading(false)
         } else {
           toast.error(response.data.message)
@@ -72,8 +78,13 @@ const Login = () => {
 
         if (loginResponse.data.success) {
           setToken(loginResponse.data.token);
-          localStorage.setItem('token', loginResponse.data.token);
-          navigate(0);
+          setUserName(loginResponse.data.user.name); // Lưu tên người dùng
+          setUserId(loginResponse.data.user.id); // Lưu ID người dùng
+          localStorage.setItem('token', loginResponse.data.token)
+          localStorage.setItem('userName', loginResponse.data.user.name);
+          localStorage.setItem('userId', loginResponse.data.user.id);
+          console.log(loginResponse.data);
+
         } else {
           toast.error('Đăng nhập thất bại!');
         }
@@ -88,6 +99,7 @@ const Login = () => {
         if (registerResponse.data.success) {
           setToken(registerResponse.data.token);
           localStorage.setItem('token', registerResponse.data.token);
+
           toast.success('Tạo tài khoản và đăng nhập thành công!');
         } else {
           toast.error('Tạo tài khoản thất bại!');

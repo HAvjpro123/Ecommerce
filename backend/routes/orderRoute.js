@@ -1,5 +1,5 @@
 import express from 'express'
-import { placeOrder, placeOrderStripe, placeOrderPaypal, allOrders, userOrders, updateStatus, verifyStripe, verifyPaypal, cancelOrder, deleteOrder} from '../controllers/orderController.js'
+import { placeOrder, placeOrderStripe, placeOrderPaypal, allOrders, userOrders, updateStatus, verifyStripe, verifyPaypal, cancelOrder, deleteOrder, orderReview} from '../controllers/orderController.js'
 import adminAuth from '../middleware/adminAuth.js'
 import authUser from '../middleware/auth.js'
 
@@ -26,6 +26,8 @@ orderRouter.post('/cancel', authUser, cancelOrder);
 
 // Delete order
 orderRouter.post('/delete', adminAuth, deleteOrder);
+
+orderRouter.post('/:orderId/review', orderReview)
 export default orderRouter
 
 

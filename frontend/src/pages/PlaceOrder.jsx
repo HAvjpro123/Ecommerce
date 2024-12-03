@@ -60,42 +60,8 @@ const PlaceOrder = () => {
         items: orderItems,
         amount: getOrderTotal(),
         currency: 'VND',
+        review: '',
       };
-
-      // const sendConfirmationEmail = (orderDetails) => {
-      //   const order_date = new Date();
-      //   const formattedDate = order_date.toLocaleString('vi-VN', {
-      //     year: 'numeric',
-      //     month: 'long',
-      //     day: 'numeric',
-      //     hour: '2-digit',
-      //     minute: '2-digit',
-      //   });
-      //   // Tạo thông tin gửi mail
-      //   const templateParams = {
-      //     user_address: `${formData.street}, ${formData.state}, ${formData.district}, ${formData.city},`, // Địa chỉ giao hàng
-      //     user_email: formData.email,
-      //     user_name: `${formData.firstName} ${formData.lastName}`,
-      //     order_total: getOrderTotal().toLocaleString(),
-      //     order_items: orderDetails.map(
-      //       (item) => `${item.name} (Kích thước: ${item.size}) - SL:${item.quantity} x ${(item.price).toLocaleString()} VND`
-      //     ).join('\n'),
-      //     order_date: formattedDate
-      //   };
-
-      //   // Gửi email thông qua EmailJS
-      //   emailjs
-      //     .send(
-      //       'service_7huxl8s', // Thay bằng Service ID của bạn
-      //       'template_y1myswj', // Thay bằng Template ID của bạn
-      //       templateParams,
-      //       'tLhyccwDPOr2pJPcB' // Thay bằng User ID của bạn
-      //     )
-      //     .then(
-      //       () => toast.success(`Xác nhận đơn hàng đã gửi tới ${formData.email}`),
-      //       (error) => toast.error('Gửi email thất bại: ' + error.text)
-      //     );
-      // };
 
       switch (method) {
         case 'cod':

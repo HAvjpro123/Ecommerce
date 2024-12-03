@@ -232,5 +232,38 @@ const editProduct = async (req, res) => {
     }
 };
 
+const addReview = async (req, res) => {
+    try {
+        const { productId, userId, userName, rating, comment } = req.body;
 
-export { listProduct, addProduct, removeProduct, singleProduct, updateProduct, editProduct }
+        if (!productId || !userId || !userName || !rating || !comment) {
+            return res.json({
+                success: false,
+                message: "Tất cả các trường là bắt buộc.",
+            });
+        }
+
+        const product = await productModel.findById(productId);
+
+        if (!product) {
+            return res.json({ success: false, message: "Không tìm thấy sản phẩm." });
+        }
+        // Thêm đánh giá mới
+        product.reviews.push({
+            userId,
+            userName,
+            rating,
+            comment,
+            isReviewed: true,
+        });
+
+        await product.save();
+
+        res.json({ success: true, message: "Đánh giá sản phẩm thành công!", reviews: product.reviews });
+    } catch (error) {
+        console.log(error);
+        res.json({ success: false, message: error.message });
+    }
+};
+
+export { listProduct, addProduct, removeProduct, singleProduct, updateProduct, editProduct, addReview }

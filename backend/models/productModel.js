@@ -17,6 +17,15 @@ const productSchema = new mongoose.Schema({
     onStock: { type: Boolean },
     bestseller: { type: Boolean },
     date: { type: Date, required: true },
+    reviews: [
+        {
+            userId: { type: mongoose.Schema.Types.ObjectId, ref: "user", required: true },
+            userName: { type: String, required: true },
+            rating: { type: Number, required: true, min: 1, max: 5 },
+            comment: { type: String, required: true },
+            reviewDate: { type: Date, default: Date.now },
+        }
+    ],
 })
 
 const productModel = mongoose.models.product || mongoose.model("product", productSchema)

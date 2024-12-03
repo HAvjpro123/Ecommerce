@@ -11,13 +11,8 @@ const Dashboard = ({ token }) => {
         <div className='p-6'>
           <DashboardListProduct></DashboardListProduct>
         </div>
-         
       </div>
      
-
-
-
-
     </div>
   )
 }

@@ -81,7 +81,7 @@ const placeOrderStripe = async (req, res) => {
                     product_data: {
                         name: "Tổng hóa đơn"
                     },
-                    unit_amount: amount ,
+                    unit_amount: amount,
                 },
                 quantity: 1,
             },
@@ -295,5 +295,47 @@ const deleteOrder = async (req, res) => {
     }
 }
 
+const orderReview = async (req, res) => {
+    const { orderId } = req.params;
+    const { reviews } = req.body; // Mảng chứa các đánh giá cho từng sản phẩm
 
-export { placeOrder, placeOrderStripe, placeOrderPaypal, allOrders, userOrders, updateStatus, verifyStripe, verifyPaypal, cancelOrder, deleteOrder }
+    try {
+        // Tìm đơn hàng
+        const order = await orderModel.findById(orderId);
+        if (!order) {
+            return res.status(404).json({ message: 'Đơn hàng không tồn tại' });
+        }
+
+        // Duyệt qua từng sản phẩm trong đơn hàng và cập nhật đánh giá
+        for (const review of reviews) {
+            const { productId, userId, userName, rating, comment } = review;
+
+            const product = await productModel.findById(productId);
+            if (!product) {
+                continue; // Bỏ qua nếu sản phẩm không tồn tại
+            }
+
+            product.reviews.push({
+                userId,
+                userName,
+                rating,
+                comment,
+                reviewDate: new Date(),
+            });
+
+            await product.save();
+
+            // Cập nhật trạng thái đã đánh giá cho đơn hàng
+            order.review = true; // Đánh dấu đơn hàng đã được đánh giá
+            await order.save();
+        }
+
+        res.status(200).json({ message: 'Đánh giá thành công cho tất cả sản phẩm' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Lỗi khi cập nhật đánh giá' });
+    }
+};
+
+
+export { placeOrder, placeOrderStripe, placeOrderPaypal, allOrders, userOrders, updateStatus, verifyStripe, verifyPaypal, cancelOrder, deleteOrder, orderReview }

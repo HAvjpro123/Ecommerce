@@ -331,7 +331,7 @@ const Orders = ({ token }) => {
                     <option value="Đang đóng gói">Đang đóng gói</option>
                     <option value="Đã được gửi">Đã được gửi</option>
                     <option value="Đang vận chuyển">Đang vận chuyển</option>
-                    <option value="Hoàn tất vận chuyẻn">Hoàn tất vận chuyẻn</option>
+                    <option value="Hoàn tất vận chuyển">Hoàn tất vận chuyển</option>
                     <option value="Đã hủy">Đã hủy</option>
                   </select>
                   <div className='flex gap-2'>
@@ -503,14 +503,14 @@ const Orders = ({ token }) => {
                     <option value="Đang đóng gói">Đang đóng gói</option>
                     <option value="Đã được gửi">Đã được gửi</option>
                     <option value="Đang vận chuyển">Đang vận chuyển</option>
-                    <option value="Hoàn tất vận chuyẻn">Hoàn tất vận chuyẻn</option>
+                    <option value="Hoàn tất vận chuyển">Hoàn tất vận chuyển</option>
                     <option value="Đã hủy">Đã hủy</option>
                   </select>
 
                   <div className='flex gap-2'>
                     <button
                       onClick={() => handlePrint(order._id)}
-                      className={`bg-yellow-600 rounded-md duration-300 hover:text-gray-300 text-white p-2 mt-3 flex ${printedOrders[order._id] ? 'bg-green-600' : ''
+                      className={`bg-yellow-600 rounded-md duration-300 hover:text-gray-300 text-white my-auto p-2 mt-3 flex ${printedOrders[order._id] ? 'bg-green-600' : ''
                         }`}
                     >
                       {printedOrders[order._id] ? (
@@ -518,7 +518,7 @@ const Orders = ({ token }) => {
                       ) : (
                         <Printer size={22} strokeWidth={1} className="mr-1" />
                       )}
-                      {printedOrders[order._id] ? 'In lại' : 'In đơn'}
+                      <p className='my-auto'>{printedOrders[order._id] ? 'In lại' : 'In đơn'}</p>
                     </button>
                     <button
                       onClick={() => openConfirmDialog(order._id)}
