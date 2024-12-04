@@ -346,7 +346,7 @@ const DashboardChart = ({ token }) => {
 
                 {/* Thống kê sản phẩm đã bán */}
                 <div className="bg-white sm:p-6 rounded-md shadow-md">
-                    <div className='text-center'>
+                    <div className='text-center sm:text-start'>
                         <h2 className="text-lg font-semibold text-gray-600 mb-4 p-2 sm:p-0">
                             Thống Kê Đơn Hàng Tháng {currentMonth}
                         </h2>
@@ -361,7 +361,7 @@ const DashboardChart = ({ token }) => {
 
                 {/* Biểu đồ đường doanh thu */}
                 <div className="bg-white sm:p-6 rounded-md shadow-md">
-                    <div className='text-center'>
+                    <div className='text-center sm:text-start'>
                         <h2 className="text-lg font-semibold text-gray-600 mb-4 p-2 sm:p-0">
                             Doanh Thu Theo Tháng
                         </h2>
