@@ -3,9 +3,12 @@ import axios from 'axios';
 import { backendUrl, currency } from '../App';
 import { toast } from 'react-toastify';
 import Title from '../components/Title';
-import { ArrowUpAZ, ArrowUpDown, ArrowDownAZ, Search, Trash, Info, Edit } from 'lucide-react';
-import { Backdrop, CircularProgress, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button } from '@mui/material';
+import { Link } from 'react-router-dom'
+import { ArrowUpAZ, ArrowUpDown, ArrowDownAZ, Search, Trash, Info, Edit, House } from 'lucide-react';
+import { Backdrop, CircularProgress, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button, Breadcrumbs } from '@mui/material';
 import { Tooltip } from '@mui/material'; // Import Tooltip từ MUI
+import FloatingButton from '../components/FloatingButtonProduct';
+import FloatingButtonProduct from '../components/FloatingButtonProduct';
 
 const ListProduct = ({ token }) => {
   const [loading, setLoading] = useState(false);
@@ -182,6 +185,18 @@ const ListProduct = ({ token }) => {
 
   return (
     <>
+    <Breadcrumbs aria-label="breadcrumb">
+        <Link underline="hover" color="inherit" to="/">
+          <House size={15}></House>
+        </Link>
+        <Link
+          underline="hover"
+          color="inherit"
+          to="/list"
+        >
+          Quản lý sản phẩm
+        </Link>
+      </Breadcrumbs>
       <Title text1={'QUẢN LÝ'} text2={'SẢN PHẨM'} />
       {/* Thanh tìm kiếm */}
       <div className='inline-flex items-center justify-center border border-gray-400 px-5 py-2 mb-5 w-full rounded-sm '>
@@ -436,6 +451,8 @@ const ListProduct = ({ token }) => {
       <Backdrop sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }} open={loading}>
         <CircularProgress color="inherit" />
       </Backdrop>
+
+      <FloatingButtonProduct></FloatingButtonProduct>
     </>
   );
 };

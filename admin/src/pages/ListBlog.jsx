@@ -3,8 +3,11 @@ import axios from 'axios';
 import { backendUrl } from '../App';
 import { toast } from 'react-toastify';
 import Title from '../components/Title';
-import { ArrowUpAZ, ArrowUpDown, ArrowDownAZ, Search, Trash, Info } from 'lucide-react';
-import { Backdrop, CircularProgress, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button, Tooltip } from '@mui/material';
+import { Link } from 'react-router-dom'
+
+import { ArrowUpAZ, ArrowUpDown, ArrowDownAZ, Search, Trash, Info, House } from 'lucide-react';
+import { Backdrop, CircularProgress, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button, Tooltip, Breadcrumbs } from '@mui/material';
+import FloatingButtonProduct from '../components/FloatingButtonBlog';
 
 const ListBlog = ({ token }) => {
   const [loading, setLoading] = useState(false);
@@ -130,8 +133,19 @@ const ListBlog = ({ token }) => {
 
   return (
     <>
-
-      <Title text1={'QUẢN LÝ'} text2={'BÀI VIẾT'} />
+      <Breadcrumbs aria-label="breadcrumb">
+        <Link underline="hover" color="inherit" to="/">
+          <House size={15}></House>
+        </Link>
+        <Link
+          underline="hover"
+          color="inherit"
+          to="/listblog"
+        >
+          Quản lý bài viết
+        </Link>
+      </Breadcrumbs>
+      <Title text1={'DANH SÁCH'} text2={'BÀI VIẾT'} />
       {/* Ô nhập liệu tìm kiếm */}
       <div className='inline-flex items-center justify-center border border-gray-400 px-5 py-2 mb-5 w-full rounded-sm'>
         <input
@@ -292,6 +306,8 @@ const ListBlog = ({ token }) => {
           </Button>
         </DialogActions>
       </Dialog>
+
+      <FloatingButtonProduct></FloatingButtonProduct>
 
     </>
   );

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Bar } from 'react-chartjs-2';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement } from 'chart.js';
+import { Bar, Line } from 'react-chartjs-2';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement, LineElement, PointElement } from 'chart.js';
 import axios from 'axios';
 import { backendUrl, currency } from '../App.jsx';
 import { toast } from 'react-toastify';
 import { Boxes, FilePen, HandCoins, Package } from 'lucide-react';
 
-ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement);
+ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement, LineElement, PointElement);
 
 const DashboardChart = ({ token }) => {
     const [totalOrders, setTotalOrders] = useState(0);
@@ -15,47 +15,99 @@ const DashboardChart = ({ token }) => {
     const [productSalesData, setProductSalesData] = useState([]);
     const [currentMonth, setCurrentMonth] = useState('');
     const [totalPosts, setTotalPosts] = useState(0);
+    const [monthlyRevenue, setMonthlyRevenue] = useState([]);
+    const [monthlyOrderRevenue, setMonthlyOrderRevenue] = useState([]);
+    const [lastMonthOrders, setLastMonthOrders] = useState(0);
+    const [lastMonthRevenue, setLastMonthRevenue] = useState(0);
+    const [lastMonthProductsSold, setLastMonthProductsSold] = useState(0);
+    const [lastMonthPosts, setLastMonthPosts] = useState(0);
 
     const fetchOrdersData = async () => {
-        if (!token) {
-            return null;
-        }
+        if (!token) return;
         try {
             const response = await axios.post(`${backendUrl}/api/order/list`, {}, { headers: { token } });
             if (response.data.success) {
                 const orders = response.data.orders;
-                const currentMonth = new Date().getMonth();
                 const currentYear = new Date().getFullYear();
-                const monthlyOrders = orders.filter(order => {
+                const currentMonth = new Date().getMonth();
+                const currentDay = new Date().getDay()
+                const lastMonth = currentMonth === 0 ? 11 : currentMonth - 1;
+                const lastMonthYear = currentMonth === 0 ? currentYear - 1 : currentYear;
+
+                // Calculate monthly revenue
+                const revenueByMonth = Array(12).fill(0);
+                orders.forEach(order => {
                     const orderDate = new Date(order.date);
-                    return orderDate.getMonth() === currentMonth && orderDate.getFullYear() === currentYear;
+                    if (orderDate.getFullYear() === currentYear) {
+                        const month = orderDate.getMonth();
+                        revenueByMonth[month] += order.amount;
+                    }
                 });
 
-                const totalOrdersCount = monthlyOrders.length;
-                const totalRevenueAmount = monthlyOrders.reduce((acc, order) => acc + order.amount, 0);
-                const productCountMap = {};
-                let totalProducts = 0;
+                setMonthlyRevenue(revenueByMonth);
 
-                monthlyOrders.forEach(order => {
-                    order.items.forEach(item => {
-                        totalProducts += item.quantity;
-                        if (productCountMap[item.nameCode]) {
-                            productCountMap[item.nameCode] += item.quantity;
-                        } else {
-                            productCountMap[item.nameCode] = item.quantity;
-                        }
+                 // Filter orders by months
+                 const filterOrders = (month, year) =>
+                    orders.filter(order => {
+                        const date = new Date(order.date);
+                        return date.getMonth() === month && date.getFullYear() === year;
                     });
+
+                const currentMonthOrders = filterOrders(currentMonth, currentYear);
+                const lastMonthOrdersData = filterOrders(lastMonth, lastMonthYear);
+
+                // Tạo danh sách các ngày có đơn hàng
+                const daysWithOrders = [];
+                const ordersByDay = Array(31).fill(0);
+
+                currentMonthOrders.forEach(order => {
+                    const orderDate = new Date(order.date);
+                    const day = orderDate.getDate(); // Lấy ngày trong tháng
+                    if (!daysWithOrders.includes(day)) {
+                        daysWithOrders.push(day); // Chỉ thêm ngày chưa có trong danh sách
+                    }
+                    ordersByDay[day - 1] += 1; // Tăng số lượng đơn hàng của ngày đó
                 });
 
-                const productSalesArray = Object.keys(productCountMap).map(productName => ({
-                    nameCode: productName,
-                    quantity: productCountMap[productName],
-                }));
+                setMonthlyOrderRevenue(ordersByDay);
+
+                // Cập nhật dữ liệu cho biểu đồ
+                setProductSalesData(daysWithOrders); // Lưu trữ ngày có đơn hàng
+                
+                // Filter orders by month
+
+                // Calculate total orders and revenue
+                const totalOrdersCount = currentMonthOrders.length;
+                const totalRevenueAmount = currentMonthOrders.reduce((sum, order) => sum + order.amount, 0);
+
+                const lastMonthRevenueAmount = lastMonthOrdersData.reduce((sum, order) => sum + order.amount, 0);
+                const lastMonthOrdersCount = lastMonthOrdersData.length;
+
+                // Calculate total products sold
+                let currentMonthProducts = 0;
+                let lastMonthProducts = 0;
+
+                const calculateProducts = ordersList => {
+                    let products = 0;
+                    ordersList.forEach(order =>
+                        order.items.forEach(item => {
+                            products += item.quantity;
+                        })
+                    );
+                    return products;
+                };
+
+                currentMonthProducts = calculateProducts(currentMonthOrders);
+                lastMonthProducts = calculateProducts(lastMonthOrdersData);
 
                 setTotalOrders(totalOrdersCount);
+                setLastMonthOrders(lastMonthOrdersCount);
+
                 setTotalRevenue(totalRevenueAmount);
-                setTotalProductsSold(totalProducts);
-                setProductSalesData(productSalesArray);
+                setLastMonthRevenue(lastMonthRevenueAmount);
+
+                setTotalProductsSold(currentMonthProducts);
+                setLastMonthProductsSold(lastMonthProducts);
             } else {
                 toast.error(response.data.message);
             }
@@ -72,13 +124,20 @@ const DashboardChart = ({ token }) => {
                 const currentDate = new Date();
                 const currentMonth = currentDate.getMonth();
                 const currentYear = currentDate.getFullYear();
+                const lastMonth = currentMonth === 0 ? 11 : currentMonth - 1;
+                const lastMonthYear = currentMonth === 0 ? currentYear - 1 : currentYear;
 
-                const postsThisMonth = posts.filter(post => {
-                    const postDate = new Date(post.date);
-                    return postDate.getMonth() === currentMonth && postDate.getFullYear() === currentYear;
-                });
+                const filterPosts = (month, year) =>
+                    posts.filter(post => {
+                        const date = new Date(post.date);
+                        return date.getMonth() === month && date.getFullYear() === year;
+                    });
+
+                const postsThisMonth = filterPosts(currentMonth, currentYear);
+                const postsLastMonth = filterPosts(lastMonth, lastMonthYear);
 
                 setTotalPosts(postsThisMonth.length);
+                setLastMonthPosts(postsLastMonth.length);
             } else {
                 toast.error(response.data.message);
             }
@@ -87,23 +146,51 @@ const DashboardChart = ({ token }) => {
         }
     };
 
+    const calculatePercentageChange = (current, previous) => {
+        if (previous === 0) return current > 0 ? "+∞%" : "0%";
+        const change = ((current - previous) / previous) * 100;
+        return change > 0 ? `+${change.toFixed(1)}%` : `${change.toFixed(1)}%`;
+    };
+
+    const formatRevenue = (amount) => {
+        if (amount >= 1_000_000) {
+            return `${(amount / 1_000_000).toFixed(1)}M+`;
+        } else if (amount >= 1_000) {
+            return `${(amount / 1_000).toFixed(1)}K+`;
+        }
+        return amount.toString();
+    };
+
+    const generateGradient = (ctx, chartArea) => {
+        const gradient = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
+        gradient.addColorStop(0, 'rgb(250 204 21)'); // Màu ở đáy
+        gradient.addColorStop(1, 'rgb(234 179 8)'); // Màu ở đỉnh
+        return gradient;
+    };
+
     useEffect(() => {
         fetchOrdersData();
         fetchPostsData();
         const date = new Date();
         const monthNames = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"];
         setCurrentMonth(monthNames[date.getMonth()]);
-    }, [token, fetchOrdersData, ]);
+    }, [token]);
 
     const barData = {
-        labels: productSalesData.map(product => product.nameCode),
+        labels: productSalesData, // Tháng
         datasets: [
             {
-                label: 'Số lượng bán',
-                data: productSalesData.map(product => product.quantity),
-                backgroundColor: 'rgba(255, 193, 7, 0.6)',
-                borderColor: '#FFC107',
-                borderWidth: 1,
+                label: 'Số lượng đơn hàng',
+                data: monthlyOrderRevenue,
+                backgroundColor: function (context) {
+                    const chart = context.chart;
+                    const { ctx, chartArea } = chart;
+                    if (!chartArea) {
+                        return null;
+                    }
+                    return generateGradient(ctx, chartArea);
+                },
+
             },
         ],
     };
@@ -114,42 +201,171 @@ const DashboardChart = ({ token }) => {
             legend: {
                 display: true,
             },
+            tooltip: {
+                enabled: true,
+            },
         },
         scales: {
+            x: {
+                grid: {
+                    display: false,
+                },
+            },
             y: {
                 beginAtZero: true,
-                max: Math.max(...productSalesData.map(product => product.quantity)) || 1,
+                grid: {
+                    color: '#e5e7eb',
+                },
+            },
+        },
+    };
+
+
+    const lineData = {
+        labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
+        datasets: [
+            {
+                label: 'Doanh thu (VND)',
+                data: monthlyRevenue,
+                backgroundColor: 'rgb(250 204 21)',
+                borderColor: 'rgb(234 179 8)',
+                borderWidth: 2,
+                fill: true,
+                tension: 0.4,
+            },
+        ],
+    };
+
+    const lineOptions = {
+        maintainAspectRatio: true,
+        plugins: {
+            legend: {
+                display: true,
+            },
+            tooltip: {
+                enabled: true,
+            },
+        },
+        scales: {
+            x: {
+                grid: {
+                    display: false,
+                },
+            },
+            y: {
+                beginAtZero: true,
+                grid: {
+                    color: '#e5e7eb',
+                },
             },
         },
     };
 
     return (
-        <div className="flex-col grid gap-6 sm:grid-cols-[2fr_3fr]">
-            {/* Thống kê tổng quan */}
-            <div className="bg-white sm:border border-b py-4 border-gray-300 sm:p-6  rounded-sm">
-                <h2 className="text-lg font-semibold text-gray-700 border-l-4 border-yellow-600 pl-2 mb-6">
-                    Tổng Quan Tháng {currentMonth}
-                </h2>
-                <div className="space-y-4">
-                    <StatCard icon={<Package size={24} />} label="Tổng số đơn hàng" value={totalOrders} color="bg-green-500" />
-                    <StatCard icon={<HandCoins size={24} />} label="Tổng doanh thu" value={`${totalRevenue.toLocaleString()} ${currency}`} color="bg-red-500" />
-                    <StatCard icon={<Boxes size={24} />} label="Số sản phẩm đã bán" value={totalProductsSold} color="bg-blue-500" />
-                    <StatCard icon={<FilePen size={24} />} label="Bài viết trong tháng" value={totalPosts} color="bg-purple-500" />
+        <div>
+            <div className='mb-4'>
+                {/* Thống kê tổng quan */}
+                <div className="bg-white rounded-sm">
+                    <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
+                        <div className="bg-white rounded-md shadow-md p-6 flex justify-between items-center">
+                            <div className="font-medium space-y-2">
+                                <p className="text-sm text-gray-500">Tổng số đơn hàng</p>
+                                <p className="text-xl font-bold">
+                                    +{totalOrders.toLocaleString()}
+                                    <span
+                                        className={`ml-2 text-xs ${totalOrders >= lastMonthOrders ? "text-green-500" : "text-red-500"
+                                            }`}
+                                    >
+                                        {calculatePercentageChange(totalOrders, lastMonthOrders)}
+                                    </span>
+                                </p>
+                            </div>
+                            <div className="p-2 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-md">
+                                <Package size={25} className="text-gray-100" />
+                            </div>
+                        </div>
+                        <div className="bg-white rounded-md shadow-md p-6 flex justify-between items-center">
+                            <div className="font-medium space-y-2">
+                                <p className="text-sm text-gray-500">Tổng doanh thu</p>
+                                <p className="text-xl font-bold">
+                                    {formatRevenue(totalRevenue)}
+                                    <span
+                                        className={`ml-2 text-xs ${totalRevenue >= lastMonthRevenue ? "text-green-500" : "text-red-500"
+                                            }`}
+                                    >
+                                        {calculatePercentageChange(totalRevenue, lastMonthRevenue)}
+                                    </span>
+
+                                </p>
+
+                            </div>
+                            <div className="p-2 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-md">
+                                <HandCoins size={25} className="text-gray-100" />
+                            </div>
+                        </div>
+                        <div className="bg-white rounded-md shadow-md p-6 flex justify-between items-center">
+                            <div className="font-medium space-y-2">
+                                <p className="text-sm text-gray-500">Số sản phẩm đã bán</p>
+                                <p className="text-xl font-bold">
+                                    +{totalProductsSold.toLocaleString()}
+                                    <span
+                                        className={`ml-2 text-xs ${totalProductsSold >= lastMonthProductsSold ? "text-green-500" : "text-red-500"
+                                            }`}
+                                    >
+                                        {calculatePercentageChange(totalProductsSold, lastMonthProductsSold)}
+                                    </span>
+                                </p>
+                            </div>
+                            <div className="p-2 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-md">
+                                <Boxes size={25} className="text-gray-100" />
+                            </div>
+                        </div>
+                        <div className="bg-white rounded-md shadow-md p-6 flex justify-between items-center">
+                            <div className="font-medium space-y-2">
+                                <p className="text-sm text-gray-500">Bài viết trong tháng</p>
+                                <p className="text-xl font-bold">
+                                    {totalPosts}
+                                    <span
+                                        className={`ml-2 text-xs ${totalPosts >= lastMonthPosts ? "text-green-500" : "text-red-500"
+                                            }`}
+                                    >
+                                        {calculatePercentageChange(totalPosts, lastMonthPosts)}
+                                    </span>
+                                </p>
+                            </div>
+                            <div className="p-2 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-md">
+                                <FilePen size={25} className="text-gray-100" />
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
-            {/* Thống kê sản phẩm đã bán */}
-            <div className="bg-white sm:border border-b py-4 border-gray-300 sm:p-6 rounded-sm">
-                <h2 className="text-lg font-semibold text-gray-700 border-l-4 border-yellow-600 pl-2 mb-6">
-                    Thống Kê Sản Phẩm Tháng {currentMonth}
-                </h2>
-                {productSalesData.length > 0 ? (
-                    <Bar data={barData} options={barOptions} />
-                ) : (
-                    <p className="text-gray-500 text-center">Chưa có dữ liệu sản phẩm</p>
-                )}
+            <div className="flex-col grid gap-6 sm:grid-cols-[3fr_3fr]">
+
+                {/* Thống kê sản phẩm đã bán */}
+                <div className="bg-white sm:p-6 rounded-md shadow-md">
+                    <h2 className="text-lg font-semibold text-gray-700 mb-4">
+                        Thống Kê Đơn Hàng Tháng {currentMonth}
+                    </h2>
+                    {monthlyRevenue.reduce((a, b) => a + b, 0) > 0 ? (
+                        <Bar data={barData} options={barOptions} />
+                    ) : (
+                        <p className="text-gray-500 text-center">Chưa có dữ liệu đơn hàng</p>
+                    )}
+                </div>
+
+                {/* Biểu đồ đường doanh thu */}
+                <div className="bg-white sm:p-6 rounded-md shadow-md">
+                    <h2 className="text-lg font-semibold text-gray-700 mb-6">
+                        Doanh Thu Theo Tháng
+                    </h2>
+                    <Line data={lineData} options={lineOptions} />
+                </div>
             </div>
         </div>
+
     );
 };
 

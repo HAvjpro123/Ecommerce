@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { backendUrl } from '../App';
-import { Backdrop, CircularProgress } from '@mui/material';
+import { Backdrop, Breadcrumbs, CircularProgress } from '@mui/material';
 import { toast } from 'react-toastify';
 import Title from '../components/Title';
+import { House } from 'lucide-react';
+import { Link } from 'react-router-dom'
+
 
 const AddVoucher = ({ token }) => {
   const [loading, setLoading] = useState(false);
@@ -50,6 +53,25 @@ const AddVoucher = ({ token }) => {
     <form onSubmit={onSubmitHandler} className='flex flex-col w-full items-start gap-3'>
 
       <div className='w-full'>
+      <Breadcrumbs aria-label="breadcrumb">
+        <Link underline="hover" color="inherit" to="/">
+          <House size={15}></House>
+        </Link>
+        <Link
+          underline="hover"
+          color="inherit"
+          to="/listvoucher"
+        >
+          Quản lý mã giảm giá
+        </Link>
+        <Link
+          underline="hover"
+          color="inherit"
+          to="/addvoucher"
+        >
+          Tạo mã giảm giá
+        </Link>
+      </Breadcrumbs>
       <Title text1={'THÊM'} text2={'VOUCHER MỚI'} />
         <p className='mb-2'>Tên Voucher</p>
         <input

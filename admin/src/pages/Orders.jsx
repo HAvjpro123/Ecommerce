@@ -6,10 +6,11 @@ import axios from 'axios'
 import { backendUrl, currency } from '../App.jsx'
 import { toast } from 'react-toastify'
 import Title from '../components/Title.jsx'
-import { Package2 } from 'lucide-react';
+import { House, Package2 } from 'lucide-react';
 import { Printer, PrinterCheck, Trash } from 'lucide-react';  // Thêm PrinterCheck
 import { QRCodeSVG } from 'qrcode.react';
-import { Backdrop, CircularProgress, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button, Tooltip } from '@mui/material';
+import { Link } from 'react-router-dom'
+import { Backdrop, CircularProgress, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button, Tooltip, Breadcrumbs } from '@mui/material';
 
 const Orders = ({ token }) => {
   const [orders, setOrders] = useState([]);
@@ -158,6 +159,18 @@ const Orders = ({ token }) => {
 
   return (
     <div>
+      <Breadcrumbs aria-label="breadcrumb">
+        <Link underline="hover" color="inherit" to="/">
+          <House size={15}></House>
+        </Link>
+        <Link
+          underline="hover"
+          color="inherit"
+          to="/"
+        >
+          Quản lý đơn hàng
+        </Link>
+      </Breadcrumbs>
       <Title text1={'DANH SÁCH'} text2={'ĐƠN HÀNG'}></Title>
       <div>
         {/* Thanh tìm kiếm */}

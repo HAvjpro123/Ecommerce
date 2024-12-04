@@ -22,9 +22,6 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
         {[
           { to: '/', icon: LayoutDashboard, label: 'Bảng điều khiển' },
           { to: '/orders', icon: ClipboardList, label: 'Đơn hàng' },
-          { to: '/add', icon: CirclePlus, label: 'Thêm sản phẩm' },
-          { to: '/addblog', icon: FilePenLine, label: 'Tạo bài viết' },
-          { to: '/addvoucher', icon: TicketPlus, label: 'Tạo mã giảm giá' },
           { to: '/list', icon: Archive, label: 'Sản phẩm' },
           { to: '/listblog', icon: BookCopy, label: 'Bài viết' },
           { to: '/listvoucher', icon: Tickets, label: 'Mã giảm giá' },
@@ -32,7 +29,7 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
           <NavLink
             key={index}
             to={to}
-            className="rounded-sm flex items-center gap-3 px-4 py-3 text-gray-600 border hover:border-yellow-600 hover:text-gray-800 transition"
+            className="rounded-md shadow-md flex items-center gap-3 px-4 py-3 text-gray-600 border hover:text-gray-800 transition"
             onClick={toggleSidebar}
           >
             <Icon strokeWidth={1.5} size={20} className="text-yellow-600" />

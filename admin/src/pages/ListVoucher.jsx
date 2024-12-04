@@ -3,8 +3,10 @@ import axios from 'axios';
 import { backendUrl, currency } from '../App';
 import { toast } from 'react-toastify';
 import Title from '../components/Title';
-import { ArrowUpAZ, ArrowUpDown, ArrowDownAZ, Trash, Edit } from 'lucide-react';
-import { Backdrop, CircularProgress, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button, Tooltip } from '@mui/material';
+import { Link } from 'react-router-dom'
+import { ArrowUpAZ, ArrowUpDown, ArrowDownAZ, Trash, Edit, House } from 'lucide-react';
+import { Backdrop, CircularProgress, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button, Tooltip, Breadcrumbs } from '@mui/material';
+import FloatingButtonVoucher from '../components/FloatingButtonVoucher';
 
 const ListVoucher = ({ token }) => {
 
@@ -175,6 +177,18 @@ const ListVoucher = ({ token }) => {
 
   return (
     <>
+    <Breadcrumbs aria-label="breadcrumb">
+        <Link underline="hover" color="inherit" to="/">
+          <House size={15}></House>
+        </Link>
+        <Link
+          underline="hover"
+          color="inherit"
+          to="/listvoucher"
+        >
+          Quản lý mã giảm giá
+        </Link>
+      </Breadcrumbs>
       <Title text1={'QUẢN LÝ'} text2={'MÃ GIẢM GIÁ'} />
       <div className='flex flex-col gap-2'>
         {/* Tiêu đề bảng danh sách */}
@@ -299,6 +313,8 @@ const ListVoucher = ({ token }) => {
           <Button onClick={confirmDeleteVoucher} variant='outlined' color="warning" >Đồng ý</Button>
         </DialogActions>
       </Dialog>
+      
+      <FloatingButtonVoucher></FloatingButtonVoucher>
     </>
   );
 };

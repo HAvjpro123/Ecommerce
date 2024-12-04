@@ -3,10 +3,13 @@ import ReactQuill from 'react-quill';  // Import Quill
 import { assets } from '../assets/assets';
 import axios from 'axios';
 import { backendUrl } from '../App';
-import { Backdrop, CircularProgress } from '@mui/material';
+import { Backdrop, Breadcrumbs, CircularProgress } from '@mui/material';
 import { toast } from 'react-toastify';
 import 'react-quill/dist/quill.snow.css'; // Import styles for Quill
 import Title from '../components/Title';
+import { House } from 'lucide-react';
+import { Link } from 'react-router-dom'
+
 
 
 const AddBlog = ({ token }) => {
@@ -71,6 +74,25 @@ const AddBlog = ({ token }) => {
   return (
     <form onSubmit={onSubmitHandler} className='flex flex-col w-full items-start gap-3'>
       <div>
+      <Breadcrumbs aria-label="breadcrumb">
+        <Link underline="hover" color="inherit" to="/">
+          <House size={15}></House>
+        </Link>
+        <Link
+          underline="hover"
+          color="inherit"
+          to="/listblog"
+        >
+          Quản lý bài viết
+        </Link>
+        <Link
+          underline="hover"
+          color="inherit"
+          to="/addblog"
+        >
+          Tạo bài viết
+        </Link>
+      </Breadcrumbs>
         <Title text1={'TẠO'} text2={'BÀI VIẾT MỚI'}></Title>
         <p className='mb-2'>Tải Hình Ảnh</p>
         <div className='flex flex-wrap sm:flex-row gap-4 text-gray-500'>
