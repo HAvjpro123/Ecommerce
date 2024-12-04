@@ -174,13 +174,13 @@ const Orders = ({ token }) => {
       <Title text1={'DANH SÁCH'} text2={'ĐƠN HÀNG'}></Title>
       <div>
         {/* Thanh tìm kiếm */}
-        <div className="mb-5">
+        <div className="mb-5 ">
           <input
             type="text"
             placeholder="Tìm kiếm mã đơn hàng..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="p-2 border border-gray-300 rounded-sm w-full"
+            className="p-2 border border-gray-300 rounded-md w-full "
           />
         </div>
         {/* Tabs */}
@@ -207,7 +207,7 @@ const Orders = ({ token }) => {
             filteredOrders(activeOrders).map((order, index) => (
               <div
                 key={index}
-                className="grid grid-cols-1 sm:grid-cols-[0.5fr_2fr_1fr_] lg:grid-cols-[0.5fr_2fr_1fr_1fr_1fr] gap-3 items-start rounded-md border-2 bg-white border-gray-300 p-5 md:p-6 my-3 md:my-4 text-xs sm:text-sm text-gray-700"
+                className="grid grid-cols-1 sm:grid-cols-[0.5fr_2fr_1fr_] lg:grid-cols-[0.5fr_2fr_1fr_1fr_1fr] gap-3 items-start rounded-md border bg-white border-gray-300 p-5 md:p-6 my-3 md:my-4 text-xs sm:text-sm text-gray-700"
               >
                 {/* Giao diện đơn hàng */}
                 <div id={`order-${order._id}`} className="hidden print:block">
@@ -286,7 +286,7 @@ const Orders = ({ token }) => {
                 {/* Các cột tương tự mã gốc */}
                 {/* Cột 1 */}
                 <div>
-                  <Package2 size={40} strokeWidth={0.6} className="border border-gray-400 p-1" />
+                  <Package2 size={40} strokeWidth={0.6} className="border rounded-md border-gray-400 p-1" />
                 </div>
                 <div>
                   <p className="mb-2 font-medium line-clamp-2">
@@ -379,7 +379,7 @@ const Orders = ({ token }) => {
               // Hiển thị đơn hàng đã hủy (tương tự cấu trúc trên)
               <div
                 key={index}
-                className="rounded-md grid grid-cols-1 sm:grid-cols-[0.5fr_2fr_1fr_] lg:grid-cols-[0.5fr_2fr_1fr_1fr_1fr] gap-3 items-start border-2 bg-white border-gray-300 p-5 md:p-6 my-3 md:my-4 text-xs sm:text-sm text-gray-700"
+                className="rounded-md grid grid-cols-1 sm:grid-cols-[0.5fr_2fr_1fr_] lg:grid-cols-[0.5fr_2fr_1fr_1fr_1fr] gap-3 items-start border bg-white border-gray-300 p-5 md:p-6 my-3 md:my-4 text-xs sm:text-sm text-gray-700"
               >
                 {/* Giao diện đơn hàng */}
                 <div id={`order-${order._id}`} className="hidden print:block">
@@ -458,7 +458,7 @@ const Orders = ({ token }) => {
                 {/* Các cột tương tự mã gốc */}
                 {/* Cột 1 */}
                 <div>
-                  <Package2 size={40} strokeWidth={0.6} className="border border-gray-400 p-1" />
+                  <Package2 size={40} strokeWidth={0.6} className="border rounded-md border-gray-400 p-1" />
                 </div>
                 <div>
                   <p className="mb-2 font-medium line-clamp-2">

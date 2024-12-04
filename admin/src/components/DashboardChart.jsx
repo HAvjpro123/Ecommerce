@@ -66,11 +66,10 @@ const DashboardChart = ({ token }) => {
                     if (!daysWithOrders.includes(day)) {
                         daysWithOrders.push(day); // Chỉ thêm ngày chưa có trong danh sách
                     }
-                    ordersByDay[day - 1] += 1; // Tăng số lượng đơn hàng của ngày đó
+                    ordersByDay[day - 2] += 1; // Tăng số lượng đơn hàng của ngày đó
                 });
 
                 setMonthlyOrderRevenue(ordersByDay);
-
                 // Cập nhật dữ liệu cho biểu đồ
                 setProductSalesData(daysWithOrders); // Lưu trữ ngày có đơn hàng
 
@@ -108,6 +107,8 @@ const DashboardChart = ({ token }) => {
 
                 setTotalProductsSold(currentMonthProducts);
                 setLastMonthProductsSold(lastMonthProducts);
+                console.log("Current Month Orders:", currentMonthOrders);
+                console.log("Orders By Day:", ordersByDay);
             } else {
                 toast.error(response.data.message);
             }
@@ -152,6 +153,7 @@ const DashboardChart = ({ token }) => {
         return change > 0 ? `+${change.toFixed(1)}%` : `${change.toFixed(1)}%`;
     };
 
+    // Hàm đổi đơn vị tiền tệ
     const formatRevenue = (amount) => {
         if (amount >= 1_000_000) {
             return `${(amount / 1_000_000).toFixed(1)}M+`;
@@ -161,6 +163,7 @@ const DashboardChart = ({ token }) => {
         return amount.toString();
     };
 
+    // Hàm thay màu cột của bar
     const generateGradient = (ctx, chartArea) => {
         const gradient = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
         gradient.addColorStop(0, 'rgb(250 204 21)'); // Màu ở đáy
@@ -177,18 +180,15 @@ const DashboardChart = ({ token }) => {
     }, [token]);
 
     const barData = {
-        labels: productSalesData, // Tháng
+        labels: productSalesData,
         datasets: [
             {
-                label: 'Số lượng đơn hàng',
+                label: 'Số lượng đơn hàng trong ngày',
                 data: monthlyOrderRevenue,
-                backgroundColor: function (context) {
-                    const chart = context.chart;
-                    const { ctx, chartArea } = chart;
-                    if (!chartArea) {
-                        return null;
-                    }
-                    return generateGradient(ctx, chartArea);
+                backgroundColor: (context) => {
+                    const { chart } = context;
+                    if (!chart.chartArea) return 'rgba(234, 179, 8, 0.5)'; // Màu mặc định
+                    return generateGradient(chart.ctx, chart.chartArea);
                 },
 
             },
@@ -199,7 +199,7 @@ const DashboardChart = ({ token }) => {
         maintainAspectRatio: true,
         plugins: {
             legend: {
-                display: true,
+                display: false,
             },
             tooltip: {
                 enabled: true,
@@ -216,10 +216,19 @@ const DashboardChart = ({ token }) => {
                 grid: {
                     color: '#e5e7eb',
                 },
+                ticks: {
+                    callback: function (value) {
+                        if (value >= 1_000_000) {
+                            return `${value / 1_000_000}M`; // Giá trị >= 1 triệu sẽ hiển thị M
+                        } else if (value >= 1_000) {
+                            return `${value / 1_000}K`; // Giá trị >= 1 nghìn sẽ hiển thị K
+                        }
+                        return value; // Giá trị nhỏ hơn 1 nghìn giữ nguyên
+                    },
+                }
             },
         },
     };
-
 
     const lineData = {
         labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
@@ -257,6 +266,16 @@ const DashboardChart = ({ token }) => {
                 grid: {
                     color: '#e5e7eb',
                 },
+                ticks: {
+                    callback: function (value) {
+                        if (value >= 1_000_000) {
+                            return `${value / 1_000_000}M`; // Giá trị >= 1 triệu sẽ hiển thị M
+                        } else if (value >= 1_000) {
+                            return `${value / 1_000}K`; // Giá trị >= 1 nghìn sẽ hiển thị K
+                        }
+                        return value; // Giá trị nhỏ hơn 1 nghìn giữ nguyên
+                    },
+                }
             },
         },
     };
@@ -267,7 +286,7 @@ const DashboardChart = ({ token }) => {
                 {/* Thống kê tổng quan */}
                 <div className=" rounded-sm">
                     <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
-                        <div className="bg-white rounded-md border-2 border-gray-300 p-6 flex justify-between items-center">
+                        <div className="bg-white rounded-md border border-gray-300 p-6 flex justify-between items-center">
                             <div className="font-medium space-y-2">
                                 <p className="text-sm text-gray-500">Tổng số đơn hàng</p>
                                 <p className="text-xl font-bold">
@@ -284,7 +303,7 @@ const DashboardChart = ({ token }) => {
                                 <Package size={25} className="text-gray-100" />
                             </div>
                         </div>
-                        <div className="bg-white rounded-md border-2 border-gray-300 p-6 flex justify-between items-center">
+                        <div className="bg-white rounded-md border border-gray-300 p-6 flex justify-between items-center">
                             <div className="font-medium space-y-2">
                                 <p className="text-sm text-gray-500">Tổng doanh thu</p>
                                 <p className="text-xl font-bold">
@@ -303,7 +322,7 @@ const DashboardChart = ({ token }) => {
                                 <HandCoins size={25} className="text-gray-100" />
                             </div>
                         </div>
-                        <div className="bg-white rounded-md border-2 border-gray-300 p-6 flex justify-between items-center">
+                        <div className="bg-white rounded-md border border-gray-300 p-6 flex justify-between items-center">
                             <div className="font-medium space-y-2">
                                 <p className="text-sm text-gray-500">Số sản phẩm đã bán</p>
                                 <p className="text-xl font-bold">
@@ -320,7 +339,7 @@ const DashboardChart = ({ token }) => {
                                 <Boxes size={25} className="text-gray-100" />
                             </div>
                         </div>
-                        <div className="bg-white rounded-md border-2 border-gray-300 p-6 flex justify-between items-center">
+                        <div className="bg-white rounded-md border border-gray-300 p-6 flex justify-between items-center">
                             <div className="font-medium space-y-2">
                                 <p className="text-sm text-gray-500">Bài viết trong tháng</p>
                                 <p className="text-xl font-bold">
@@ -345,7 +364,7 @@ const DashboardChart = ({ token }) => {
             <div className="flex-col grid gap-6 sm:grid-cols-[3fr_3fr]">
 
                 {/* Thống kê sản phẩm đã bán */}
-                <div className="bg-white sm:p-6 rounded-md border-2 border-gray-300">
+                <div className="bg-white sm:p-6 rounded-md border border-gray-300">
                     <div className='text-center sm:text-start'>
                         <h2 className="text-lg font-semibold text-gray-600 mb-4 p-2 sm:p-0">
                             Thống Kê Đơn Hàng Tháng {currentMonth}
@@ -353,37 +372,25 @@ const DashboardChart = ({ token }) => {
                     </div>
 
                     {monthlyRevenue.reduce((a, b) => a + b, 0) > 0 ? (
-                        <Bar data={barData} options={barOptions} />
+                        <Bar data={barData} options={barOptions} className='px-2 sm:px-0' />
                     ) : (
                         <p className="text-gray-500 text-center">Chưa có dữ liệu đơn hàng</p>
                     )}
                 </div>
 
                 {/* Biểu đồ đường doanh thu */}
-                <div className="bg-white sm:p-6 rounded-md border-2 border-gray-300">
+                <div className="bg-white sm:p-6 rounded-md border border-gray-300">
                     <div className='text-center sm:text-start'>
                         <h2 className="text-lg font-semibold text-gray-600 mb-4 p-2 sm:p-0">
                             Doanh Thu Theo Tháng
                         </h2>
                     </div>
-                        <Line data={lineData} options={lineOptions} />
-                    </div>
+                    <Line data={lineData} options={lineOptions} className='px-2 sm:px-0' />
                 </div>
             </div>
+        </div>
 
-            );
+    );
 };
 
-            const StatCard = ({icon, label, value, color}) => (
-            <div className={`flex items-center gap-4 p-4 rounded-lg shadow-sm ${color} text-white`}>
-                <div className="w-12 h-12 flex justify-center items-center rounded-full bg-white bg-opacity-20">
-                    {icon}
-                </div>
-                <div>
-                    <p className="text-sm font-medium">{label}</p>
-                    <p className="text-lg font-bold">{value}</p>
-                </div>
-            </div>
-            );
-
-            export default DashboardChart;
+export default DashboardChart;

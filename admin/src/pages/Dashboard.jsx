@@ -21,7 +21,7 @@ const Dashboard = ({ token }) => {
       </Breadcrumbs>
       <p className='text-2xl my-4 font-bold text-gray-500'>BẢNG ĐIỀU KHIỂN</p>
       <DashboardChart token={token} />
-      <div className='mt-9 rounded-md border-2 border-gray-300'>
+      <div className='mt-9 rounded-md border border-gray-300'>
         <div className='p-6 bg-white'>
           <DashboardListProduct></DashboardListProduct>
         </div>

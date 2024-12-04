@@ -199,7 +199,7 @@ const ListProduct = ({ token }) => {
       </Breadcrumbs>
       <Title text1={'QUẢN LÝ'} text2={'SẢN PHẨM'} />
       {/* Thanh tìm kiếm */}
-      <div className='inline-flex items-center justify-center border border-gray-400 px-5 py-2 mb-5 w-full rounded-sm '>
+      <div className='inline-flex items-center justify-center border border-gray-400 px-5 py-2 mb-5 w-full rounded-md '>
         <input
           type="text"
           placeholder="Tìm tên sản phẩm..."
@@ -213,7 +213,7 @@ const ListProduct = ({ token }) => {
 
       <div className='flex flex-col gap-2'>
         {/* Tiêu đề bảng */}
-        <div className='grid sm:grid-cols-[1fr_1fr_3fr_1fr_1fr_1fr_1fr_1fr] grid-cols-[1fr_1fr_3fr_1fr] items-center py-1 px-2 gap-2 border bg-gray-300 text-sm'>
+        <div className='grid rounded-md sm:grid-cols-[1fr_1fr_3fr_1fr_1fr_1fr_1fr_1fr] grid-cols-[1fr_1fr_3fr_1fr] items-center py-1 px-2 gap-2 border bg-gray-200 text-sm'>
           <b onClick={() => handleSort('nameCode')} className='cursor-pointer flex items-center gap-1'>
             ID {getSortIcon('nameCode')}
           </b>
@@ -241,7 +241,7 @@ const ListProduct = ({ token }) => {
         {/* Danh sách sản phẩm */}
         {
           currentList.map((item, index) => (
-            <div className='grid sm:grid-cols-[1fr_1fr_3fr_1fr_1fr_1fr_1fr_1fr] hover:border-yellow-600 grid-cols-[1fr_1fr_3fr_1fr] items-center gap-2 p-2 border bg-white border-gray-300 sm:text-base text-xs' key={index}>
+            <div className='grid rounded-md sm:grid-cols-[1fr_1fr_3fr_1fr_1fr_1fr_1fr_1fr] hover:border-yellow-600 grid-cols-[1fr_1fr_3fr_1fr] items-center gap-2 p-2 border bg-white border-gray-300 sm:text-base text-xs' key={index}>
               <p className='line-clamp-2'>#{item.nameCode}</p>
               <img className='w-12 h-12 object-cover' src={item.image[0]} alt="" />
               <p className='line-clamp-2'>{item.name}</p>

@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { backendUrl, currency } from '../App';
 import { toast } from 'react-toastify';
-import Title from '../components/Title';
-import { ArrowUpAZ, ArrowUpDown, ArrowDownAZ, Search, Trash, Info } from 'lucide-react';
+import { ArrowUpAZ, ArrowUpDown, ArrowDownAZ, Search, Info } from 'lucide-react';
 import { Backdrop, CircularProgress, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button } from '@mui/material';
 import { Tooltip } from '@mui/material'; // Import Tooltip từ MUI
 
