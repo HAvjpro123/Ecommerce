@@ -129,7 +129,7 @@ const DashboardListProduct = ({ token }) => {
     }, [sortField, sortOrder]);
 
     return (
-        <>
+        <div className=''>
             <div>
                 <div className='border-l-4 border-yellow-600 mb-4'>
                     <p className='sm:text-xl text-base font-semibold ml-2 text-gray-700'>DANH SÁCH <span className='text-gray-500'>SẢN PHẨM</span></p>
@@ -282,7 +282,7 @@ const DashboardListProduct = ({ token }) => {
             <Backdrop sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }} open={loading}>
                 <CircularProgress color="inherit" />
             </Backdrop>
-        </>
+        </div>
     );
 };
 

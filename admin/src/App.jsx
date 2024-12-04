@@ -36,7 +36,7 @@ const App = () => {
         : <>
           <Navbar setToken={setToken} toggleSidebar={toggleSidebar} />
           <hr />
-          <div className='flex w-full'>
+          <div className='flex w-full bg-gray-100'>
             <Sidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
             <div className='w-[85%] mx-auto pr-6 ml-[max(5vh,25px)] my-8 text-gray-600 text-base'>
               <Routes>

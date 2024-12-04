@@ -265,9 +265,9 @@ const DashboardChart = ({ token }) => {
         <div>
             <div className='mb-4'>
                 {/* Thống kê tổng quan */}
-                <div className="bg-white rounded-sm">
+                <div className=" rounded-sm">
                     <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
-                        <div className="bg-white rounded-md shadow-md p-6 flex justify-between items-center">
+                        <div className="bg-white rounded-md border-2 border-gray-300 p-6 flex justify-between items-center">
                             <div className="font-medium space-y-2">
                                 <p className="text-sm text-gray-500">Tổng số đơn hàng</p>
                                 <p className="text-xl font-bold">
@@ -284,7 +284,7 @@ const DashboardChart = ({ token }) => {
                                 <Package size={25} className="text-gray-100" />
                             </div>
                         </div>
-                        <div className="bg-white rounded-md shadow-md p-6 flex justify-between items-center">
+                        <div className="bg-white rounded-md border-2 border-gray-300 p-6 flex justify-between items-center">
                             <div className="font-medium space-y-2">
                                 <p className="text-sm text-gray-500">Tổng doanh thu</p>
                                 <p className="text-xl font-bold">
@@ -303,7 +303,7 @@ const DashboardChart = ({ token }) => {
                                 <HandCoins size={25} className="text-gray-100" />
                             </div>
                         </div>
-                        <div className="bg-white rounded-md shadow-md p-6 flex justify-between items-center">
+                        <div className="bg-white rounded-md border-2 border-gray-300 p-6 flex justify-between items-center">
                             <div className="font-medium space-y-2">
                                 <p className="text-sm text-gray-500">Số sản phẩm đã bán</p>
                                 <p className="text-xl font-bold">
@@ -320,7 +320,7 @@ const DashboardChart = ({ token }) => {
                                 <Boxes size={25} className="text-gray-100" />
                             </div>
                         </div>
-                        <div className="bg-white rounded-md shadow-md p-6 flex justify-between items-center">
+                        <div className="bg-white rounded-md border-2 border-gray-300 p-6 flex justify-between items-center">
                             <div className="font-medium space-y-2">
                                 <p className="text-sm text-gray-500">Bài viết trong tháng</p>
                                 <p className="text-xl font-bold">
@@ -345,7 +345,7 @@ const DashboardChart = ({ token }) => {
             <div className="flex-col grid gap-6 sm:grid-cols-[3fr_3fr]">
 
                 {/* Thống kê sản phẩm đã bán */}
-                <div className="bg-white sm:p-6 rounded-md shadow-md">
+                <div className="bg-white sm:p-6 rounded-md border-2 border-gray-300">
                     <div className='text-center sm:text-start'>
                         <h2 className="text-lg font-semibold text-gray-600 mb-4 p-2 sm:p-0">
                             Thống Kê Đơn Hàng Tháng {currentMonth}
@@ -360,7 +360,7 @@ const DashboardChart = ({ token }) => {
                 </div>
 
                 {/* Biểu đồ đường doanh thu */}
-                <div className="bg-white sm:p-6 rounded-md shadow-md">
+                <div className="bg-white sm:p-6 rounded-md border-2 border-gray-300">
                     <div className='text-center sm:text-start'>
                         <h2 className="text-lg font-semibold text-gray-600 mb-4 p-2 sm:p-0">
                             Doanh Thu Theo Tháng

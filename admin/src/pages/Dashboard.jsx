@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 import { House } from 'lucide-react';
 const Dashboard = ({ token }) => {
   return (
-    <div className='bg-gray-50'>
+    <div className=''>
       <Breadcrumbs aria-label="breadcrumb">
         <Link underline="hover" color="inherit" to="/">
           <House size={15}></House>
@@ -21,8 +21,8 @@ const Dashboard = ({ token }) => {
       </Breadcrumbs>
       <p className='text-2xl my-4 font-bold text-gray-500'>BẢNG ĐIỀU KHIỂN</p>
       <DashboardChart token={token} />
-      <div className='mt-9 rounded-md shadow-md'>
-        <div className='p-6'>
+      <div className='mt-9 rounded-md border-2 border-gray-300'>
+        <div className='p-6 bg-white'>
           <DashboardListProduct></DashboardListProduct>
         </div>
       </div>

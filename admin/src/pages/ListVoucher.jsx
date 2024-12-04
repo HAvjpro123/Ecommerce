@@ -192,7 +192,7 @@ const ListVoucher = ({ token }) => {
       <Title text1={'QUẢN LÝ'} text2={'MÃ GIẢM GIÁ'} />
       <div className='flex flex-col gap-2'>
         {/* Tiêu đề bảng danh sách */}
-        <div className='grid sm:grid-cols-[1fr_1fr_1fr_1fr_1fr]  grid-cols-[1fr_1fr_1fr_1fr] items-center py-1 gap-2 px-2 border bg-gray-100 text-sm '>
+        <div className='grid sm:grid-cols-[1fr_1fr_1fr_1fr_1fr]  grid-cols-[1fr_1fr_1fr_1fr] items-center py-1 gap-2 px-2 border bg-gray-300 text-sm '>
           <b onClick={() => handleSort('name')} className='cursor-pointer flex items-center gap-1'>
             Tên voucher {getSortIcon('name')}
           </b>
@@ -210,7 +210,7 @@ const ListVoucher = ({ token }) => {
         {/* Danh sách voucher */}
         {
           currentList.map((item, index) => (
-            <div className='grid sm:grid-cols-[1fr_1fr_1fr_1fr_1fr] grid-cols-[1fr_1fr_1fr_1fr]  hover:border-yellow-600 items-center gap-2 p-2 border sm:text-base text-xs' key={index}>
+            <div className='grid sm:grid-cols-[1fr_1fr_1fr_1fr_1fr] grid-cols-[1fr_1fr_1fr_1fr]  hover:border-yellow-600 items-center gap-2 p-2 border bg-white border-gray-300 sm:text-base text-xs' key={index}>
               <p className='line-clamp-2'>{item.name}</p>
               <p>{(item.discount).toLocaleString()}{currency}</p>
               <p>{(item.total).toLocaleString()}</p>
@@ -313,7 +313,6 @@ const ListVoucher = ({ token }) => {
           <Button onClick={confirmDeleteVoucher} variant='outlined' color="warning" >Đồng ý</Button>
         </DialogActions>
       </Dialog>
-      
       <FloatingButtonVoucher></FloatingButtonVoucher>
     </>
   );

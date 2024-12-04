@@ -207,7 +207,7 @@ const Orders = ({ token }) => {
             filteredOrders(activeOrders).map((order, index) => (
               <div
                 key={index}
-                className="grid grid-cols-1 sm:grid-cols-[0.5fr_2fr_1fr_] lg:grid-cols-[0.5fr_2fr_1fr_1fr_1fr] gap-3 items-start rounded-sm border-2 border-gray-200 p-5 md:p-6 my-3 md:my-4 text-xs sm:text-sm text-gray-700"
+                className="grid grid-cols-1 sm:grid-cols-[0.5fr_2fr_1fr_] lg:grid-cols-[0.5fr_2fr_1fr_1fr_1fr] gap-3 items-start rounded-md border-2 bg-white border-gray-300 p-5 md:p-6 my-3 md:my-4 text-xs sm:text-sm text-gray-700"
               >
                 {/* Giao diện đơn hàng */}
                 <div id={`order-${order._id}`} className="hidden print:block">
@@ -379,7 +379,7 @@ const Orders = ({ token }) => {
               // Hiển thị đơn hàng đã hủy (tương tự cấu trúc trên)
               <div
                 key={index}
-                className="grid grid-cols-1 sm:grid-cols-[0.5fr_2fr_1fr_] lg:grid-cols-[0.5fr_2fr_1fr_1fr_1fr] gap-3 items-start border-2 border-gray-200 p-5 md:p-6 my-3 md:my-4 text-xs sm:text-sm text-gray-700"
+                className="rounded-md grid grid-cols-1 sm:grid-cols-[0.5fr_2fr_1fr_] lg:grid-cols-[0.5fr_2fr_1fr_1fr_1fr] gap-3 items-start border-2 bg-white border-gray-300 p-5 md:p-6 my-3 md:my-4 text-xs sm:text-sm text-gray-700"
               >
                 {/* Giao diện đơn hàng */}
                 <div id={`order-${order._id}`} className="hidden print:block">

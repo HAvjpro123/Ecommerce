@@ -29,7 +29,7 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
           <NavLink
             key={index}
             to={to}
-            className="rounded-md shadow-md flex items-center gap-3 px-4 py-3 text-gray-600 border hover:text-gray-800 transition"
+            className="rounded-md flex items-center gap-3 px-4 py-3 text-gray-600 border border-gray-300 hover:text-gray-800 transition"
             onClick={toggleSidebar}
           >
             <Icon strokeWidth={1.5} size={20} className="text-yellow-600" />

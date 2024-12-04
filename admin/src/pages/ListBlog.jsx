@@ -161,7 +161,7 @@ const ListBlog = ({ token }) => {
 
 
       <div className='flex flex-col gap-2'>
-        <div className='grid sm:grid-cols-[1fr_3fr_1fr_1fr_1fr_1fr] grid-cols-[1fr_3fr_1fr_1fr]  items-center py-1 gap-2 px-2 border bg-gray-100 text-sm'>
+        <div className='grid sm:grid-cols-[1fr_3fr_1fr_1fr_1fr_1fr] grid-cols-[1fr_3fr_1fr_1fr]  items-center py-1 gap-2 px-2 border bg-gray-300 text-sm'>
           <b className='cursor-pointer flex items-center gap-1'>Ảnh bìa</b>
           <b onClick={() => handleSort('name')} className='cursor-pointer flex items-center gap-1'>
             Tiêu đề {getSortIcon('name')}
@@ -180,7 +180,7 @@ const ListBlog = ({ token }) => {
 
         {
           currentList.map((item, index) => (
-            <div className='grid sm:grid-cols-[1fr_3fr_1fr_1fr_1fr_1fr] grid-cols-[1fr_3fr_1fr_1fr]  hover:border-yellow-600 items-center gap-2 p-2 border sm:text-base text-xs' key={index}>
+            <div className='grid sm:grid-cols-[1fr_3fr_1fr_1fr_1fr_1fr] grid-cols-[1fr_3fr_1fr_1fr]  hover:border-yellow-600 items-center gap-2 p-2 border bg-white border-gray-300 sm:text-base text-xs' key={index}>
               <img className='w-12 h-12 object-cover' src={item.image[0]} alt="" />
               <p className='line-clamp-2'>{item.name}</p>
               <p className='hidden sm:block line-clamp-1'>{item.view}</p>
