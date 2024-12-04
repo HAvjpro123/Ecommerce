@@ -46,8 +46,8 @@ const DashboardChart = ({ token }) => {
 
                 setMonthlyRevenue(revenueByMonth);
 
-                 // Filter orders by months
-                 const filterOrders = (month, year) =>
+                // Filter orders by months
+                const filterOrders = (month, year) =>
                     orders.filter(order => {
                         const date = new Date(order.date);
                         return date.getMonth() === month && date.getFullYear() === year;
@@ -73,7 +73,7 @@ const DashboardChart = ({ token }) => {
 
                 // Cập nhật dữ liệu cho biểu đồ
                 setProductSalesData(daysWithOrders); // Lưu trữ ngày có đơn hàng
-                
+
                 // Filter orders by month
 
                 // Calculate total orders and revenue
@@ -280,7 +280,7 @@ const DashboardChart = ({ token }) => {
                                     </span>
                                 </p>
                             </div>
-                            <div className="p-2 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-md">
+                            <div className="p-2 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-md shadow-md">
                                 <Package size={25} className="text-gray-100" />
                             </div>
                         </div>
@@ -299,7 +299,7 @@ const DashboardChart = ({ token }) => {
                                 </p>
 
                             </div>
-                            <div className="p-2 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-md">
+                            <div className="p-2 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-md shadow-md">
                                 <HandCoins size={25} className="text-gray-100" />
                             </div>
                         </div>
@@ -316,7 +316,7 @@ const DashboardChart = ({ token }) => {
                                     </span>
                                 </p>
                             </div>
-                            <div className="p-2 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-md">
+                            <div className="p-2 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-md shadow-md">
                                 <Boxes size={25} className="text-gray-100" />
                             </div>
                         </div>
@@ -333,7 +333,7 @@ const DashboardChart = ({ token }) => {
                                     </span>
                                 </p>
                             </div>
-                            <div className="p-2 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-md">
+                            <div className="p-2 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-md shadow-md">
                                 <FilePen size={25} className="text-gray-100" />
                             </div>
                         </div>
@@ -346,9 +346,12 @@ const DashboardChart = ({ token }) => {
 
                 {/* Thống kê sản phẩm đã bán */}
                 <div className="bg-white sm:p-6 rounded-md shadow-md">
-                    <h2 className="text-lg font-semibold text-gray-700 mb-4">
-                        Thống Kê Đơn Hàng Tháng {currentMonth}
-                    </h2>
+                    <div className='text-center'>
+                        <h2 className="text-lg font-semibold text-gray-600 mb-4 p-2 sm:p-0">
+                            Thống Kê Đơn Hàng Tháng {currentMonth}
+                        </h2>
+                    </div>
+
                     {monthlyRevenue.reduce((a, b) => a + b, 0) > 0 ? (
                         <Bar data={barData} options={barOptions} />
                     ) : (
@@ -358,27 +361,29 @@ const DashboardChart = ({ token }) => {
 
                 {/* Biểu đồ đường doanh thu */}
                 <div className="bg-white sm:p-6 rounded-md shadow-md">
-                    <h2 className="text-lg font-semibold text-gray-700 mb-6">
-                        Doanh Thu Theo Tháng
-                    </h2>
-                    <Line data={lineData} options={lineOptions} />
+                    <div className='text-center'>
+                        <h2 className="text-lg font-semibold text-gray-600 mb-4 p-2 sm:p-0">
+                            Doanh Thu Theo Tháng
+                        </h2>
+                    </div>
+                        <Line data={lineData} options={lineOptions} />
+                    </div>
                 </div>
             </div>
-        </div>
 
-    );
+            );
 };
 
-const StatCard = ({ icon, label, value, color }) => (
-    <div className={`flex items-center gap-4 p-4 rounded-lg shadow-sm ${color} text-white`}>
-        <div className="w-12 h-12 flex justify-center items-center rounded-full bg-white bg-opacity-20">
-            {icon}
-        </div>
-        <div>
-            <p className="text-sm font-medium">{label}</p>
-            <p className="text-lg font-bold">{value}</p>
-        </div>
-    </div>
-);
+            const StatCard = ({icon, label, value, color}) => (
+            <div className={`flex items-center gap-4 p-4 rounded-lg shadow-sm ${color} text-white`}>
+                <div className="w-12 h-12 flex justify-center items-center rounded-full bg-white bg-opacity-20">
+                    {icon}
+                </div>
+                <div>
+                    <p className="text-sm font-medium">{label}</p>
+                    <p className="text-lg font-bold">{value}</p>
+                </div>
+            </div>
+            );
 
-export default DashboardChart;
+            export default DashboardChart;
