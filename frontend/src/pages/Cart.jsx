@@ -158,10 +158,10 @@ const Cart = () => {
 
         </div>
 
-        <div className='flex justify-end sm:my-0 my-10 w-full'>
+        <div className='flex sm:my-0 my-10 w-full'>
           <div className='w-full'>
             <CartTotal discountAmount={discountAmount} />
-            <div className='w-full text-end mt-4'>
+            <div className='w-full mt-4'>
               <div className=' flex gap-2'>
                 <input
                   type='text'
@@ -177,6 +177,10 @@ const Cart = () => {
                 >
                   Áp dụng
                 </button>
+              </div>
+              <div className='mt-4'>
+                <p className='font-semibold text-sm'>Thông tin giao hàng</p>
+                <p className='text-xs my-1 text-gray-600'>Đối với những sản phẩm có sẵn tại khu vực, CESPIN sẽ giao hàng trong vòng 2-7 ngày. Đối với những sản phẩm không có sẵn, thời gian giao hàng sẽ được nhân viên CESPIN thông báo đến quý khách.</p>
               </div>
               <button
                 onClick={() => navigate('/place-order')}
