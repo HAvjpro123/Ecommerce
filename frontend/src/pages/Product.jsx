@@ -22,12 +22,6 @@ const colors = [
   '#FFC733', // Vàng
 ];
 
-const getColor = (name) => {
-  if (!name) return '#ccc'; // Màu mặc định nếu không có tên
-  const charCode = name.charCodeAt(0); // Lấy mã Unicode của ký tự đầu tiên
-  return colors[charCode % colors.length]; // Chọn màu theo chỉ số
-};
-
 const Product = () => {
 
   const [value, setValue] = React.useState('1');
@@ -43,7 +37,6 @@ const Product = () => {
   const [size, setSize] = useState('')
 
   const fetchProductData = async () => {
-
     products.map((item) => {
       if (item._id === productId) {
         setProductData(item)
@@ -51,7 +44,6 @@ const Product = () => {
         return null;
       }
     })
-
   }
 
   function handleClick(event) {

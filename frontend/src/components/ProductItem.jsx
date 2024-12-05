@@ -1,14 +1,12 @@
 import React, { useContext, useState } from 'react'
 import { ShopContext } from '../context/ShopContext'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { Backdrop, CircularProgress } from '@mui/material'
 
 const ProductItem = ({ id, image, name, price, sale, salePrice, nameCode, sold }) => {
-
     const { currency } = useContext(ShopContext)
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
-
 
     const formatSold = (sold) => {
         if (sold >= 1000) {
@@ -19,14 +17,15 @@ const ProductItem = ({ id, image, name, price, sale, salePrice, nameCode, sold }
 
     const handleProductClick = async () => {
         setLoading(true)  // Bật Backdrop khi nhấn vào sản phẩm
-        // Giả sử bạn thực hiện gọi API hoặc tải dữ liệu chi tiết sản phẩm
         setTimeout(() => {
-            setLoading(false) // Tắt Backdrop sau khi xử lý xong (sử dụng setTimeout ở đây chỉ là ví dụ)
-        }, 500); // Thời gian chờ giả lập
+            setLoading(false) 
+            navigate(`/product/${id}`);
+            window.scrollTo(0, 0) 
+        }, 500); 
     }
 
     return (
-        <Link className='text-gray-700 cursor-pointer hover:border-gray-700 border' to={`/product/${id}`} onClick={handleProductClick}>
+        <div className='text-gray-700 cursor-pointer hover:border-gray-700 border' onClick={handleProductClick}>
             {/* Backdrop hiển thị khi loading */}
             <Backdrop sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }} open={loading}>
                 <CircularProgress color="inherit" />
@@ -49,8 +48,7 @@ const ProductItem = ({ id, image, name, price, sale, salePrice, nameCode, sold }
                     <p>({formatSold(sold)}) đã bán</p>
                 </div>
             </div>
-
-        </Link>
+        </div>
     )
 }
 

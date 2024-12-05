@@ -20,6 +20,9 @@ const RelatedBlogs = ({ category }) => {
 
         }
     }, [])
+
+  
+    
     return (
         <div className='my-4 px-2'>
             <div className='flex justify-between'>
@@ -27,15 +30,15 @@ const RelatedBlogs = ({ category }) => {
                 <p onClick={() => navigate('/bloglist')} className='underline my-auto text-yellow-600 cursor-pointer'>xem thêm</p>
             </div>
             
-
             <div className=''>
                 {related.map((item, index) => (
                     <div key={index} className='my-4'>
-                        <BlogCard  id={item._id}
+                        <BlogCard  
+                        id={item._id}
                         image={item.image}
                         name={item.name}
                         view={item.view}
-                        description={item.description} />
+                        description={item.description} date={item.date}/>
                     </div>
                     
                 ))}

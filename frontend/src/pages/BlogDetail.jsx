@@ -12,7 +12,6 @@ const BlogDetail = () => {
     const [image, setImage] = useState('')
     const navigate = useNavigate()
 
-
     const fetchBlogData = async () => {
         blogs.map((item) => {
             if (item._id === blogId) {
@@ -25,7 +24,7 @@ const BlogDetail = () => {
 
     useEffect(() => {
         fetchBlogData()
-    }, [blogId, blogData])
+    }, [blogId, blogs])
 
     return blogData ? (
         <div >
@@ -56,11 +55,11 @@ const BlogDetail = () => {
                     <div className='my-4'>
                         <p className='text-4xl font-semibold'>{blogData.name}</p>
                     </div>
-                    <div className='flex justify-between text-lg my-4'>
-                        <p className='text-gray-500'>Danh mục:
-                            {blogData.tags.map((item, index) => (
-                                <span onClick={() => navigate('/bloglist')} className='text-yellow-600 cursor-pointer' key={index}> {item},</span>
+                    <div className='flex justify-between sm:flex-row flex-col text-lg my-4'>
+                        <p className='text-gray-500'>Danh mục: {blogData.tags.map((item, index) => (
+                                <span onClick={() => navigate('/bloglist')} className='text-yellow-600 cursor-pointer' key={index}>{item}, </span>
                             ))}
+                            
                         </p>
                         <p className='text-gray-500'>Đăng bởi: <span className='text-black'>{blogData.createdBy}</span>, Lượt xem: {blogData.view}  </p>
                     </div>

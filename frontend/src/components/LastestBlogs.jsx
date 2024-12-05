@@ -36,6 +36,7 @@ const LatestBlogs = () => {
               view={item.view}
               description={item.description}
               date={item.date}
+              category={item.category}
             />
           </div>
         ))}
