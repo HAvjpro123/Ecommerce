@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { CirclePlus, Archive, FilePenLine, LayoutDashboard, BookCopy, ClipboardList, Tickets, TicketPlus } from 'lucide-react';
+import {  Archive, LayoutDashboard, BookCopy, ClipboardList, Tickets } from 'lucide-react';
 
 const Sidebar = ({ isSidebarOpen, toggleSidebar, setToken }) => {
   return (
@@ -16,7 +16,7 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar, setToken }) => {
         ✕
       </button>
 
-      <div className="flex flex-col gap-2 pt-6 px-4 text-[15px] mt-10 sm:mt-0">
+      <div className="flex flex-col gap-3 pt-6 px-4 text-[15px] mt-10 sm:mt-0">
         {/* Sidebar Links */}
         {
           [

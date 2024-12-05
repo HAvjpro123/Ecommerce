@@ -125,8 +125,9 @@ const Login = () => {
   return (
     <form onSubmit={onSubmitHandler} className='flex flex-col items-center w-[90%] sm:max-w-96 m-auto mt-4 gap-4 text-gray-800'>
       <div className='inline-flex items-center gap-2 mb-2 mt-10'>
-        <p className='prata-regular text-3xl'>{currentState}</p>
-        <hr className='border-none h-[1.5px] w-8 bg-gray-800' />
+        <hr className='border-none h-[1px] w-8 bg-gray-600' />
+        <p className='text-2xl text-gray-700 font-medium'>{currentState} TÀI KHOẢN</p>
+        <hr className='border-none h-[1px] w-8 bg-gray-600' />
       </div>
       {currentState === 'ĐĂNG NHẬP' ? '' : <input onChange={(e) => setName(e.target.value)} value={name} type="text" className='w-full px-3 py-2 border border-gray-800' placeholder='Tên đăng nhập' required />}
       <input onChange={(e) => setEmail(e.target.value)} value={email} type="email" className='w-full px-3 py-2 border border-gray-800' placeholder='Email' required />
@@ -135,11 +136,11 @@ const Login = () => {
         <p className='cursor-pointer hover:text-yellow-600 '>Quên mật khẩu?</p>
         {
           currentState === 'ĐĂNG NHẬP'
-            ? <p onClick={() => setCurrentState('ĐĂNG KÝ')} className='cursor-pointer hover:text-yellow-600'>Tạo tài khoản</p>
-            : <p onClick={() => setCurrentState('ĐĂNG NHẬP')} className='cursor-pointer hover:text-yellow-600'>Đăng nhập</p>
+            ? <p onClick={() => setCurrentState('ĐĂNG KÝ')} className='cursor-pointer hover:text-yellow-600 duration-200'>Tạo tài khoản</p>
+            : <p onClick={() => setCurrentState('ĐĂNG NHẬP')} className='cursor-pointer hover:text-yellow-600 duration-200'>Đã có tài khoản</p>
         }
       </div>
-      <button className='bg-gray-800 text-white font-light px-8 py-2 mt-4 w-full'>{currentState === 'ĐĂNG NHẬP' ? 'ĐĂNG NHẬP' : 'ĐĂNG KÝ'}</button>
+      <button className='hover:border-gray-500 border hover:text-gray-500 text-black border-black duration-200 font-semibold px-8 py-2 mt-4 w-full'>{currentState === 'ĐĂNG NHẬP' ? 'ĐĂNG NHẬP' : 'ĐĂNG KÝ'}</button>
 
       {
         currentState === 'ĐĂNG NHẬP'

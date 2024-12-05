@@ -353,10 +353,10 @@ const DashboardChart = ({ token }) => {
                                 </p>
                                 <div>
                                     <span
-                                        className={`text-[10px] ${totalProductsSold >= lastMonthProductsSold ? "text-green-500" : "text-red-500"
+                                        className={`text-[10px] ${totalPosts >= lastMonthPosts ? "text-green-500" : "text-red-500"
                                             }`}
                                     >
-                                        {calculatePercentageChange(totalProductsSold, lastMonthProductsSold)}
+                                        {calculatePercentageChange(totalPosts, lastMonthPosts)}
                                     </span> <span className='text-[10px] text-gray-400'>so với tháng trước</span>
                                 </div>
                             </div>
