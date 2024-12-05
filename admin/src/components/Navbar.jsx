@@ -1,6 +1,7 @@
 import React from 'react'
 import { Menu } from 'lucide-react'
 import { assets } from '../assets/assets'
+import { Inbox } from 'lucide-react';
 
 const Navbar = ({ setToken, toggleSidebar }) => {
   return (
@@ -22,10 +23,9 @@ const Navbar = ({ setToken, toggleSidebar }) => {
 
       {/* Right Section: Logout Button */}
       <button 
-        onClick={() => setToken('')} 
-        className='border-gray-600 border rounded-md text-gray-600 hover:border-yellow-600 hover:text-yellow-600 py-1 px-2 sm:px-5 sm:py-2 text-xs sm:text-sm'
+        
       >
-        Đăng xuất
+       <Inbox size={20} strokeWidth={1.5} className='text-gray-500 mx-6' />
       </button>
     </div>
   )

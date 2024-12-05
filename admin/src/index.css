@@ -16,9 +16,17 @@ select, input, textarea {
 }
 
 .active {
-    background-color: rgba(254, 249, 195, 0.108);
-    border-color: rgb(234 179 8);
+
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
+
+.active .icon {
+  background: linear-gradient(to right, rgb(250 204 21), rgb(202 138 4)); /* Màu vàng */
+  border-radius: 20%;
+   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  color: white;
+}
+
 /* Chỉ hiển thị nội dung cần thiết khi in */
 @media print {
     .hidden {

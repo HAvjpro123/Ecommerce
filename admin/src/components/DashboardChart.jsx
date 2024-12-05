@@ -36,6 +36,7 @@ const DashboardChart = ({ token }) => {
 
                 // Calculate monthly revenue
                 const revenueByMonth = Array(12).fill(0);
+
                 orders.forEach(order => {
                     const orderDate = new Date(order.date);
                     if (orderDate.getFullYear() === currentYear) {
@@ -286,71 +287,78 @@ const DashboardChart = ({ token }) => {
                 {/* Thống kê tổng quan */}
                 <div className=" rounded-sm">
                     <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
-                        <div className="bg-white rounded-md border border-gray-300 p-6 flex justify-between items-center">
-                            <div className="font-medium space-y-2">
+                        <div className="bg-white rounded-md border border-gray-300 p-4 flex justify-between items-center">
+                            <div className="font-medium">
                                 <p className="text-sm text-gray-500">Tổng số đơn hàng</p>
-                                <p className="text-xl font-bold">
+                                <p className="text-xl font-bold mt-1">
                                     +{totalOrders.toLocaleString()}
+                                </p>
+                                <div>
                                     <span
-                                        className={`ml-2 text-xs ${totalOrders >= lastMonthOrders ? "text-green-500" : "text-red-500"
+                                        className={`text-[10px] ${totalOrders >= lastMonthOrders ? "text-green-500" : "text-red-500"
                                             }`}
                                     >
                                         {calculatePercentageChange(totalOrders, lastMonthOrders)}
-                                    </span>
-                                </p>
+                                    </span> <span className='text-[10px] text-gray-400'>so với tháng trước</span>
+                                </div>
+
                             </div>
                             <div className="p-2 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-md shadow-md">
                                 <Package size={25} className="text-gray-100" />
                             </div>
                         </div>
-                        <div className="bg-white rounded-md border border-gray-300 p-6 flex justify-between items-center">
-                            <div className="font-medium space-y-2">
+                        <div className="bg-white rounded-md border border-gray-300 p-4 flex justify-between items-center">
+                            <div className="font-medium">
                                 <p className="text-sm text-gray-500">Tổng doanh thu</p>
-                                <p className="text-xl font-bold">
+                                <p className="text-xl font-bold mt-1">
                                     {formatRevenue(totalRevenue)}
+                                </p>
+                                <div>
                                     <span
-                                        className={`ml-2 text-xs ${totalRevenue >= lastMonthRevenue ? "text-green-500" : "text-red-500"
+                                        className={`text-[10px] ${totalRevenue >= lastMonthRevenue ? "text-green-500" : "text-red-500"
                                             }`}
                                     >
                                         {calculatePercentageChange(totalRevenue, lastMonthRevenue)}
-                                    </span>
-
-                                </p>
-
+                                    </span> <span className='text-[10px] text-gray-400'>so với tháng trước</span>
+                                </div>
                             </div>
                             <div className="p-2 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-md shadow-md">
                                 <HandCoins size={25} className="text-gray-100" />
                             </div>
                         </div>
-                        <div className="bg-white rounded-md border border-gray-300 p-6 flex justify-between items-center">
-                            <div className="font-medium space-y-2">
+                        <div className="bg-white rounded-md border border-gray-300 p-4 flex justify-between items-center">
+                            <div className="font-medium ">
                                 <p className="text-sm text-gray-500">Số sản phẩm đã bán</p>
-                                <p className="text-xl font-bold">
+                                <p className="text-xl font-bold mt-1">
                                     +{totalProductsSold.toLocaleString()}
+                                </p>
+                                <div>
                                     <span
-                                        className={`ml-2 text-xs ${totalProductsSold >= lastMonthProductsSold ? "text-green-500" : "text-red-500"
+                                        className={`text-[10px] ${totalProductsSold >= lastMonthProductsSold ? "text-green-500" : "text-red-500"
                                             }`}
                                     >
                                         {calculatePercentageChange(totalProductsSold, lastMonthProductsSold)}
-                                    </span>
-                                </p>
+                                    </span> <span className='text-[10px] text-gray-400'>so với tháng trước</span>
+                                </div>
                             </div>
                             <div className="p-2 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-md shadow-md">
                                 <Boxes size={25} className="text-gray-100" />
                             </div>
                         </div>
-                        <div className="bg-white rounded-md border border-gray-300 p-6 flex justify-between items-center">
-                            <div className="font-medium space-y-2">
-                                <p className="text-sm text-gray-500">Bài viết trong tháng</p>
+                        <div className="bg-white rounded-md border border-gray-300 p-4 flex justify-between items-center">
+                            <div className="font-medium">
+                                <p className="text-sm text-gray-500 mt-1">Bài viết trong tháng</p>
                                 <p className="text-xl font-bold">
                                     {totalPosts}
+                                </p>
+                                <div>
                                     <span
-                                        className={`ml-2 text-xs ${totalPosts >= lastMonthPosts ? "text-green-500" : "text-red-500"
+                                        className={`text-[10px] ${totalProductsSold >= lastMonthProductsSold ? "text-green-500" : "text-red-500"
                                             }`}
                                     >
-                                        {calculatePercentageChange(totalPosts, lastMonthPosts)}
-                                    </span>
-                                </p>
+                                        {calculatePercentageChange(totalProductsSold, lastMonthProductsSold)}
+                                    </span> <span className='text-[10px] text-gray-400'>so với tháng trước</span>
+                                </div>
                             </div>
                             <div className="p-2 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-md shadow-md">
                                 <FilePen size={25} className="text-gray-100" />
@@ -361,13 +369,13 @@ const DashboardChart = ({ token }) => {
                 </div>
             </div>
 
-            <div className="flex-col grid gap-6 sm:grid-cols-[3fr_3fr]">
+            <div className="flex-col grid gap-4  sm:grid-cols-[3fr_3fr]">
 
                 {/* Thống kê sản phẩm đã bán */}
                 <div className="bg-white sm:p-6 rounded-md border border-gray-300">
                     <div className='text-center sm:text-start'>
                         <h2 className="text-lg font-semibold text-gray-600 mb-4 p-2 sm:p-0">
-                            Thống Kê Đơn Hàng Tháng {currentMonth}
+                            LƯỢT BÁN TRONG THÁNG {currentMonth}
                         </h2>
                     </div>
 
@@ -382,7 +390,7 @@ const DashboardChart = ({ token }) => {
                 <div className="bg-white sm:p-6 rounded-md border border-gray-300">
                     <div className='text-center sm:text-start'>
                         <h2 className="text-lg font-semibold text-gray-600 mb-4 p-2 sm:p-0">
-                            Doanh Thu Theo Tháng
+                            TỔNG QUAN DOANH THU
                         </h2>
                     </div>
                     <Line data={lineData} options={lineOptions} className='px-2 sm:px-0' />

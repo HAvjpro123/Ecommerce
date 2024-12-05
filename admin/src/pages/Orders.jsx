@@ -6,7 +6,7 @@ import axios from 'axios'
 import { backendUrl, currency } from '../App.jsx'
 import { toast } from 'react-toastify'
 import Title from '../components/Title.jsx'
-import { House, Package2 } from 'lucide-react';
+import { House } from 'lucide-react';
 import { Printer, PrinterCheck, Trash } from 'lucide-react';  // Thêm PrinterCheck
 import { QRCodeSVG } from 'qrcode.react';
 import { Link } from 'react-router-dom'
@@ -253,7 +253,7 @@ const Orders = ({ token }) => {
                         <p className='text-xs mt-auto mb-2'>* Lưu ý: Một vài sản phẩm sẽ không hiển thị vì khổ in không đủ. <br /></p>
                         <p className='p-2 text-xs border border-black '>Ghi chú: {order.address.description}</p>
                       </div>
-                      
+
                     </div>
 
                     <div className="p-4 justify-items-center w-1/3 flex flex-col">
@@ -286,7 +286,7 @@ const Orders = ({ token }) => {
                 {/* Các cột tương tự mã gốc */}
                 {/* Cột 1 */}
                 <div>
-                  <Package2 size={40} strokeWidth={0.6} className="border rounded-md border-gray-400 p-1" />
+                  <img src={order.items[0]?.image?.[0] || "default-placeholder-image.jpg"} className='w-14 h-14 border rounded-md shadow-md p-1' alt={order.items[0]?.name || "Product Image"} />
                 </div>
                 <div>
                   <p className="mb-2 font-medium line-clamp-2">
@@ -458,7 +458,7 @@ const Orders = ({ token }) => {
                 {/* Các cột tương tự mã gốc */}
                 {/* Cột 1 */}
                 <div>
-                  <Package2 size={40} strokeWidth={0.6} className="border rounded-md border-gray-400 p-1" />
+                  <img src={order.items[0]?.image?.[0] || "default-placeholder-image.jpg"} className='w-14 h-14 border rounded-md shadow-md p-1' alt={order.items[0]?.name || "Product Image"} />
                 </div>
                 <div>
                   <p className="mb-2 font-medium line-clamp-2">

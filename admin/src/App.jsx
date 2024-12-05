@@ -37,8 +37,8 @@ const App = () => {
           <Navbar setToken={setToken} toggleSidebar={toggleSidebar} />
           <hr />
           <div className='flex w-full bg-gray-50'>
-            <Sidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-            <div className='w-[85%] mx-auto pr-6 ml-[max(5vh,25px)] my-8 text-gray-600 text-base'>
+            <Sidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} setToken={setToken} />
+            <div className='sm:w-[85%] w-full  sm:ml-[max(5vh,25px)] mx-[max(2vh,15px)] sm:my-6 my-4 text-gray-600 text-base'>
               <Routes>
                 <Route path='/' element={<Dashboard token={token} />}></Route>
                 <Route path='/add' element={<AddProduct token={token} />}></Route>

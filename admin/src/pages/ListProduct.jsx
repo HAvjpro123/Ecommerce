@@ -243,7 +243,7 @@ const ListProduct = ({ token }) => {
           currentList.map((item, index) => (
             <div className='grid rounded-md sm:grid-cols-[1fr_1fr_3fr_1fr_1fr_1fr_1fr_1fr] hover:border-yellow-600 grid-cols-[1fr_1fr_3fr_1fr] items-center gap-2 p-2 border bg-white border-gray-300 sm:text-base text-xs' key={index}>
               <p className='line-clamp-2'>#{item.nameCode}</p>
-              <img className='w-12 h-12 object-cover' src={item.image[0]} alt="" />
+              <img className='w-12 h-12 object-cover rounded-md shadow-md border border-gray-200' src={item.image[0]} alt="" />
               <p className='line-clamp-2'>{item.name}</p>
               <p className='hidden sm:block line-clamp-1'>{item.category}</p>
               <p className='hidden sm:block line-clamp-1'>{item.totalStock}</p>

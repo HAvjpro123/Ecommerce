@@ -69,7 +69,6 @@ const AddProduct = ({ token }) => {
         setNameCode('')
         setDescription('')
         setPrice('')
-        setSalePrice('')
         setSale('')
         setImage1(false)
         setImage2(false)
@@ -205,10 +204,7 @@ const AddProduct = ({ token }) => {
           <input onChange={(e) => setPrice(e.target.value)} value={price} className='w-full px-3 py-2 rounded-sm' type="number" placeholder='đ' min="0" required />
         </div>
 
-        <div className='w-full'>
-          <p className='mb-2'>Giá giảm</p>
-          <input onChange={(e) => setSalePrice(e.target.value)} value={salePrice} className='w-full px-3 py-2 rounded-sm' type="number" placeholder='đ' min="0" required />
-        </div>
+        
 
         <div className='w-full'>
           <p className='mb-2'>Sale</p>

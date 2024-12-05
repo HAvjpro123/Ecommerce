@@ -38,7 +38,7 @@ const addProduct = async (req, res) => {
             description,
             price: Number(price),
             sale: Number(sale),
-            salePrice: Number(salePrice),
+            salePrice: Number(price) - (Number(price) * Number(sale) / 100),
             category,
             subCategory,
             subCategorySex,

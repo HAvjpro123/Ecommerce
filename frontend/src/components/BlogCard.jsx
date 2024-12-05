@@ -12,18 +12,6 @@ export default function BlogCard({ id, image, name, view, description, date }) {
     const [isFavorite, setIsFavorite] = useState(false);
     const [localView, setLocalView] = useState(view);
 
-    useEffect(() => {
-        const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-        setIsFavorite(favorites.includes(id));
-
-        const storedView = localStorage.getItem(`view-${id}`);
-        if (storedView) {
-            setLocalView(parseInt(storedView, 10));
-        } else {
-            setLocalView(view);
-        }
-    }, [id, view]);
-
     const handleView = async () => {
         try {
             await axios.patch(`${backendUrl}/api/blog/increaseView`, { blogId: id });
@@ -47,6 +35,22 @@ export default function BlogCard({ id, image, name, view, description, date }) {
             setIsFavorite(true);
         }
     };
+
+    useEffect(() => {
+        const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+        setIsFavorite(favorites.includes(id));
+
+        const storedView = localStorage.getItem(`view-${id}`);
+        if (storedView) {
+            setLocalView(parseInt(storedView, 10));
+        } else {
+            setLocalView(view); // Giá trị mặc định từ props
+        }
+        handleView()
+    }, [id, view]);
+
+
+
 
     // Định dạng ngày tháng
     const formattedDate = new Date(date).toLocaleDateString('vi-VN', {

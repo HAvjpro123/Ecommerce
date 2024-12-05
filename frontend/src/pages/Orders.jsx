@@ -280,42 +280,40 @@ const Orders = () => {
         {orderData.map((order, index) => (
           <div
             key={index}
-            className="py-4 border-b text-gray-700 flex flex-col md:flex-row md:items-center md:justify-between gap-4"
+            className="py-4 border-b text-gray-700 grid grid-cols-1 sm:grid-cols-2 md:items-center md:justify-between gap-4"
           >
-            <div className="flex items-start gap-6 text-sm">
-              <div className='flex justify-start max-w-80'>
-                <div>
-                  {order.items.length > 0 && order.items[0].image[0] && (
-                    <img
-                      className="w-16 h-16 sm:h-20 sm:w-20"
-                      src={order.items[0].image[0]}
-                      alt={order.items[0].name}
-                    />
-                  )}
-                </div>
-                <div className='w-full'>
-                  <p >Mã đơn hàng: <span className='text-yellow-600 font-medium'>#{order.orderId}</span></p>
-                  <p className="mt-1">
-                    Ngày đặt hàng: <span className="text-gray-400">
-                      {new Date(order.date).toLocaleDateString('vi-VN', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric',
-                      })}
-                      ,{' '}
-                      {new Date(order.date).toLocaleTimeString('vi-VN', {
-                        hour: '2-digit',
-                        minute: '2-digit',
-                      })}
-                    </span>
 
-                  </p>
-                  <p className="mt-1">Phương thức thanh toán: {order.paymentMethod}</p>
-                  <p className="mt-1">Số lượng sản phẩm: {order.items.length}</p>
-                </div>
+            <div className='grid grid-cols-[1.5fr_3fr_2fr] sm:grid-cols-[1.5fr_4fr_3fr] '>
+              <div>
+                {order.items.length > 0 && order.items[0].image[0] && (
+                  <img
+                    className="w-16 h-16 sm:h-20 sm:w-20"
+                    src={order.items[0].image[0]}
+                    alt={order.items[0].name}
+                  />
+                )}
               </div>
+              <div className='w-full text-sm'>
+                <p >Mã đơn hàng: <span className='text-yellow-600 font-medium'>#{order.orderId}</span></p>
+                <p className="mt-1">
+                  Ngày đặt hàng: <span className="text-gray-400">
+                    {new Date(order.date).toLocaleDateString('vi-VN', {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric',
+                    })}
+                    ,{' '}
+                    {new Date(order.date).toLocaleTimeString('vi-VN', {
+                      hour: '2-digit',
+                      minute: '2-digit',
+                    })}
+                  </span>
 
-              <div className='min-w-16 sm:my-auto sm:mx-auto  '>
+                </p>
+                <p className="mt-1">Phương thức thanh toán: {order.paymentMethod}</p>
+                <p className="mt-1">Số lượng sản phẩm: {order.items.length}</p>
+              </div>
+              <div className='ml-auto sm:my-auto  '>
                 <p
                   className={`text-center rounded-sm border py-1.5 px-2 text-[10px] sm:text-sm sm:my-auto sm:mx-auto ${order.status === 'Đã hủy'
                     ? 'border-red-500 text-red-500'
@@ -325,10 +323,10 @@ const Orders = () => {
                   {order.status}
                 </p>
               </div>
-
             </div>
+
             <hr className="sm:hidden" />
-            <div className="md:w-1/2 flex justify-between sm:justify-end gap-2">
+            <div className=" ml-auto gap-2">
 
               <div className='flex gap-2'>
                 {/* Nút hủy đơn hàng */}
