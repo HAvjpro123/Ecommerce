@@ -55,7 +55,7 @@ const Navbar = () => {
 
                 <Link to='/cart' className='relative'>
                     <ShoppingCart strokeWidth={1.5} className='cursor-pointer' />
-                    <p className='absolute right-[-8px] bottom-[13px] w-4 text-center leading-4 bg-yellow-600 text-white aspect-square rounded-full text-[10px]'>{getCartCount()}</p>
+                    <p className='absolute right-[-8px] bottom-[13px] w-4 text-center leading-4  bg-gradient-to-r from-yellow-600 to-yellow-400 text-white aspect-square rounded-full text-[10px]'>{getCartCount()}</p>
                 </Link>
 
                 <div className='group relative'>
