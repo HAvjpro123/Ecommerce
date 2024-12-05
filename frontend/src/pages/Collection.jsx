@@ -4,6 +4,7 @@ import { ChevronDown } from 'lucide-react';
 import { ChevronRight } from 'lucide-react';
 import Title from '../components/Title';
 import ProductItem from '../components/ProductItem';
+import FloatingButtonTop from '../components/FloatingButonTop';
 
 const Collection = () => {
 
@@ -211,6 +212,7 @@ const Collection = () => {
         </div>
 
       </div>
+      <FloatingButtonTop></FloatingButtonTop>
     </div>
   )
 }

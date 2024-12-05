@@ -7,6 +7,7 @@ import emailjs from '@emailjs/browser';
 import { toast } from 'react-toastify';
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, Rating, Backdrop, CircularProgress } from '@mui/material';
 import { Link } from 'react-router-dom';
+import FloatingButtonTop from '../components/FloatingButonTop';
 
 const labels = {
   1: 'Tệ',
@@ -543,7 +544,7 @@ const Orders = () => {
           </DialogActions>
         </div>
       </Dialog>
-
+      <FloatingButtonTop></FloatingButtonTop>
     </div>
   );
 };

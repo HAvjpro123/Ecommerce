@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { ShopContext } from '../context/ShopContext';
 import { Breadcrumbs } from '@mui/material';
 import RelatedBlogs from '../components/RelatedBlogs';
+import FloatingButtonTop from '../components/FloatingButonTop';
 
 const BlogDetail = () => {
 
@@ -74,7 +75,7 @@ const BlogDetail = () => {
                 </div>
             </div>
 
-
+            <FloatingButtonTop></FloatingButtonTop>
         </div>
     ) : <div className='opacity-0'>
 

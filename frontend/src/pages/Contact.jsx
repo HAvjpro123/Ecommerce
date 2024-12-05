@@ -1,6 +1,7 @@
 import React from 'react'
 import Title from '../components/Title'
 import { assets } from '../assets/assets'
+import FloatingButtonTop from '../components/FloatingButonTop'
 
 const Contact = () => {
   return (
@@ -21,7 +22,7 @@ const Contact = () => {
             <button className='border border-gray-500 text-gray-500 px-8 py-4 text-sm hover:border-yellow-600 hover:text-yellow-600  transition-all duration-300'>Tìm hiểu thêm</button>
         </div>
       </div>
-
+      <FloatingButtonTop></FloatingButtonTop>
     </div>
   )
 }

@@ -11,6 +11,7 @@ import { Package2 } from 'lucide-react';
 import RelatedProducts from '../components/RelatedProducts'
 import StarIcon from '@mui/icons-material/Star';
 import CommentsSection from '../components/CommentSection'
+import FloatingButtonTop from '../components/FloatingButonTop';
 
 const colors = [
   '#FF5733', // Đỏ cam
@@ -257,7 +258,7 @@ const Product = () => {
         <CircularProgress color="inherit" />
       </Backdrop>
 
-
+      <FloatingButtonTop></FloatingButtonTop>
     </div >
 
   ) : <div className='opacity-0'>
