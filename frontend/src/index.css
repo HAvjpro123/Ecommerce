@@ -46,4 +46,8 @@ a.active hr {
   object-position: center; /* Căn giữa ảnh (tuỳ chọn) */
 }
 
+.ql-align-center {
+  text-align: center !important;
+}
+
   

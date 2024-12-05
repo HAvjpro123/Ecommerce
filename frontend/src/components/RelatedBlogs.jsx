@@ -31,7 +31,7 @@ const RelatedBlogs = ({ category }) => {
             </div>
             
             <div className=''>
-                {related.map((item, index) => (
+                {related.slice(0, 10).map((item, index) => (
                     <div key={index} className='my-4'>
                         <BlogCard  
                         id={item._id}
