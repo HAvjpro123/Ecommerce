@@ -3,10 +3,13 @@ import { assets } from '../assets/assets'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { ChevronDown, Menu, Search, ShoppingCart, UserRound } from 'lucide-react';
 import { ShopContext } from '../context/ShopContext';
+import { Backdrop, CircularProgress } from '@mui/material'
+
 const Navbar = () => {
 
     const [visible, setVisible] = useState(false);
     const { setShowSearch, getCartCount, navigate, token, setToken, setCartItems, userName, userId } = useContext(ShopContext)
+    const [loading, setLoading] = useState(false)
 
     const logout = () => {
         navigate('/login')
@@ -21,12 +24,18 @@ const Navbar = () => {
     };
 
     const handleCart = () => {
-        navigate('/cart')
-        navigate(0)
-    }
+        setLoading(true); 
+        navigate('/cart'); 
+        setTimeout(() => {
+            setLoading(false); 
+        }, 500); // 2000ms = 2 giây
+    };
 
     return (
         <div className='flex items-center justify-between py-5 font-medium'>
+            <Backdrop sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }} open={loading}>
+                <CircularProgress color="inherit" />
+            </Backdrop>
             <Link to={'/'}><img src={assets.cespinLogo} className='w-24' alt="logo" /></Link>
             <ul className='hidden sm:flex gap-5 text-sm text-gray-700'>
                 <NavLink to='/' className='flex flex-col items-center gap-1'>

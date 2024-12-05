@@ -5,7 +5,6 @@ import { ArrowRight, ShoppingBag, Trash } from 'lucide-react';
 import CartTotal from '../components/CartTotal';
 import { toast } from 'react-toastify';
 import Tooltip from '@mui/material/Tooltip';
-import { MoveRight } from 'lucide-react';
 import FloatingButtonTop from '../components/FloatingButonTop';
 
 const Cart = () => {

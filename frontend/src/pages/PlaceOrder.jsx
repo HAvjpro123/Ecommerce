@@ -73,6 +73,10 @@ const PlaceOrder = () => {
             toast.success('Đặt hàng thành công!');
             // sendConfirmationEmail(orderItems); // Gửi email xác nhận
             navigate('/orders');
+            setTimeout(() => {
+              navigate(0)
+              window.scrollTo(0, 0)
+            }, 4000);
           } else {
             toast.error(response.data.message);
           }
@@ -147,13 +151,13 @@ const PlaceOrder = () => {
         <div className='mt-12'>
           <Title2 text1={'PHƯƠNG THỨC'} text2={'THANH TOÁN'}></Title2>
           <div className='flex gap-3 flex-col lg:flex-row'>
-            <div onClick={() => setMethod('cod')} className={`flex items-center gap-3 bg-gray-200 border p-2 px-2 w-full cursor-pointer ${method === 'cod' ? 'border-gray-500 border-2' : ''}`}>
+            <div onClick={() => setMethod('cod')} className={`flex items-center gap-3 bg-gray-200 border-2 p-2 px-2 w-full cursor-pointer ${method === 'cod' ? 'border-gray-600 border-2' : ''}`}>
               <p className='text-gray-500 text-sm font-medium mx-auto'>THANH TOÁN COD</p>
             </div>
-            <div onClick={() => setMethod('stripe')} className={`flex bg-blue-200  items-center gap-3 border p-2 w-full px-2 cursor-pointer ${method === 'stripe' ? 'border-gray-500 border-2' : ''}`}>
+            <div onClick={() => setMethod('stripe')} className={`flex bg-white items-center gap-3 border-2 border-gray-200 p-2 w-full px-2 cursor-pointer ${method === 'stripe' ? 'border-gray-600 border-2' : ''}`}>
               <img className='h-5 mx-auto' src={assets.stripe_logo} alt="" />
             </div>
-            <div onClick={() => setMethod('paypal')} className={`flex bg-yellow-400 items-center gap-3 border  w-full p-2  px-2 cursor-pointer ${method === 'paypal' ? 'border-gray-500 border-2' : ''}`}>
+            <div onClick={() => setMethod('paypal')} className={`flex bg-yellow-400 items-center gap-3 border-2  w-full p-2  px-2 cursor-pointer ${method === 'paypal' ? 'border-gray-600 border-2' : ''}`}>
               <img className='h-5 mx-auto' src={assets.paypal} alt="" />
             </div>
           </div>
@@ -166,7 +170,6 @@ const PlaceOrder = () => {
           <div className='w-full text-end mt-8'>
             <button type='submit' className='bg-gray-800 text-white px-16 py-3 text-sm'>ĐẶT HÀNG</button>
           </div>
-
 
         </div>
 

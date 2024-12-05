@@ -5,7 +5,7 @@ const authUser = async (req, res, next ) => {
     const { token } = req.headers;
      
     if (!token) {
-        return res.json({ success: false, message: 'Bạn chưa xác thưc, vui lòng đăng nhập lại'})
+        return res.json({ success: false, message: 'Bạn chưa xác thực, vui lòng đăng nhập tài khoản!'})
     }
 
     try {

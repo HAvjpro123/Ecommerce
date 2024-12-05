@@ -26,6 +26,9 @@ const Verify = () => {
             if (response.data.success) {
                 setCartItems({})
                 navigate('/orders')
+                setTimeout(() => {
+                    navigate(0)
+                  }, 4000);
             } else {
                 navigate('/cart')
             }
@@ -41,7 +44,7 @@ const Verify = () => {
     }, [token])
 
     return (
-        <div>Verify</div>
+        <div>Thanh toán thành công</div>
     )
 }
 
