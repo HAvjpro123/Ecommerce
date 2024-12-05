@@ -20,6 +20,11 @@ const Navbar = () => {
         navigate('/collection');
     };
 
+    const handleCart = () => {
+        navigate('/cart')
+        navigate(0)
+    }
+
     return (
         <div className='flex items-center justify-between py-5 font-medium'>
             <Link to={'/'}><img src={assets.cespinLogo} className='w-24' alt="logo" /></Link>
@@ -53,10 +58,10 @@ const Navbar = () => {
             <div className='flex items-center gap-6'>
                 <Search onClick={handleSearchClick} strokeWidth={1.5} className='cursor-pointer' />
 
-                <Link to='/cart' className='relative'>
+                <div onClick={handleCart} className='relative'>
                     <ShoppingCart strokeWidth={1.5} className='cursor-pointer' />
                     <p className='absolute right-[-8px] bottom-[13px] w-4 text-center leading-4  bg-gradient-to-r from-yellow-600 to-yellow-400 text-white aspect-square rounded-full text-[10px]'>{getCartCount()}</p>
-                </Link>
+                </div>
 
                 <div className='group relative'>
                     <UserRound onClick={() => token ? null : navigate('/login')} strokeWidth={1.5} className='cursor-pointer' />
