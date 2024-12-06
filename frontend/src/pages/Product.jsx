@@ -98,7 +98,7 @@ const Product = () => {
           <h1 className='font-medium text-2xl mt-2'>{productData.name}</h1>
           <p className='text-lg font-thin mt-2'>MSP: {productData.nameCode}</p>
           <div className='flex items-center text-base gap-1 mt-2 text-gray-600'>
-            <p >{calculateAverageRating()}</p>
+            <p className='mt-1'>{calculateAverageRating()}</p>
             <Rating precision={0.5} value={calculateAverageRating()} readOnly size="small" className='my-auto' />
             <p>|</p>
             {/* hiện thị chỗ này */}
