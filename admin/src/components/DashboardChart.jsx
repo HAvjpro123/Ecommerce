@@ -6,37 +6,39 @@ import { backendUrl, currency } from '../App.jsx';
 import { toast } from 'react-toastify';
 import { Boxes, FilePen, HandCoins, Package } from 'lucide-react';
 
+// Đăng ký các thành phần cần thiết của Chart.js
 ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement, LineElement, PointElement);
 
+// Component DashboardChart hiển thị biểu đồ tổng quan
 const DashboardChart = ({ token }) => {
-    const [totalOrders, setTotalOrders] = useState(0);
-    const [totalRevenue, setTotalRevenue] = useState(0);
-    const [totalProductsSold, setTotalProductsSold] = useState(0);
-    const [productSalesData, setProductSalesData] = useState([]);
-    const [currentMonth, setCurrentMonth] = useState('');
-    const [totalPosts, setTotalPosts] = useState(0);
-    const [monthlyRevenue, setMonthlyRevenue] = useState([]);
-    const [monthlyOrderRevenue, setMonthlyOrderRevenue] = useState([]);
-    const [lastMonthOrders, setLastMonthOrders] = useState(0);
-    const [lastMonthRevenue, setLastMonthRevenue] = useState(0);
-    const [lastMonthProductsSold, setLastMonthProductsSold] = useState(0);
-    const [lastMonthPosts, setLastMonthPosts] = useState(0);
+    // Khai báo các state để lưu trữ dữ liệu cần thiết
+    const [totalOrders, setTotalOrders] = useState(0); // Tổng số đơn hàng hiện tại
+    const [totalRevenue, setTotalRevenue] = useState(0); // Tổng doanh thu hiện tại
+    const [totalProductsSold, setTotalProductsSold] = useState(0); // Tổng số sản phẩm đã bán
+    const [productSalesData, setProductSalesData] = useState([]); // Dữ liệu doanh số bán hàng
+    const [currentMonth, setCurrentMonth] = useState(''); // Tháng hiện tại
+    const [totalPosts, setTotalPosts] = useState(0); // Tổng số bài đăng
+    const [monthlyRevenue, setMonthlyRevenue] = useState([]); // Doanh thu theo từng tháng
+    const [monthlyOrderRevenue, setMonthlyOrderRevenue] = useState([]); // Số lượng đơn hàng trong tháng
+    const [lastMonthOrders, setLastMonthOrders] = useState(0); // Số lượng đơn hàng tháng trước
+    const [lastMonthRevenue, setLastMonthRevenue] = useState(0); // Doanh thu tháng trước
+    const [lastMonthProductsSold, setLastMonthProductsSold] = useState(0); // Số sản phẩm đã bán trong tháng trước
+    const [lastMonthPosts, setLastMonthPosts] = useState(0); // Số bài đăng tháng trước
 
+    // Hàm lấy dữ liệu đơn hàng từ API
     const fetchOrdersData = async () => {
-        if (!token) return;
+        if (!token) return; // Nếu không có token thì thoát
         try {
             const response = await axios.post(`${backendUrl}/api/order/list`, {}, { headers: { token } });
             if (response.data.success) {
-                const orders = response.data.orders;
-                const currentYear = new Date().getFullYear();
-                const currentMonth = new Date().getMonth();
-                const currentDay = new Date().getDay()
-                const lastMonth = currentMonth === 0 ? 11 : currentMonth - 1;
-                const lastMonthYear = currentMonth === 0 ? currentYear - 1 : currentYear;
+                const orders = response.data.orders; // Lấy danh sách đơn hàng
+                const currentYear = new Date().getFullYear(); // Năm hiện tại
+                const currentMonth = new Date().getMonth(); // Tháng hiện tại (0-11)
+                const lastMonth = currentMonth === 0 ? 11 : currentMonth - 1; // Tháng trước
+                const lastMonthYear = currentMonth === 0 ? currentYear - 1 : currentYear; // Năm của tháng trước
 
-                // Calculate monthly revenue
+                // Tính toán doanh thu theo từng tháng
                 const revenueByMonth = Array(12).fill(0);
-
                 orders.forEach(order => {
                     const orderDate = new Date(order.date);
                     if (orderDate.getFullYear() === currentYear) {
@@ -44,83 +46,69 @@ const DashboardChart = ({ token }) => {
                         revenueByMonth[month] += order.amount;
                     }
                 });
-
                 setMonthlyRevenue(revenueByMonth);
 
-                // Filter orders by months
+                // Hàm lọc đơn hàng theo tháng và năm
                 const filterOrders = (month, year) =>
                     orders.filter(order => {
                         const date = new Date(order.date);
                         return date.getMonth() === month && date.getFullYear() === year;
                     });
 
+                // Lấy dữ liệu đơn hàng của tháng hiện tại và tháng trước
                 const currentMonthOrders = filterOrders(currentMonth, currentYear);
                 const lastMonthOrdersData = filterOrders(lastMonth, lastMonthYear);
 
-                // Tạo danh sách các ngày có đơn hàng
+                // Tính số lượng đơn hàng theo từng ngày trong tháng
                 const daysWithOrders = [];
                 const ordersByDay = Array(31).fill(0);
-
                 currentMonthOrders.forEach(order => {
                     const orderDate = new Date(order.date);
-                    const day = orderDate.getDate(); // Lấy ngày trong tháng
+                    const day = orderDate.getDate(); // Ngày trong tháng
                     if (!daysWithOrders.includes(day)) {
-                        daysWithOrders.push(day); // Chỉ thêm ngày chưa có trong danh sách
+                        daysWithOrders.push(day); // Thêm ngày chưa tồn tại
                     }
-                    ordersByDay[day - 2] += 1; // Tăng số lượng đơn hàng của ngày đó
+                    ordersByDay[day - 1] += 1; // Tăng số lượng đơn hàng của ngày đó
                 });
-
                 setMonthlyOrderRevenue(ordersByDay);
-                // Cập nhật dữ liệu cho biểu đồ
-                setProductSalesData(daysWithOrders); // Lưu trữ ngày có đơn hàng
+                setProductSalesData(daysWithOrders);
 
-                // Filter orders by month
-
-                // Calculate total orders and revenue
+                // Tính toán tổng đơn hàng và doanh thu
                 const totalOrdersCount = currentMonthOrders.length;
-                const totalRevenueAmount = currentMonthOrders.reduce((sum, order) => sum + order.amount, 0);
-
-                const lastMonthRevenueAmount = lastMonthOrdersData.reduce((sum, order) => sum + order.amount, 0);
+                const totalRevenueAmount = currentMonthOrders.reduce(
+                    (sum, order) => sum + order.amount, 0
+                );
+                const lastMonthRevenueAmount = lastMonthOrdersData.reduce(
+                    (sum, order) => sum + order.amount, 0
+                );
                 const lastMonthOrdersCount = lastMonthOrdersData.length;
 
-                // Calculate total products sold
-                let currentMonthProducts = 0;
-                let lastMonthProducts = 0;
+                // Tính tổng sản phẩm bán được
+                const calculateProducts = ordersList =>
+                    ordersList.reduce((products, order) =>
+                        products + order.items.reduce((sum, item) => sum + item.quantity, 0), 0);
+                const currentMonthProducts = calculateProducts(currentMonthOrders);
+                const lastMonthProducts = calculateProducts(lastMonthOrdersData);
 
-                const calculateProducts = ordersList => {
-                    let products = 0;
-                    ordersList.forEach(order =>
-                        order.items.forEach(item => {
-                            products += item.quantity;
-                        })
-                    );
-                    return products;
-                };
-
-                currentMonthProducts = calculateProducts(currentMonthOrders);
-                lastMonthProducts = calculateProducts(lastMonthOrdersData);
-
+                // Cập nhật các state liên quan
                 setTotalOrders(totalOrdersCount);
                 setLastMonthOrders(lastMonthOrdersCount);
-
                 setTotalRevenue(totalRevenueAmount);
                 setLastMonthRevenue(lastMonthRevenueAmount);
-
                 setTotalProductsSold(currentMonthProducts);
                 setLastMonthProductsSold(lastMonthProducts);
-                console.log("Current Month Orders:", currentMonthOrders);
-                console.log("Orders By Day:", ordersByDay);
             } else {
-                toast.error(response.data.message);
+                toast.error(response.data.message); // Hiển thị lỗi nếu API trả về thất bại
             }
         } catch (error) {
-            toast.error(error.message);
+            toast.error(error.message); // Hiển thị lỗi nếu gọi API thất bại
         }
     };
 
+    // Hàm lấy dữ liệu bài đăng từ API
     const fetchPostsData = async () => {
         try {
-            const response = await axios.get(backendUrl + '/api/blog/listblog');
+            const response = await axios.get(`${backendUrl}/api/blog/listblog`);
             if (response.data.success) {
                 const posts = response.data.blogs || [];
                 const currentDate = new Date();
@@ -148,13 +136,14 @@ const DashboardChart = ({ token }) => {
         }
     };
 
+    // Tính toán phần trăm thay đổi giữa hai giá trị
     const calculatePercentageChange = (current, previous) => {
         if (previous === 0) return current > 0 ? "+∞%" : "0%";
         const change = ((current - previous) / previous) * 100;
         return change > 0 ? `+${change.toFixed(1)}%` : `${change.toFixed(1)}%`;
     };
 
-    // Hàm đổi đơn vị tiền tệ
+    // Hàm định dạng doanh thu
     const formatRevenue = (amount) => {
         if (amount >= 1_000_000) {
             return `${(amount / 1_000_000).toFixed(1)}M+`;
@@ -164,14 +153,15 @@ const DashboardChart = ({ token }) => {
         return amount.toString();
     };
 
-    // Hàm thay màu cột của bar
+    // Tạo màu gradient cho biểu đồ
     const generateGradient = (ctx, chartArea) => {
         const gradient = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
-        gradient.addColorStop(0, 'rgb(250 204 21)'); // Màu ở đáy
-        gradient.addColorStop(1, 'rgb(234 179 8)'); // Màu ở đỉnh
+        gradient.addColorStop(0, 'rgb(250 204 21)');
+        gradient.addColorStop(1, 'rgb(234 179 8)');
         return gradient;
     };
 
+    // Gọi API khi component được mount
     useEffect(() => {
         fetchOrdersData();
         fetchPostsData();
@@ -180,6 +170,7 @@ const DashboardChart = ({ token }) => {
         setCurrentMonth(monthNames[date.getMonth()]);
     }, [token]);
 
+    // Cấu hình dữ liệu cho biểu đồ Bar
     const barData = {
         labels: productSalesData,
         datasets: [
@@ -188,10 +179,9 @@ const DashboardChart = ({ token }) => {
                 data: monthlyOrderRevenue,
                 backgroundColor: (context) => {
                     const { chart } = context;
-                    if (!chart.chartArea) return 'rgba(234, 179, 8, 0.5)'; // Màu mặc định
+                    if (!chart.chartArea) return 'rgba(234, 179, 8, 0.5)';
                     return generateGradient(chart.ctx, chart.chartArea);
                 },
-
             },
         ],
     };
@@ -199,38 +189,26 @@ const DashboardChart = ({ token }) => {
     const barOptions = {
         maintainAspectRatio: true,
         plugins: {
-            legend: {
-                display: false,
-            },
-            tooltip: {
-                enabled: true,
-            },
+            legend: { display: false },
+            tooltip: { enabled: true },
         },
         scales: {
-            x: {
-                grid: {
-                    display: false,
-                },
-            },
+            x: { grid: { display: false } },
             y: {
                 beginAtZero: true,
-                grid: {
-                    color: '#e5e7eb',
-                },
+                grid: { color: '#e5e7eb' },
                 ticks: {
                     callback: function (value) {
-                        if (value >= 1_000_000) {
-                            return `${value / 1_000_000}M`; // Giá trị >= 1 triệu sẽ hiển thị M
-                        } else if (value >= 1_000) {
-                            return `${value / 1_000}K`; // Giá trị >= 1 nghìn sẽ hiển thị K
-                        }
-                        return value; // Giá trị nhỏ hơn 1 nghìn giữ nguyên
+                        if (value >= 1_000_000) return `${value / 1_000_000}M`;
+                        else if (value >= 1_000) return `${value / 1_000}K`;
+                        return value;
                     },
-                }
+                },
             },
         },
     };
 
+    // Cấu hình dữ liệu cho biểu đồ Line
     const lineData = {
         labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
         datasets: [
@@ -249,34 +227,21 @@ const DashboardChart = ({ token }) => {
     const lineOptions = {
         maintainAspectRatio: true,
         plugins: {
-            legend: {
-                display: true,
-            },
-            tooltip: {
-                enabled: true,
-            },
+            legend: { display: true },
+            tooltip: { enabled: true },
         },
         scales: {
-            x: {
-                grid: {
-                    display: false,
-                },
-            },
+            x: { grid: { display: false } },
             y: {
                 beginAtZero: true,
-                grid: {
-                    color: '#e5e7eb',
-                },
+                grid: { color: '#e5e7eb' },
                 ticks: {
                     callback: function (value) {
-                        if (value >= 1_000_000) {
-                            return `${value / 1_000_000}M`; // Giá trị >= 1 triệu sẽ hiển thị M
-                        } else if (value >= 1_000) {
-                            return `${value / 1_000}K`; // Giá trị >= 1 nghìn sẽ hiển thị K
-                        }
-                        return value; // Giá trị nhỏ hơn 1 nghìn giữ nguyên
+                        if (value >= 1_000_000) return `${value / 1_000_000}M`;
+                        else if (value >= 1_000) return `${value / 1_000}K`;
+                        return value;
                     },
-                }
+                },
             },
         },
     };

@@ -28,12 +28,44 @@ const ShopContextProvider = (props) => {
 
 
     const addToCart = async (itemId, size) => {
-
         if (!size) {
             toast.error('Vui lòng chọn kích thước sản phẩm!');
             return;
         }
+        let cartData = structuredClone(cartItems);
 
+        if (cartData[itemId]) {
+
+            if (cartData[itemId][size]) {
+                cartData[itemId][size] += 1;
+            }
+            else {
+                cartData[itemId][size] = 1;
+            }
+        }
+        else {
+            cartData[itemId] = {};
+            cartData[itemId][size] = 1;
+        }
+
+        setCartItems(cartData);
+        
+        try {
+
+            await axios.post(backendUrl + '/api/cart/add', { itemId, size }, { headers: { token } })
+            toast.success('Đã thêm sản phẩm vào giỏ hàng!')
+        } catch (error) {
+            console.log(error);
+            toast.error(error.message)
+        }
+
+    }
+
+    const buyNow = async (itemId, size) => {
+        if (!size) {
+            toast.error('Vui lòng chọn kích thước sản phẩm!');
+            return;
+        }
         let cartData = structuredClone(cartItems);
 
         if (cartData[itemId]) {
@@ -52,16 +84,16 @@ const ShopContextProvider = (props) => {
 
         setCartItems(cartData);
 
-        if (token) {
-            try {
 
-                await axios.post(backendUrl + '/api/cart/add', { itemId, size }, { headers: { token } })
-                toast.success('Đã thêm sản phẩm vào giỏ hàng!')
-            } catch (error) {
-                console.log(error);
-                toast.error(error.message)
-            }
+        try {
+            await axios.post(backendUrl + '/api/cart/add', { itemId, size }, { headers: { token } })
+            toast.success('Tiến hành thanh toán!')
+            navigate('/place-order')
+        } catch (error) {
+            console.log(error);
+            toast.error(error.message)
         }
+
     }
 
     const getCartCount = () => {
@@ -200,7 +232,7 @@ const ShopContextProvider = (props) => {
     const value = {
         products, currency, delivery_fee, blogs, totalView, vouchers,
         search, setSearch, showSearch, setShowSearch,
-        cartItems, addToCart, setCartItems,
+        cartItems, addToCart, setCartItems, buyNow,
         getCartCount, updateQuantity,
         getCartAmount, navigate, backendUrl,
         setToken, token, discountAmount, setDiscountAmount,

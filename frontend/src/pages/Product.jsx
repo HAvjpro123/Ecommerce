@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState, useNavigate } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { ShopContext } from '../context/ShopContext'
 import { Box, Breadcrumbs, Tab, Backdrop, CircularProgress, Rating, Avatar } from '@mui/material'
@@ -13,26 +13,12 @@ import StarIcon from '@mui/icons-material/Star';
 import CommentsSection from '../components/CommentSection'
 import FloatingButtonTop from '../components/FloatingButonTop';
 
-const colors = [
-  '#FF5733', // Đỏ cam
-  '#33FF57', // Xanh lá
-  '#3357FF', // Xanh dương
-  '#FF33A6', // Hồng
-  '#A633FF', // Tím
-  '#33FFF6', // Xanh nhạt
-  '#FFC733', // Vàng
-];
-
 const Product = () => {
 
   const [value, setValue] = React.useState('1');
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
   const [loading, setLoading] = useState(false);
   const { productId } = useParams()
-  const { products, currency, addToCart } = useContext(ShopContext)
+  const { products, currency, addToCart, navigate, buyNow } = useContext(ShopContext)
   const [productData, setProductData] = useState(false);
   const [image, setImage] = useState('')
   const [size, setSize] = useState('')
@@ -47,6 +33,10 @@ const Product = () => {
     })
   }
 
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
   function handleClick(event) {
     event.preventDefault();
     console.info('You clicked a breadcrumb.');
@@ -60,7 +50,7 @@ const Product = () => {
 
   // Tổng số lượt bán 
   const totalReviews = productData ? productData.reviews.length : 0;
-  
+
   // Tính rating trung bình
   const calculateAverageRating = () => {
     if (productData.reviews.length === 0) return 0; // Nếu không có đánh giá, trả về 0
@@ -82,7 +72,7 @@ const Product = () => {
             color="inherit"
             to="/collection"
           >
-            Bộ sưu tập 
+            Bộ sưu tập
           </Link>
           <span sx={{ color: 'text.primary' }}>{productData.name}</span>
         </Breadcrumbs>
@@ -119,17 +109,17 @@ const Product = () => {
 
 
           {/* Price*/}
-          <div className='flex gap-4'>
+          <div className='flex gap-4 my-0 sm:my-2'>
             <p className='mt-5 text-4xl font-medium text-yellow-600' >{(productData.price).toLocaleString()}{currency}</p>
             <p className='mt-5 text-lg font-medium text-gray-400 line-through italic' >{(productData.salePrice).toLocaleString()}{currency}</p>
             <p className='mt-5 text-lg font-medium text-yellow-600 italic' >({productData.sale}%)</p>
           </div>
 
           <p className='text-lg font-thin mt-5'>
-            Trạng thái: <span className='text-gray-600'>{productData.onStock ? 'Còn hàng' : 'Hết hàng'}</span>
+            Trạng thái: <span className='text-gray-600 font-semibold'>{productData.onStock ? 'Còn hàng' : 'Hết hàng'}</span>
           </p>
 
-          <div className='flex flex-col gap-4 my-5'>
+          <div className='flex flex-col gap-4 my-4'>
             <p className='text-lg font-thin '>Kích thước</p>
             <div className='flex gap-2'>
               {productData.sizes
@@ -147,19 +137,36 @@ const Product = () => {
           </div>
           {
             productData.onStock ? (
-              <button
-                onClick={async () => {
-                  setLoading(true); // Bật Backdrop
-                  try {
-                    await addToCart(productData._id, size);
-                  } finally {
-                    setLoading(false); // Tắt Backdrop sau khi hoàn tất
-                  }
-                }}
-                className="bg-gray-800 border border-white text-white px-8 py-3 text-sm hover:bg-white hover:border hover:border-yellow-600 hover:text-black duration-300"
-              >
-                THÊM VÀO GIỎ HÀNG
-              </button>
+              <div className='grid sm:grid-cols-[3fr_2fr] grid-cols-[2fr_1fr] gap-2 my-6'>
+                <button
+                  onClick={async () => {
+                    setLoading(true); // Bật Backdrop
+                    try {
+                      await addToCart(productData._id, size);
+                    } finally {
+                      setLoading(false); // Tắt Backdrop sau khi hoàn tất
+                    }
+                  }}
+                  className="bg-gray-800 border text-white px-4 py-3 text-sm  duration-300"
+                >
+                  THÊM VÀO GIỎ HÀNG
+                </button>
+
+                <button
+                  onClick={async () => {
+                    setLoading(true); // Bật Backdrop
+                    try {
+                      await buyNow(productData._id, size);
+                    } finally {
+                      setLoading(false); // Tắt Backdrop sau khi hoàn tất
+                    }
+                  }}
+                  className=" border border-gray-500 text-gray-700 px-4 py-3 text-sm duration-300"
+                >
+                  MUA NGAY
+                </button>
+              </div>
+
             ) : (
               <button
                 disabled

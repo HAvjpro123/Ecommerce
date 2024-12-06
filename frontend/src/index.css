@@ -40,8 +40,8 @@ a.active hr {
   display: block;
   margin: 0 auto;
   max-width: 100%;
-  width: 500px;
-  height: 500px;
+  width: 300px;
+  height: auto;
   object-fit: cover; /* Hiệu ứng giống object-cover */
   object-position: center; /* Căn giữa ảnh (tuỳ chọn) */
 }

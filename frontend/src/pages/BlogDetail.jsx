@@ -62,13 +62,16 @@ const BlogDetail = () => {
                             ))}
                             
                         </p>
-                        <p className='text-gray-500'>Đăng bởi: <span className='text-black'>{blogData.createdBy}</span>, Lượt xem: {blogData.view}  </p>
+                        <p className='text-gray-500'>Đăng bởi: <span className='text-black'>{blogData.createdBy}</span> </p>
                     </div>
                     <div>
                         <p className='text-xl font-semibold'>{blogData.description}</p>
+                         <hr className='bg-black my-4'/>
                     </div>     
 
-                    <div className='mt-10 text-gray-500 content' dangerouslySetInnerHTML={{ __html: blogData.content }} />
+                   
+
+                    <div className='mt-6 text-gray-500 content' dangerouslySetInnerHTML={{ __html: blogData.content }} />
                 </div>
                 <div className='w-full'>
                     <RelatedBlogs category={blogData.category}></RelatedBlogs>
