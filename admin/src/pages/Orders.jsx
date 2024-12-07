@@ -40,6 +40,7 @@ const Orders = ({ token }) => {
 
   // Fetch dữ liệu đơn hàng
   const fetchAllOrders = async () => {
+    setLoading(true)
     if (!token) {
       return null;
     }
@@ -55,6 +56,8 @@ const Orders = ({ token }) => {
       }
     } catch (error) {
       toast.error(error.message)
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -76,7 +79,7 @@ const Orders = ({ token }) => {
     const printContent = document.getElementById(`order-${orderId}`).innerHTML;
 
     // Mở cửa sổ mới để in
-    const printWindow = window.open('', '_blank', 'width=650,height=600');
+    const printWindow = window.open('', '_In đơn hàng', 'width=650,height=600');
     printWindow.document.write(`
       <html>
         <head>

@@ -275,39 +275,53 @@ const ListUser = ({ token }) => {
                 fullWidth
                 maxWidth="md"
             >
-                <DialogTitle className="text-2xl font-semibold text-gray-800 bg-gray-100 p-4 rounded-t-lg">
-                    Thông tin người dùng
+                <DialogTitle className="text-2xl flex justify-between font-semibold text-gray-800 bg-gray-100 p-4 rounded-t-lg">
+                    <p className='my-auto text-sm sm:text-xl'>Thông tin người dùng</p>
+                    {selectedUser && (
+                        <p
+
+                            className={`line-clamp-2 bg-gradient-to-r text-center sm:text-sm text-xs px-4 py-2 shadow-md text-white 
+                                    ${selectedUser.level === "Đồng" ? 'from-amber-500 to-amber-700'
+                                    : selectedUser.level === 'Bạc'
+                                        ? 'from-slate-400 to-slate-600'
+                                        : selectedUser.level === 'Vàng'
+                                            ? 'from-yellow-400 to-yellow-600'
+                                            : selectedUser.level === 'Bạch Kim'
+                                                ? 'from-emerald-400 to-emerald-600'
+                                                : selectedUser.level === 'Kim Cương'
+                                                    ? 'from-cyan-400 to-cyan-600'
+                                                    : ''} `}
+                        >Thành viên {selectedUser.level}</p>
+                    )}
                 </DialogTitle>
                 <DialogContent className="p-6 bg-white rounded-b-lg shadow-lg">
                     {selectedUser && (
                         <div>
                             <hr className='mb-4' />
                             <div className="space-y-4">
+
                                 <p className="text-base text-gray-600"><strong>Tên khách hàng:</strong> {selectedUser.name}</p>
                                 <p className="text-base text-gray-600"><strong>Email:</strong> {selectedUser.email}</p>
-                                <strong>Ngày tạo:</strong> {selectedUser.date === undefined
-                                    ? '00:00, 0-0-0000'
-                                    : <p className="text-base text-gray-600">{new Date(selectedUser.date).toLocaleTimeString('vi-VN', {
-                                        hour: '2-digit',
-                                        minute: '2-digit',
-                                    })}, {new Date(selectedUser.date).toLocaleDateString('vi-VN').replace(/\//g, '-')}</p>
-                                }
+                                <div className='flex text-base text-gray-600'>
+                                    <strong className='mr-2 '>Ngày tạo:</strong>  {selectedUser.date === undefined
+                                        ? '00:00, 0-0-0000'
+                                        : <strong className="text-base text-gray-600">{new Date(selectedUser.date).toLocaleTimeString('vi-VN', {
+                                            hour: '2-digit',
+                                            minute: '2-digit',
+                                        })}, {new Date(selectedUser.date).toLocaleDateString('vi-VN').replace(/\//g, '-')}</strong>
+                                    }
 
-                                <p className="text-base text-gray-600"><strong>Chi tiêu:</strong> {selectedUser.amountPurchased}</p>
-                                <p className="text-base text-gray-600"><strong>Tổng sản phẩm đã mua:</strong> {selectedUser.itemPurchased}</p>
-                                <p className='flex'><strong className='my-auto'>Thành viên:</strong> <span
-                                    className={`line-clamp-2 bg-gradient-to-r my-1 sm:mx-5 mx-2 rounded-xl text-center px-4 py-2 shadow-md text-white 
-                                    ${selectedUser.level === "Đồng" ? 'from-amber-500 to-amber-700'
-                                            : selectedUser.level === 'Bạc'
-                                                ? 'from-slate-400 to-slate-600'
-                                                : selectedUser.level === 'Vàng'
-                                                    ? 'from-yellow-400 to-yellow-600'
-                                                    : selectedUser.level === 'Bạch Kim'
-                                                        ? 'from-emerald-400 to-emerald-600'
-                                                        : selectedUser.level === 'Kim Cương'
-                                                            ? 'from-cyan-400 to-cyan-600'
-                                                            : ''} `}
-                                >{selectedUser.level}</span></p>
+                                </div>
+
+                                <div className="text-base text-gray-600 flex"><strong>Chi tiêu:</strong> {selectedUser.amountPurchased === undefined
+                                    ? <p className='line-clamp-2 hidden sm:block ml-1'>Chưa có dữ liệu.</p> 
+                                    : <p className='line-clamp-1 hidden sm:block ml-1'>{Number(selectedUser.amountPurchased).toLocaleString()}</p>
+                                }</div>
+                                <div className="text-base text-gray-600 flex"><strong>Tổng sản phẩm đã mua:</strong> {selectedUser.itemPurchased === undefined
+                                    ? <p className='line-clamp-2 hidden sm:block ml-1'>Chưa có dữ liệu.</p>
+                                    : <p className='line-clamp-1 hidden sm:block ml-1'>{Number(selectedUser.itemPurchased).toLocaleString()}</p>
+                                }</div>
+
 
                             </div>
                         </div>
