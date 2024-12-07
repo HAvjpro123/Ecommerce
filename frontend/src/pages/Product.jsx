@@ -44,8 +44,6 @@ const Product = () => {
 
   useEffect(() => {
     fetchProductData();
-    console.log(productData);
-
   }, [productId, products])
 
   // Tổng số lượt bán 

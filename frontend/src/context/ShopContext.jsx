@@ -25,6 +25,8 @@ const ShopContextProvider = (props) => {
     const [discountAmount, setDiscountAmount] = useState(0);
     const [userName, setUserName] = useState('');
     const [userId, setUserId] = useState('');
+    console.log(userId, userName);
+    
 
 
     const addToCart = async (itemId, size) => {

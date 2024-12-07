@@ -193,25 +193,25 @@ const ListVoucher = ({ token }) => {
       <div className='flex flex-col gap-2'>
         {/* Tiêu đề bảng danh sách */}
         <div className='grid rounded-md sm:grid-cols-[1fr_1fr_1fr_1fr_1fr]  grid-cols-[1fr_1fr_1fr_1fr] items-center py-1 gap-2 px-2 border bg-gray-200 text-sm '>
-          <b onClick={() => handleSort('name')} className='cursor-pointer flex items-center gap-1'>
+          <b onClick={() => handleSort('name')} className='cursor-pointer flex items-center gap-1 text-xs sm:text-sm'>
             Tên voucher {getSortIcon('name')}
           </b>
-          <b onClick={() => handleSort('discount')} className='cursor-pointer flex items-center gap-1'>
+          <b onClick={() => handleSort('discount')} className='cursor-pointer flex items-center gap-1 text-xs sm:text-sm'>
             Giảm giá {getSortIcon('discount')}
           </b>
-          <b onClick={() => handleSort('total')} className='cursor-pointer flex items-center gap-1'>
+          <b onClick={() => handleSort('total')} className='cursor-pointer flex items-center gap-1 text-xs sm:text-sm'>
             Số lượng {getSortIcon('total')}
           </b>
           <b onClick={() => handleSort('createdBy')} className='cursor-pointer items-center gap-1 hidden sm:flex'>
             Người tạo {getSortIcon('createdBy')}
           </b>
-          <b className='text-center'>Thao tác</b>
+          <b className='text-center text-xs sm:text-sm'>Thao tác</b>
         </div>
         {/* Danh sách voucher */}
         {
           currentList.map((item, index) => (
             <div className='grid rounded-md sm:grid-cols-[1fr_1fr_1fr_1fr_1fr] grid-cols-[1fr_1fr_1fr_1fr]  hover:border-yellow-600 items-center gap-2 p-2 border bg-white border-gray-300 sm:text-base text-xs' key={index}>
-              <p className='line-clamp-2'>{item.name}</p>
+              <p className='line-clamp-2 '>{item.name}</p>
               <p>{(item.discount).toLocaleString()}{currency}</p>
               <p>{(item.total).toLocaleString()}</p>
               <p className='hidden sm:block'>{item.createdBy}</p>

@@ -17,7 +17,14 @@ const paypalenvironment = new paypal.core.SandboxEnvironment(
 );
 const payPalClient = new paypal.core.PayPalHttpClient(paypalenvironment);
 
-// placing order using COD method
+const updateUserLevel = (user) => {
+    if (user.amountPurchased > 20000000) return "Kim Cương";
+    if (user.amountPurchased > 15000000) return "Bạch Kim";
+    if (user.amountPurchased > 10000000) return "Vàng";
+    if (user.amountPurchased > 5000000) return "Bạc";
+    return "Đồng";
+};
+
 // placing order using COD method
 const placeOrder = async (req, res) => {
     try {
@@ -43,8 +50,34 @@ const placeOrder = async (req, res) => {
             });
         }
 
-        // Xóa dữ liệu giỏ hàng của người dùng
-        await userModel.findByIdAndUpdate(userId, { cartData: {} });
+        // Tính tổng giá trị và số lượng sản phẩm
+        const totalAmount = items.reduce((sum, item) => {
+            return (typeof item.price === "number" && typeof item.quantity === "number")
+                ? sum + item.price * item.quantity
+                : sum;
+        }, 0);
+
+        const totalItems = items.reduce((sum, item) => {
+            return (typeof item.quantity === "number") ? sum + item.quantity : sum;
+        }, 0);
+
+        // Cập nhật amountPurchased và itemPurchased
+        const user = await userModel.findById(userId);
+        if (!user) {
+            return res.json({ success: false, message: "Người dùng không tồn tại" });
+        }
+
+        user.amountPurchased = user.amountPurchased || 0;
+        user.itemPurchased = user.itemPurchased || 0;
+
+        user.amountPurchased += totalAmount;
+        user.itemPurchased += totalItems;
+
+        user.level = updateUserLevel(user);
+
+        // Xóa dữ liệu giỏ hàng và lưu thông tin user
+        user.cartData = {};
+        await user.save();
 
         res.json({ success: true, message: "Đã đặt hàng thành công" });
     } catch (error) {
@@ -52,6 +85,7 @@ const placeOrder = async (req, res) => {
         res.json({ success: false, message: error.message });
     }
 };
+
 
 
 // placing order using Stripe method
@@ -118,6 +152,34 @@ const verifyStripe = async (req, res) => {
                     $inc: { totalStock: -item.quantity, sold: item.quantity },
                 });
             }
+            // Tính tổng giá trị và số lượng sản phẩm
+            const totalAmount = order.items.reduce((sum, item) => {
+                return (typeof item.price === "number" && typeof item.quantity === "number")
+                    ? sum + item.price * item.quantity
+                    : sum;
+            }, 0);
+
+            const totalItems = order.items.reduce((sum, item) => {
+                return (typeof item.quantity === "number") ? sum + item.quantity : sum;
+            }, 0);
+
+            // Cập nhật amountPurchased và itemPurchased
+            const user = await userModel.findById(userId);
+            if (!user) {
+                return res.json({ success: false, message: "Người dùng không tồn tại" });
+            }
+
+            user.amountPurchased = user.amountPurchased || 0;
+            user.itemPurchased = user.itemPurchased || 0;
+
+            user.amountPurchased += totalAmount;
+            user.itemPurchased += totalItems;
+
+            user.level = updateUserLevel(user);
+
+            // Xóa dữ liệu giỏ hàng và lưu thông tin user
+            user.cartData = {};
+            await user.save();
             res.json({ success: true });
         } else {
             await orderModel.findByIdAndDelete(orderId)
@@ -186,7 +248,7 @@ const placeOrderPaypal = async (req, res) => {
 // Verify PayPal payment
 const verifyPaypal = async (req, res) => {
     try {
-        const { orderId, paypal_order_id } = req.body;
+        const { orderId, paypal_order_id, userId } = req.body;
 
         const request = new paypal.orders.OrdersGetRequest(paypal_order_id);
         const order = await payPalClient.execute(request);
@@ -202,6 +264,34 @@ const verifyPaypal = async (req, res) => {
                     $inc: { totalStock: -item.quantity, sold: item.quantity },
                 });
             }
+                    // Tính tổng giá trị và số lượng sản phẩm
+                    const totalAmount = dbOrder.items.reduce((sum, item) => {
+                        return (typeof item.price === "number" && typeof item.quantity === "number")
+                            ? sum + item.price * item.quantity
+                            : sum;
+                    }, 0);
+        
+                    const totalItems = dbOrder.items.reduce((sum, item) => {
+                        return (typeof item.quantity === "number") ? sum + item.quantity : sum;
+                    }, 0);
+        
+                    // Cập nhật amountPurchased và itemPurchased
+                    const user = await userModel.findById(userId);
+                    if (!user) {
+                        return res.json({ success: false, message: "Người dùng không tồn tại" });
+                    }
+        
+                    user.amountPurchased = user.amountPurchased || 0;
+                    user.itemPurchased = user.itemPurchased || 0;
+        
+                    user.amountPurchased += totalAmount;
+                    user.itemPurchased += totalItems;
+        
+                    user.level = updateUserLevel(user);
+        
+                    // Xóa dữ liệu giỏ hàng và lưu thông tin user
+                    user.cartData = {};
+                    await user.save();
             res.json({ success: true, message: "Thanh toán thành công" });
         } else {
             res.json({ success: false, message: "Thanh toán chưa hoàn tất" });

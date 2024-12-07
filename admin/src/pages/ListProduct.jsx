@@ -214,13 +214,13 @@ const ListProduct = ({ token }) => {
       <div className='flex flex-col gap-2'>
         {/* Tiêu đề bảng */}
         <div className='grid rounded-md sm:grid-cols-[1fr_1fr_3fr_1fr_1fr_1fr_1fr_1fr] grid-cols-[1fr_1fr_3fr_1fr] items-center py-1 px-2 gap-2 border bg-gray-200 text-sm'>
-          <b onClick={() => handleSort('nameCode')} className='cursor-pointer flex items-center gap-1'>
+          <b onClick={() => handleSort('nameCode')} className='cursor-pointer flex items-center gap-1 text-xs sm:text-sm'>
             ID {getSortIcon('nameCode')}
           </b>
-          <b className='flex items-center '>
+          <b className='flex items-center text-xs sm:text-sm'>
             Hình ảnh
           </b>
-          <b onClick={() => handleSort('name')} className='cursor-pointer items-center gap-1 flex'>
+          <b onClick={() => handleSort('name')} className='cursor-pointer items-center gap-1 flex text-xs sm:text-sm'>
             Tên sản phẩm {getSortIcon('name')}
           </b>
           <b onClick={() => handleSort('category')} className='cursor-pointer items-center gap-1 hidden sm:flex '>
@@ -235,7 +235,7 @@ const ListProduct = ({ token }) => {
           <b onClick={() => handleSort('price')} className='cursor-pointer items-center gap-1 hidden sm:flex'>
             Giá {getSortIcon('price')}
           </b>
-          <b className='text-center'>Thao tác</b>
+          <b className='text-center text-xs sm:text-sm'>Thao tác</b>
         </div>
 
         {/* Danh sách sản phẩm */}

@@ -14,6 +14,7 @@ import ListBlog from './pages/ListBlog'
 import AddVoucher from './pages/AddVoucher'
 import ListVoucher from './pages/ListVoucher'
 import AdminChat from './pages/AdminChat'
+import ListUser from './pages/ListUser'
 
 export const backendUrl = import.meta.env.VITE_BACKEND_URL
 export const currency = 'đ'
@@ -48,6 +49,7 @@ const App = () => {
                 <Route path='/listblog' element={<ListBlog token={token} />}></Route>
                 <Route path='/addvoucher' element={<AddVoucher token={token} />}></Route>
                 <Route path='/listvoucher' element={<ListVoucher token={token} />}></Route>
+                <Route path='/listuser' element={<ListUser token={token} />}></Route>
                 <Route path='/chat' element={<AdminChat token={token} />}></Route>
               </Routes>
             </div>

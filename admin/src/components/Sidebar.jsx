@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import {  Archive, LayoutDashboard, BookCopy, ClipboardList, Tickets } from 'lucide-react';
+import {  Archive, LayoutDashboard, BookCopy, ClipboardList, Tickets, UserRoundCog  } from 'lucide-react';
 
 const Sidebar = ({ isSidebarOpen, toggleSidebar, setToken }) => {
   return (
@@ -25,6 +25,7 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar, setToken }) => {
             { to: '/list', icon: Archive, label: 'Sản phẩm' },
             { to: '/listblog', icon: BookCopy, label: 'Bài viết' },
             { to: '/listvoucher', icon: Tickets, label: 'Mã giảm giá' },
+            { to: '/listuser', icon: UserRoundCog , label: 'Khách hàng' },
           ].map(({ to, icon: Icon, label }, index) => (
             <NavLink
               key={index}

@@ -60,6 +60,10 @@ const registerUser = async (req, res) => {
             name,
             email,
             password: hashedPassword,
+            date: Date.now(),
+            level: 'Đồng',
+            amountPurchased: 0,
+            itemPurchased: 0,
         });
 
         const user = await newUser.save();
@@ -117,4 +121,50 @@ const checkGoogleAccount = async (req, res) => {
     }
 };
 
-export { loginUser, registerUser, adminLogin, checkGoogleAccount };
+const listUser = async (req, res) => {
+    try {
+
+        const users = await userModel.find({});
+        res.json({ success: true, users })
+
+    } catch (error) {
+        console.log(error);
+        res.json({ success: false, message: error.message })
+    }
+}
+
+const removeUser = async (req, res) => {
+    try {
+
+        await userModel.findByIdAndDelete(req.body.id)
+        res.json({ success: true, message: 'Đã xóa người dùng' })
+
+    } catch (error) {
+        console.log(error);
+        res.json({ success: false, message: error.message })
+    }
+}
+
+const updateUserLevel = async (userId, amountPurchased) => {
+    try {
+        let newLevel = 'Đồng';
+
+        if (amountPurchased > 20000000) {
+            newLevel = 'Kim cương';
+        } else if (amountPurchased > 15000000) {
+            newLevel = 'Bạch kim';
+        } else if (amountPurchased > 10000000) {
+            newLevel = 'Vàng';
+        } else if (amountPurchased > 5000000) {
+            newLevel = 'Bạc';
+        }
+
+        await userModel.findByIdAndUpdate(userId, { level: newLevel });
+    } catch (error) {
+        console.error('Error updating user level:', error);
+    }
+};
+
+
+
+export { loginUser, registerUser, adminLogin, checkGoogleAccount, listUser, removeUser};
