@@ -165,8 +165,8 @@ const ListUser = ({ token }) => {
                     <b onClick={() => handleSort('email')} className='cursor-pointer flex items-center text-xs sm:text-sm gap-1'>
                         Email {getSortIcon('email')}
                     </b>
-                    <b onClick={() => handleSort('level')} className='cursor-pointer justify-center flex items-center text-xs sm:text-sm gap-1'>
-                        Thành viên {getSortIcon('level')}
+                    <b onClick={() => handleSort('amountPurchased')} className='cursor-pointer justify-center flex items-center text-xs sm:text-sm gap-1'>
+                        Thành viên {getSortIcon('amountPurchased')}
                     </b>
                     <b onClick={() => handleSort('date')} className='cursor-pointer items-center gap-1 hidden sm:flex '>
                         Ngày tạo {getSortIcon('date')}
