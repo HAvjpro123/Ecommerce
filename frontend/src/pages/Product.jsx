@@ -76,7 +76,7 @@ const Product = () => {
         </Breadcrumbs>
       </div>
       {/*--------- Product Data---------  */}
-      <div className='flex gap-12 sm:gap-12 flex-col sm:flex-row'>
+      <div className='flex gap-12 sm:gap-8 flex-col sm:flex-row'>
         {/*---------  Product Image --------- */}
         <div className='flex-1 flex flex-col-reverse gap-3 sm:flex-row'>
           <div className='flex sm:flex-col overflow-x-auto sm:overflow-y-scroll justify-between sm:justify-normal sm:w-[18.7%] w-full max-h-[70vh]  '>
@@ -109,8 +109,14 @@ const Product = () => {
           {/* Price*/}
           <div className='flex gap-4 my-0 sm:my-2'>
             <p className='mt-5 text-4xl font-medium text-yellow-600' >{(productData.price).toLocaleString()}{currency}</p>
-            <p className='mt-5 text-lg font-medium text-gray-400 line-through italic' >{(productData.salePrice).toLocaleString()}{currency}</p>
-            <p className='mt-5 text-lg font-medium text-yellow-600 italic' >({productData.sale}%)</p>
+            {productData.sale === 0
+              ? ''
+              : <p className='mt-5 text-lg font-medium text-gray-400 line-through italic' >{(productData.salePrice).toLocaleString()}{currency}</p>
+            }
+            {productData.sale === 0
+              ? ''
+              :<p className='mt-5 text-lg font-medium text-yellow-600 italic' >({productData.sale}%)</p>
+            }
           </div>
 
           <p className='text-lg font-thin mt-5'>

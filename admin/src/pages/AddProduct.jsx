@@ -167,12 +167,12 @@ const AddProduct = ({ token }) => {
       <div className='flex flex-col sm:flex-row gap-2 w-full sm:gap-6'>
         <div className='w-full' >
           <p className='mb-2'>Giá sản phẩm</p>
-          <input onChange={(e) => setSalePrice(e.target.value)} value={salePrice} className='w-full px-3 py-2 rounded-sm' type="number" placeholder='đ' min="0" required />
+          <input onChange={(e) => setSalePrice(e.target.value)} value={salePrice} className='w-full px-3 py-2 rounded-sm' type="number" placeholder='Giá sản phẩm (VND)' min="0" required />
         </div>
 
         <div className='w-full'>
-          <p className='mb-2'>Sale</p>
-          <input onChange={(e) => setSale(e.target.value)} value={sale} className='w-full px-3 py-2 rounded-sm' type="number" placeholder='Giảm giá %' min="0" max="100" required />
+          <p className='mb-2'>% Giảm giá</p>
+          <input onChange={(e) => setSale(e.target.value)} value={sale} className='w-full px-3 py-2 rounded-sm' type="number" placeholder='Nhập % giảm giá...' min="0" max="100" required />
         </div>
 
         <div className='w-full'>
