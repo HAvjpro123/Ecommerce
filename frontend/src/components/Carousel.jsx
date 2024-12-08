@@ -43,13 +43,13 @@ const Carousel = () => {
       {/* Nút điều hướng */}
       <button
         onClick={goToPrevSlide}
-        className="absolute top-1/2 left-4 transform -translate-y-1/2 hover:text-gray-600 hover:border-gray-600 border border-white text-white px-3 py-2 "
+        className="absolute top-1/2 left-4 transform -translate-y-1/2 text-5xl hover:text-gray-600  text-gray-400 px-3 py-2 "
       >
         ‹
       </button>
       <button
         onClick={goToNextSlide}
-        className="absolute top-1/2 right-4 transform -translate-y-1/2 hover:text-gray-600 hover:border-gray-600  border border-white text-white px-3 py-2 "
+        className="absolute top-1/2 right-4 transform -translate-y-1/2 text-5xl hover:text-gray-600  text-gray-400 px-3 py-2 "
       >
         ›
       </button>

@@ -83,10 +83,12 @@ import r from './r.png'
 import zalo from './zalo.png'
 import messenger from './messenger.png'
 import phone from './phone.png'
+import bannerbest from './bannerbest.png'
 
 
 
 export const assets = {
+    bannerbest,
     phone,
     messenger,
     zalo,

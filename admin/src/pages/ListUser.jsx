@@ -183,7 +183,7 @@ const ListUser = ({ token }) => {
                             <p className='line-clamp-2'>{item.name}</p>
                             <p className='line-clamp-2'>{item.email}</p>
                             <p
-                                className={`line-clamp-2 bg-gradient-to-r my-1 sm:mx-5 mx-2 rounded-xl text-center px-4 py-2 shadow-md text-white 
+                                className={`line-clamp-2 bg-gradient-to-r my-1 text-[9px] sm:text-sm sm:mx-8 mx-2 rounded-xl text-center py-2 shadow-md text-white 
                                     ${item.level === "Đồng" ? 'from-amber-500 to-amber-700'
                                         : item.level === 'Bạc'
                                             ? 'from-slate-400 to-slate-600'
@@ -280,7 +280,7 @@ const ListUser = ({ token }) => {
                     {selectedUser && (
                         <p
 
-                            className={`line-clamp-2 bg-gradient-to-r text-center sm:text-sm text-xs px-4 py-2 shadow-md text-white 
+                            className={`line-clamp-2 bg-gradient-to-r rounded-md text-[9px] text-center sm:text-sm px-4 py-2 shadow-md text-white 
                                     ${selectedUser.level === "Đồng" ? 'from-amber-500 to-amber-700'
                                     : selectedUser.level === 'Bạc'
                                         ? 'from-slate-400 to-slate-600'
@@ -313,13 +313,13 @@ const ListUser = ({ token }) => {
 
                                 </div>
 
-                                <div className="text-base text-gray-600 flex"><strong>Chi tiêu:</strong> {selectedUser.amountPurchased === undefined
-                                    ? <p className='line-clamp-2 hidden sm:block ml-1'>Chưa có dữ liệu.</p> 
-                                    : <p className='line-clamp-1 hidden sm:block ml-1'>{Number(selectedUser.amountPurchased).toLocaleString()}</p>
+                                <div className="text-base text-gray-600 flex"> {selectedUser.amountPurchased === undefined
+                                    ? <p className='line-clamp-2  ml-1'><strong>Chi tiêu:</strong> Chưa có dữ liệu.</p> 
+                                    : <p className='line-clamp-1  ml-1'><strong>Chi tiêu:</strong> {Number(selectedUser.amountPurchased).toLocaleString()}</p>
                                 }</div>
-                                <div className="text-base text-gray-600 flex"><strong>Tổng sản phẩm đã mua:</strong> {selectedUser.itemPurchased === undefined
-                                    ? <p className='line-clamp-2 hidden sm:block ml-1'>Chưa có dữ liệu.</p>
-                                    : <p className='line-clamp-1 hidden sm:block ml-1'>{Number(selectedUser.itemPurchased).toLocaleString()}</p>
+                                <div className="text-base text-gray-600 flex"> {selectedUser.itemPurchased === undefined
+                                    ? <p className='line-clamp-2  ml-1'><strong>Tổng sản phẩm đã mua:</strong> Chưa có dữ liệu.</p>
+                                    : <p className='line-clamp-1  ml-1'><strong>Tổng sản phẩm đã mua:</strong> {Number(selectedUser.itemPurchased).toLocaleString()}</p>
                                 }</div>
 
 

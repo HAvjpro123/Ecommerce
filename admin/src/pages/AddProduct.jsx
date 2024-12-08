@@ -84,72 +84,37 @@ const AddProduct = ({ token }) => {
         setLoading(false); // Kết thúc loading
       }
 
-    } catch (error) { 
+    } catch (error) {
       console.log(error);
       toast.error(error.message)
-    } 
+    }
 
   }
 
   return (
     <form onSubmit={onSubmitHandler} className='flex flex-col w-full items-start gap-3 ' >
       <div>
-      <Breadcrumbs aria-label="breadcrumb">
-        <Link underline="hover" color="inherit" to="/">
-          <House size={15}></House>
-        </Link>
-        <Link
-          underline="hover"
-          color="inherit"
-          to="/list"
-        >
-          Quản lý sản phẩm
-        </Link>
-        <Link
-          underline="hover"
-          color="inherit"
-          to="/add"
-        >
-          Thêm sản phẩm
-        </Link>
-      </Breadcrumbs>
-
+        <Breadcrumbs aria-label="breadcrumb">
+          <Link underline="hover" color="inherit" to="/">
+            <House size={15}></House>
+          </Link>
+          <Link
+            underline="hover"
+            color="inherit"
+            to="/list"
+          >
+            Quản lý sản phẩm
+          </Link>
+          <Link
+            underline="hover"
+            color="inherit"
+            to="/add"
+          >
+            Thêm sản phẩm
+          </Link>
+        </Breadcrumbs>
         <Title text1={'THÊM'} text2={'SẢN PHẨM MỚI'}></Title>
-        
-        <p className='mb-2'>Tải Hình Ảnh</p>
-        <div className='flex flex-wrap sm:flex-row gap-4 text-gray-500'>
-          <label htmlFor="image1" className=''>
-            <img className='w-[133px] h-[133px] object-cover' src={!image1 ? assets.upload_area : URL.createObjectURL(image1)} alt="" />
-            <input onChange={(e) => setImage1(e.target.files[0])} type="file" id='image1' hidden />
-          </label>
-
-          <label htmlFor="image2" className=''>
-            <img className='w-[133px] h-[133px] object-cover' src={!image2 ? assets.upload_area : URL.createObjectURL(image2)} alt="" />
-            <input onChange={(e) => setImage2(e.target.files[0])} type="file" id='image2' hidden />
-          </label>
-
-          <label htmlFor="image3" className=''>
-            <img className='w-[133px] h-[133px] object-cover' src={!image3 ? assets.upload_area : URL.createObjectURL(image3)} alt="" />
-            <input onChange={(e) => setImage3(e.target.files[0])} type="file" id='image3' hidden />
-          </label>
-
-          <label htmlFor="image4" className=''>
-            <img className='w-[133px] h-[133px] object-cover' src={!image4 ? assets.upload_area : URL.createObjectURL(image4)} alt="" />
-            <input onChange={(e) => setImage4(e.target.files[0])} type="file" id='image4' hidden />
-          </label>
-
-          <label htmlFor="image5" className=''>
-            <img className='w-[133px] h-[133px] object-cover' src={!image5 ? assets.upload_area : URL.createObjectURL(image5)} alt="" />
-            <input onChange={(e) => setImage5(e.target.files[0])} type="file" id='image5' hidden />
-          </label>
-
-          <label htmlFor="image6" className=''>
-            <img className='w-[133px] h-[133px] object-cover' src={!image6 ? assets.upload_area : URL.createObjectURL(image6)} alt="" />
-            <input onChange={(e) => setImage6(e.target.files[0])} type="file" id='image6' hidden />
-          </label>
-        </div>
       </div>
-
 
       <div className='w-full'>
         <p className='mb-2'>Tên Sản Phẩm</p>
@@ -214,6 +179,11 @@ const AddProduct = ({ token }) => {
           <p className='mb-2'>Số lượng</p>
           <input onChange={(e) => setTotalStock(e.target.value)} value={totalStock} className='w-full px-3 py-2 rounded-sm' type="number" placeholder='Nhập số lượng sản phẩm...' min="0" required />
         </div>
+
+        <div className='flex gap-2 my-auto pt-2 sm:pt-8 w-full'>
+          <input style={{ outline: '0px' }} onChange={() => setBestseller(prev => !prev)} checked={bestseller} type="checkbox" id='bestseller' />
+          <label className='cursor-pointer' htmlFor="bestseller">Thêm nhãn 'Sản phẩm bán chạy'</label>
+        </div>
       </div>
 
       <div>
@@ -250,7 +220,7 @@ const AddProduct = ({ token }) => {
           <div onClick={() => setSizes(prev => prev.includes("15") ? prev.filter(item => item !== "15") : [...prev, "15"])} className=''>
             <p className={`${sizes.includes("15") ? "border-yellow-600" : "border-slate-300"} rounded-sm border px-3 py-1 cursor-pointer`}>15</p>
           </div>
-          
+
           <div onClick={() => setSizes(prev => prev.includes("16") ? prev.filter(item => item !== "16") : [...prev, "16"])} className=''>
             <p className={`${sizes.includes("16") ? "border-yellow-600" : "border-slate-300"} rounded-sm border px-3 py-1 cursor-pointer`}>16</p>
           </div>
@@ -302,7 +272,7 @@ const AddProduct = ({ token }) => {
           <div onClick={() => setSizes(prev => prev.includes("28") ? prev.filter(item => item !== "28") : [...prev, "28"])} className=''>
             <p className={`${sizes.includes("28") ? "border-yellow-600" : "border-slate-300"} rounded-sm border px-3 py-1 cursor-pointer`}>28</p>
           </div>
-          
+
           <div onClick={() => setSizes(prev => prev.includes("29") ? prev.filter(item => item !== "29") : [...prev, "29"])} className=''>
             <p className={`${sizes.includes("29") ? "border-yellow-600" : "border-slate-300"} rounded-sm border px-3 py-1 cursor-pointer`}>29</p>
           </div>
@@ -314,10 +284,41 @@ const AddProduct = ({ token }) => {
         </div>
       </div>
 
-      <div className='flex gap-2 mt-2'>
-        <input style={{ outline: '0px' }} onChange={() => setBestseller(prev => !prev)} checked={bestseller} type="checkbox" id='bestseller' />
-        <label className='cursor-pointer' htmlFor="bestseller">Thêm nhãn 'Sản phẩm bán chạy'</label>
+      <div>
+        <p className='mb-2'>Tải Hình Ảnh</p>
+        <div className='flex flex-wrap sm:flex-row gap-4 text-gray-500'>
+          <label htmlFor="image1" className=''>
+            <img className='w-[133px] h-[133px] object-cover' src={!image1 ? assets.upload_area : URL.createObjectURL(image1)} alt="" />
+            <input onChange={(e) => setImage1(e.target.files[0])} type="file" id='image1' hidden />
+          </label>
+
+          <label htmlFor="image2" className=''>
+            <img className='w-[133px] h-[133px] object-cover' src={!image2 ? assets.upload_area : URL.createObjectURL(image2)} alt="" />
+            <input onChange={(e) => setImage2(e.target.files[0])} type="file" id='image2' hidden />
+          </label>
+
+          <label htmlFor="image3" className=''>
+            <img className='w-[133px] h-[133px] object-cover' src={!image3 ? assets.upload_area : URL.createObjectURL(image3)} alt="" />
+            <input onChange={(e) => setImage3(e.target.files[0])} type="file" id='image3' hidden />
+          </label>
+
+          <label htmlFor="image4" className=''>
+            <img className='w-[133px] h-[133px] object-cover' src={!image4 ? assets.upload_area : URL.createObjectURL(image4)} alt="" />
+            <input onChange={(e) => setImage4(e.target.files[0])} type="file" id='image4' hidden />
+          </label>
+
+          <label htmlFor="image5" className=''>
+            <img className='w-[133px] h-[133px] object-cover' src={!image5 ? assets.upload_area : URL.createObjectURL(image5)} alt="" />
+            <input onChange={(e) => setImage5(e.target.files[0])} type="file" id='image5' hidden />
+          </label>
+
+          <label htmlFor="image6" className=''>
+            <img className='w-[133px] h-[133px] object-cover' src={!image6 ? assets.upload_area : URL.createObjectURL(image6)} alt="" />
+            <input onChange={(e) => setImage6(e.target.files[0])} type="file" id='image6' hidden />
+          </label>
+        </div>
       </div>
+
 
       <button type='submit' className='w-auto rounded-sm py-3 px-4 mt-4 hover:text-gray-600 border hover:border-gray-600 text-yellow-600 border-yellow-600'>THÊM SẢN PHẨM</button>
 

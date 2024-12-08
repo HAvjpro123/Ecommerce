@@ -148,12 +148,12 @@ const Cart = () => {
             })
           )}
 
-          <div className='flex-col space-y-2 mt-10'>
+          <div className='flex-col space-y-2 mt-10 text-sm text-gray-600'>
             <p className='flex'>Lưu ý:</p>
             <p className='flex gap-1'><ArrowRight size={20} strokeWidth={1} /> Sản phẩm được đổi 1 lần duy nhất, không hỗ trợ trả.</p>
             <p className='flex gap-1'><ArrowRight size={20} strokeWidth={1} /> Sản phẩm phải còn đủ tem mác, chưa qua sử dụng.</p>
             <p className='flex gap-1'><ArrowRight size={20} strokeWidth={1} /> Sản phẩm nguyên giá được đổi trong 7 ngày.</p>
-            <p className='flex gap-1'><ArrowRight size={20} strokeWidth={1} /> Sản phẩm sale không hỗ trợ đổi trả .</p>
+            <p className='flex gap-1'><ArrowRight size={20} strokeWidth={1} /> Sản phẩm sale không hỗ trợ đổi trả.</p>
           </div>
 
         </div>

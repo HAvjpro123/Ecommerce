@@ -50,9 +50,8 @@ const AddVoucher = ({ token }) => {
   };
 
   return (
-    <form onSubmit={onSubmitHandler} className='flex flex-col w-full items-start gap-3'>
+    <form onSubmit={onSubmitHandler} className='w-full items-start gap-3'>
 
-      <div className='w-full'>
       <Breadcrumbs aria-label="breadcrumb">
         <Link underline="hover" color="inherit" to="/">
           <House size={15}></House>
@@ -73,6 +72,8 @@ const AddVoucher = ({ token }) => {
         </Link>
       </Breadcrumbs>
       <Title text1={'THÊM'} text2={'VOUCHER MỚI'} />
+      <div className='flex  gap-4'>
+        <div className='w-full'>
         <p className='mb-2'>Tên Voucher</p>
         <input
           onChange={(e) => setName(e.target.value)}
@@ -121,6 +122,8 @@ const AddVoucher = ({ token }) => {
           required
         />
       </div>
+      </div>
+      
 
       <button
         type='submit'

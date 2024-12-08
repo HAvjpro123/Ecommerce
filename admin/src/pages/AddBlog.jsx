@@ -94,25 +94,6 @@ const AddBlog = ({ token }) => {
         </Link>
       </Breadcrumbs>
         <Title text1={'TẠO'} text2={'BÀI VIẾT MỚI'}></Title>
-        <p className='mb-2'>Tải Hình Ảnh</p>
-        <div className='flex flex-wrap sm:flex-row gap-4 text-gray-500'>
-          <label htmlFor='image1'>
-            <img className='w-[133px] h-[133px] object-cover' src={!image1 ? assets.upload_area : URL.createObjectURL(image1)} alt='' />
-            <input onChange={(e) => setImage1(e.target.files[0])} type='file' id='image1' hidden />
-          </label>
-          <label htmlFor='image2'>
-            <img className='w-[133px] h-[133px] object-cover' src={!image2 ? assets.upload_area : URL.createObjectURL(image2)} alt='' />
-            <input onChange={(e) => setImage2(e.target.files[0])} type='file' id='image2' hidden />
-          </label>
-          <label htmlFor='image3'>
-            <img className='w-[133px] h-[133px] object-cover' src={!image3 ? assets.upload_area : URL.createObjectURL(image3)} alt='' />
-            <input onChange={(e) => setImage3(e.target.files[0])} type='file' id='image3' hidden />
-          </label>
-          <label htmlFor='image4'>
-            <img className='w-[133px] h-[133px] object-cover' src={!image4 ? assets.upload_area : URL.createObjectURL(image4)} alt='' />
-            <input onChange={(e) => setImage4(e.target.files[0])} type='file' id='image4' hidden />
-          </label>
-        </div>
       </div>
 
       <div className='w-full'>
@@ -202,6 +183,27 @@ const AddBlog = ({ token }) => {
       <div className='w-full'>
         <p className='mb-2'>Người Tạo</p>
         <input onChange={(e) => setCreatedBy(e.target.value)} value={createdBy} className='w-full rounded-sm px-3 py-2' type='text' placeholder='Nhập tên người tạo bài viết...' required />
+      </div>
+      <div>
+      <p className='mb-2'>Tải Ảnh Bìa</p>
+        <div className='flex flex-wrap sm:flex-row gap-4 text-gray-500'>
+          <label htmlFor='image1'>
+            <img className='w-[133px] h-[133px] object-cover' src={!image1 ? assets.upload_area : URL.createObjectURL(image1)} alt='' />
+            <input onChange={(e) => setImage1(e.target.files[0])} type='file' id='image1' hidden />
+          </label>
+          <label htmlFor='image2'>
+            <img className='w-[133px] h-[133px] object-cover' src={!image2 ? assets.upload_area : URL.createObjectURL(image2)} alt='' />
+            <input onChange={(e) => setImage2(e.target.files[0])} type='file' id='image2' hidden />
+          </label>
+          <label htmlFor='image3'>
+            <img className='w-[133px] h-[133px] object-cover' src={!image3 ? assets.upload_area : URL.createObjectURL(image3)} alt='' />
+            <input onChange={(e) => setImage3(e.target.files[0])} type='file' id='image3' hidden />
+          </label>
+          <label htmlFor='image4'>
+            <img className='w-[133px] h-[133px] object-cover' src={!image4 ? assets.upload_area : URL.createObjectURL(image4)} alt='' />
+            <input onChange={(e) => setImage4(e.target.files[0])} type='file' id='image4' hidden />
+          </label>
+        </div>
       </div>
 
       <button type='submit' className='w-auto rounded-sm py-3 px-4 mt-4 hover:text-gray-600 border hover:border-gray-600 text-yellow-600 border-yellow-600'>
