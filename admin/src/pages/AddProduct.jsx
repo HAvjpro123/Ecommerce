@@ -152,7 +152,7 @@ const AddProduct = ({ token }) => {
           <p className='mb-2'>Giới tính</p>
           <select onChange={(e) => setSubCategorySex(e.target.value)} value={subCategorySex} className='w-full px-3 py-2 rounded-sm'>
             <option value="Men">Nam</option>
-            <option value="Silver">Nữ</option>
+            <option value="Woman">Nữ</option>
             <option value="Unisex">Unisex</option>
             <option value="Kid">Trẻ em</option>
           </select>
