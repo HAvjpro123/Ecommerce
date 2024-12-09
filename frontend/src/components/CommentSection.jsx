@@ -84,7 +84,7 @@ const CommentsSection = ({ reviews }) => {
           <button
             onClick={() => handlePageChange(currentPage - 1)}
             disabled={currentPage === 1}
-            className='p-2 border border-yellow-600  text-yellow-600  rounded-sm'
+            className={`p-2 rounded-sm ${currentPage === 1 ? 'text-gray-500':'text-yellow-500'}`}
           >
             Quay lại
           </button>
@@ -92,7 +92,7 @@ const CommentsSection = ({ reviews }) => {
           <button
             onClick={() => handlePageChange(currentPage + 1)}
             disabled={currentPage === totalPages}
-            className="p-2 border border-yellow-600  text-yellow-600 ounded-sm"
+            className={`p-2 rounded-sm ${currentPage === totalPages ? 'text-gray-500':'text-yellow-500'}`}
           >
             Tiếp theo
           </button>

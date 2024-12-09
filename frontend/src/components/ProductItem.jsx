@@ -34,7 +34,7 @@ const ProductItem = ({ id, image, name, price, sale, salePrice, nameCode, sold }
                 <img className='w-full h-56 object-cover' src={image[0]} alt="productimage" />
             </div>
             <div className='p-3'>
-                <p className='pt-3 pb-1 text-base truncate overflow-hidden text-ellipsis whitespace-nowrap'>{name}</p>
+                <p className='pt-3 pb-1 text-base line-clamp-1 '>{name}</p>
                 <p className=' text-center text-lg text-yellow-600 font-medium'>{(price).toLocaleString()}{currency}</p>
 
                 {sale > 0 && (

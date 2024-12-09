@@ -217,7 +217,7 @@ const Product = () => {
       </div>
 
       {/* Mô tả sản phẩm */}
-      <div className=''>
+      <div className='mt-10'>
         <div className='flex'>
           <b className='border px-5 py-3 text-sm'>Mô tả sản phẩm</b>
         </div>
@@ -232,12 +232,13 @@ const Product = () => {
       </div>
 
       {/* Hiển thị bình luận*/}
-      <div className='grid sm:grid-cols-[2fr_1fr] grid-cols-1 gap-4 border text-sm text-gray-500'>
+      <div className='grid sm:grid-cols-[2.5fr_1fr] grid-cols-1 gap-4 border text-sm text-gray-500'>
         <CommentsSection reviews={productData.reviews} />
 
         {/* Hiển thị số lượng sao đánh giá */}
         <div className=' sm:border-l p-6'>
-          <p className='font-medium text-gray-500 text-lg'>THỐNG KÊ ĐÁNH GIÁ</p>
+          <p className='font-medium text-gray-700 text-lg'>THỐNG KÊ ĐÁNH GIÁ</p>
+          <p className='font-medium text-gray-500 text-base mt-2'>{totalReviews} đánh giá từ khách hàng</p>
           <div className='space-y-2 mt-4'>
             {['5', '4', '3', '2', '1'].map((star, index) => {
               const count = productData.reviews.filter((review) => review.rating === parseInt(star)).length;
@@ -245,14 +246,16 @@ const Product = () => {
               const color = ['rgb(74 222 128)', 'rgb(96 165 250)', 'rgb(250 204 21)', 'rgb(251 146 60)', 'rgb(239 68 68)'][index]; // Màu sắc cho mỗi thanh
               return (
                 <div key={star} className='flex items-center gap-2'>
+                  
                   <p className='w-8 flex text-sm text-gray-600'>{star}<StarIcon sx={{ fontSize: 18, color: 'rgb(250 204 21)' }} ></StarIcon></p>
+                  
                   <div className='w-full bg-gray-200 h-2.5 rounded-full'>
                     <div
                       className={`h-full rounded-full`}
                       style={{ width: `${width}%`, backgroundColor: color }}
                     />
                   </div>
-                  <p className='ml-2 min-w-16 text-sm'>{count} đánh giá </p>
+                  <p className='ml-2 text-sm'>({count})</p>
                 </div>
               );
             })}

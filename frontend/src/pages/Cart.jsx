@@ -6,6 +6,7 @@ import CartTotal from '../components/CartTotal';
 import { toast } from 'react-toastify';
 import Tooltip from '@mui/material/Tooltip';
 import FloatingButtonTop from '../components/FloatingButonTop';
+import { Link } from 'react-router-dom';
 
 const Cart = () => {
   const { discountAmount, setDiscountAmount, products, currency, cartItems, updateQuantity, navigate, vouchers, backendUrl } = useContext(ShopContext);
@@ -101,28 +102,33 @@ const Cart = () => {
                   className="py-4 border-t border-b text-gray-700 grid grid-cols-[4fr_0.5fr_0.5fr] sm:grid-cols-[4fr_2fr_0.5fr] items-center gap-4"
                 >
                   <div className="flex items-start gap-6">
-                    <img
-                      className="w-16 sm:w-20"
-                      src={productData.image[0]}
-                      alt={productData.name}
-                    />
-                    <div>
-                      <p className="text-sm lg:text-lg font-medium line-clamp-2">
-                        {productData.name}
-                      </p>
-                      <div className="items-center gap-2 mt-2">
-                        <p>
-                          {productData.price.toLocaleString()}
-                          {currency}
+                    <Link to={`/product/${productData._id}`}>
+                      <img
+                        className="w-16 sm:w-20"
+                        src={productData.image[0]}
+                        alt={productData.name}
+                      />
+                    </Link>
+                    <Link to={`/product/${productData._id}`}>
+                      <div>
+                        <p className="text-sm lg:text-lg font-medium line-clamp-2">
+                          {productData.name}
                         </p>
-                        <p className="py-2">
-                          Kích thước:{' '}
-                          <span className="px-1 sm:px-3 sm:py-1 border border-gray-300">
-                            {item.size}
-                          </span>
-                        </p>
+                        <div className="items-center gap-2 mt-2">
+                          <p>
+                            {productData.price.toLocaleString()}
+                            {currency}
+                          </p>
+                          <p className="py-2">
+                            Kích thước:{' '}
+                            <span className="px-1 sm:px-3 sm:py-1 border border-gray-300">
+                              {item.size}
+                            </span>
+                          </p>
+                        </div>
                       </div>
-                    </div>
+                    </Link>
+
                   </div>
                   <input
                     onChange={(e) =>
