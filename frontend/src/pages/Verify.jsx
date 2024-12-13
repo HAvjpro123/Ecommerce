@@ -81,13 +81,13 @@ const Verify = () => {
                         </div>
 
 
-                        <h2 className="text-center mt-4 text-xl font-semibold text-gray-700">Hủy đơn hàng</h2>
+                        <h2 className="text-center mt-4 text-xl font-semibold text-gray-700">Hoàn tất hủy đơn hàng</h2>
 
-                        <p className="text-center mt-2 text-gray-500 text-sm">Đơn hàng #{orderId} của bạn đang được hủy thành công.</p>
+                        <p className="text-center mt-2 text-gray-500 text-sm">Đơn hàng #{orderId} của bạn đã được hủy thành công.</p>
 
 
                         <div className="mt-4 flex justify-center">
-                            <button onClick={handlenavigateCart}   className="px-6 py-2 bg-yellow-500 hover:bg-yellow-600 text-white  shadow-lg transition ease-in-out duration-200 transform hover:scale-105">
+                            <button onClick={handlenavigateCart} className="px-6 py-2 bg-yellow-500 hover:bg-yellow-600 text-white  shadow-lg transition ease-in-out duration-200 transform hover:scale-105">
                                 Đi tới giỏ hàng
                             </button>
                         </div>

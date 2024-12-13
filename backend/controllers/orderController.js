@@ -295,6 +295,8 @@ const verifyPaypal = async (req, res) => {
             res.json({ success: true, message: "Thanh toán thành công" });
         } else {
             res.json({ success: false, message: "Thanh toán chưa hoàn tất" });
+            await orderModel.findByIdAndDelete(orderId)
+            res.json({ success: false })
         }
     } catch (error) {
         console.error(error);

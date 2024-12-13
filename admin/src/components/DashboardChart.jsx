@@ -70,8 +70,20 @@ const DashboardChart = ({ token }) => {
                     }
                     ordersByDay[day - 1] += 1; // Tăng số lượng đơn hàng của ngày đó
                 });
-                setMonthlyOrderRevenue(ordersByDay);
-                setProductSalesData(daysWithOrders);
+
+                // Lọc chỉ các ngày có đơn hàng và số lượng tương ứng
+                const filteredDaysWithOrders = [];
+                const filteredOrdersByDay = [];
+
+                ordersByDay.forEach((orders, index) => {
+                    if (orders > 0) {
+                        filteredDaysWithOrders.push(index + 1); // Ngày có đơn hàng
+                        filteredOrdersByDay.push(orders); // Số lượng đơn hàng
+                    }
+                });
+
+                setProductSalesData(filteredDaysWithOrders); // Cập nhật labels là các ngày có đơn hàng
+                setMonthlyOrderRevenue(filteredOrdersByDay); // Cập nhật data là số lượng đơn hàng của các ngày đó
 
                 // Tính toán tổng đơn hàng và doanh thu
                 const totalOrdersCount = currentMonthOrders.length;

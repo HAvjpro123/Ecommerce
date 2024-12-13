@@ -373,7 +373,7 @@ const ListProduct = ({ token }) => {
       </Dialog>
 
       {/* Chỉnh sửa sản phẩm */}
-      <Dialog open={editDialogOpen} onClose={closeEditDialog}>
+      <Dialog open={editDialogOpen} onClose={closeEditDialog} className='w-full'>
         <DialogTitle>Chỉnh sửa sản phẩm</DialogTitle>
         <DialogContent>
           <DialogContentText>
@@ -386,7 +386,7 @@ const ListProduct = ({ token }) => {
               value={editingProduct?.name || ''}
               onChange={(e) => setEditingProduct({ ...editingProduct, name: e.target.value })}
               placeholder="Nhập tên sản phẩm..."
-              className="border p-2"
+              className="border p-2 w-96"
             />
             <p className='mt-2'>Mã sản phẩm:</p>
             <input

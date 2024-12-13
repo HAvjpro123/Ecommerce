@@ -314,12 +314,12 @@ const ListUser = ({ token }) => {
                                 </div>
 
                                 <div className="text-base text-gray-600 flex"> {selectedUser.amountPurchased === undefined
-                                    ? <p className='line-clamp-2  ml-1'><strong>Chi tiêu:</strong> Chưa có dữ liệu.</p> 
-                                    : <p className='line-clamp-1  ml-1'><strong>Chi tiêu:</strong> {Number(selectedUser.amountPurchased).toLocaleString()}</p>
+                                    ? <p className='line-clamp-2  '><strong>Chi tiêu:</strong> Chưa có dữ liệu.</p> 
+                                    : <p className='line-clamp-1  '><strong>Chi tiêu:</strong> {Number(selectedUser.amountPurchased).toLocaleString()}</p>
                                 }</div>
                                 <div className="text-base text-gray-600 flex"> {selectedUser.itemPurchased === undefined
-                                    ? <p className='line-clamp-2  ml-1'><strong>Tổng sản phẩm đã mua:</strong> Chưa có dữ liệu.</p>
-                                    : <p className='line-clamp-1  ml-1'><strong>Tổng sản phẩm đã mua:</strong> {Number(selectedUser.itemPurchased).toLocaleString()}</p>
+                                    ? <p className='line-clamp-2 '><strong>Tổng sản phẩm đã mua:</strong> Chưa có dữ liệu.</p>
+                                    : <p className='line-clamp-1 '><strong>Tổng sản phẩm đã mua:</strong> {Number(selectedUser.itemPurchased).toLocaleString()}</p>
                                 }</div>
 
 

@@ -78,4 +78,9 @@ select, input, textarea {
     object-fit: cover; /* Hiệu ứng giống object-cover */
     object-position: center; /* Căn giữa ảnh (tuỳ chọn) */
   }
+
+  .ql-align-center {
+    text-align: center !important;
+  }
+  
     
