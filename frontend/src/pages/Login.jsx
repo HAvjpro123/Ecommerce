@@ -132,8 +132,8 @@ const Login = () => {
       {currentState === 'ĐĂNG NHẬP' ? '' : <input onChange={(e) => setName(e.target.value)} value={name} type="text" className='w-full px-3 py-2 border border-gray-800' placeholder='Tên đăng nhập' required />}
       <input onChange={(e) => setEmail(e.target.value)} value={email} type="email" className='w-full px-3 py-2 border border-gray-800' placeholder='Email' required />
       <input onChange={(e) => setPassword(e.target.value)} value={password} type="password" className='w-full px-3 py-2 border border-gray-800' placeholder='Password' required />
-      <div className='w-full flex justify-between text-sm mt-[-8px]'>
-        <p className='cursor-pointer hover:text-yellow-600 '>Quên mật khẩu?</p>
+      <div className='w-full flex justify-end text-sm mt-[-8px]'>
+
         {
           currentState === 'ĐĂNG NHẬP'
             ? <p onClick={() => setCurrentState('ĐĂNG KÝ')} className='cursor-pointer hover:text-yellow-600 duration-200'>Tạo tài khoản</p>

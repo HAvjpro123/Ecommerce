@@ -21,7 +21,7 @@ const Footer = () => {
                     <br />
                     <p className='w-full md:w-2/3 text-gray-600'>
                         <span className='text-yellow-600 cursor-pointer'>Website được thực hiện bởi sinh viên Nguyễn Hoàng Anh, MSSV: 2100008188</span>
-                        . Đề tài được Thầy Phạm Văn Đăng phê duyệt và thực hiện từ ngày 15/10/2024.
+                        . Đề tài được Thầy ThS.Phạm Văn Đăng phê duyệt và được sinh viên thực hiện từ ngày 15/10/2024.
                         <span className='text-yellow-600 cursor-pointer'>Khoa CNTT, chuyên ngành Kỹ Thuật Phần Mềm.</span>
                     </p>
                 </div>
