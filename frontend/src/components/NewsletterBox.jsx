@@ -37,22 +37,22 @@ const NewsletterBox = () => {
                 Đăng ký ngay và nhận voucher giảm giá tới 50%
             </p>
             <p className="text-gray-400 mt-3">
-                Luôn cập nhật cho bạn những thông tin mới nhất về sản phẩm và những mã giảm giá cực hot.
+                Luôn cập nhật tới bạn những thông tin mới nhất về sản phẩm và những mã giảm giá cực hot.
             </p>
             <form
                 ref={form}
                 onSubmit={onSubmitHandler}
-                className="w-full sm:w-1/2 flex items-center gap-3 mx-auto my-6 border pl-3"
+                className="w-full sm:w-1/2 flex items-center gap-3 mx-auto my-6 pl-3 border border-gray-400"
             >
                 <input
-                    className="w-full sm:flex-1 outline-none"
+                    className="w-full sm:flex-1 outline-none "
                     type="email"
                     name="user_email" // Quan trọng để EmailJS lấy email từ input
                     placeholder="Nhập địa chỉ mail của bạn..."
                     required
                 />
-                <button type="submit" className="bg-black text-white text-xs px-10 py-4">
-                    ĐĂNG KÝ
+                <button type="submit" className=" bg-gradient-to-r from-yellow-500 to-yellow-600  text-white text-md px-10 py-4">
+                    Đăng ký
                 </button>
             </form>
             {message && <p className="mt-4 text-green-500">{message}</p>}

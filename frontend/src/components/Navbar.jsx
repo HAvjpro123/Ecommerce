@@ -40,27 +40,27 @@ const Navbar = () => {
             <ul className='hidden sm:flex gap-5 text-sm text-gray-700'>
                 <NavLink to='/' className='flex flex-col items-center gap-1'>
                     <p>TRANG CHỦ</p>
-                    <hr className='w-2/4 border-none h-[1.5px] bg-yellow-600 hidden ' />
+                    <hr className='w-2/4 border-none h-[1.5px]  bg-gradient-to-r from-yellow-400 to-yellow-600  hidden ' />
                 </NavLink>
 
                 <NavLink to='/collection' className='flex flex-col items-center gap-1'>
                     <p>BỘ SƯU TẬP</p>
-                    <hr className='w-2/4 border-none h-[1.5px] bg-yellow-600 hidden' />
+                    <hr className='w-2/4 border-none h-[1.5px]  bg-gradient-to-r from-yellow-400 to-yellow-600  hidden' />
                 </NavLink>
 
                 <NavLink to='/about' className='flex flex-col items-center gap-1'>
                     <p>THƯƠNG HIỆU</p>
-                    <hr className='w-2/4 border-none h-[1.5px] bg-yellow-600 hidden' />
+                    <hr className='w-2/4 border-none h-[1.5px]  bg-gradient-to-r from-yellow-400 to-yellow-600  hidden' />
                 </NavLink>
 
                 <NavLink to='/bloglist' className='flex flex-col items-center gap-1'>
                     <p>TIN TỨC</p>
-                    <hr className='w-2/4 border-none h-[1.5px] bg-yellow-600 hidden' />
+                    <hr className='w-2/4 border-none h-[1.5px]  bg-gradient-to-r from-yellow-400 to-yellow-600  hidden' />
                 </NavLink>
 
                 <NavLink to='/contact' className='flex flex-col items-center gap-1'>
                     <p>LIÊN HỆ</p>
-                    <hr className='w-2/4 border-none h-[1.5px] bg-yellow-600 hidden' />
+                    <hr className='w-2/4 border-none h-[1.5px]  bg-gradient-to-r from-yellow-400 to-yellow-600  hidden' />
                 </NavLink>
             </ul>
 
