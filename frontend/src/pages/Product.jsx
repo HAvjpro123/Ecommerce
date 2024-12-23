@@ -12,6 +12,7 @@ import RelatedProducts from '../components/RelatedProducts'
 import StarIcon from '@mui/icons-material/Star';
 import CommentsSection from '../components/CommentSection'
 import FloatingButtonTop from '../components/FloatingButonTop';
+import { Image } from "antd";
 
 const Product = () => {
 
@@ -87,7 +88,7 @@ const Product = () => {
             }
           </div>
           <div className='w-full sm:w-[80%]'>
-            <img className='w-full h-[44vh] sm:w-[50vw] sm:h-[70vh] object-cover' src={image} alt="" />
+            <Image className='w-full h-[44vh] sm:w-[50vw] sm:h-[70vh] object-cover' src={image} alt="" />
           </div>
         </div>
 
